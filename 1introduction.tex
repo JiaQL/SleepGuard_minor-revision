@@ -16,16 +16,14 @@ electrocardiogram (ECG), electro-oculogram and oxygen
 saturation~\cite{ebrahimi2008automatic,saper2005hypothalamic,oropesa1999sleep,langkvist2012sleep}. These information sources can then be
 used to determine sleep stages, sleep efficiency, abnormal breathing, and overall sleep quality. While PSG is widely considered as the gold
 standard for sleep monitoring, and while it is extensively used to support clinical treatments of sleep disorders, it has some
-disadvantages that make it unsuitable for longitudinal and large-scale sleep monitoring. Firstly, the sensing instruments are
-time-consuming and laborious to put on, and they are prone to disrupting sleeping routines.  Secondly, PSG is rather expensive to use and
-requires a clinical environment and highly trained medical professionals to operate. Due to these disadvantages, PSG is only suitable as a
-way to support severe disorders that clinical care is required.
-
+disadvantages that make it unsuitable for longitudinal and large-scale sleep monitoring. Firstly, \nt{attaching and outfitting} the sensing instruments is 
+time-consuming and laborious, and they are prone to disrupting sleeping routines. Secondly, PSG is rather expensive to use and requires a clinical environment and highly trained medical professionals to operate. Due to these disadvantages, PSG is only suitable as a
+way to support severe disorders \nt{where} clinical care is required.
 
 Recently, sleep monitoring based on off-the-shelf mobile and wearable devices has emerged as an alternative way to obtain information about
 one's sleeping patterns~\cite{ko15consumer,shelgikar2016sleep}. By taking advantage of diverse sensors, behaviours and routines associated
 with sleeping can be captured and modelled. This in turn can help users understand their sleep behaviour and provide feedback on how to
-improve their sleep, for example, by changing routines surrounding sleep activity or improving the sleeping environment. What makes self
+improve sleep, for example, by changing routines surrounding sleep activity or improving the sleeping environment. What makes self
 monitoring particularly attractive is the non-invasive nature of the sensing compared to PSG. Examples of consumer-grade sleep monitors
 range from apps running on smartphones or tablets to smartwatches and specialized wearable
 devices~\cite{zeo,Jawbone,SleepAndroid,fitbit,gu2016sleep,sleepmonitor}.
@@ -43,7 +41,7 @@ Despite the popularity of consumer-grade sleep monitors, currently the full pote
 current consumer-grade sleep monitors can capture and model a wide range of sleep related information, such as estimating overall sleep
 quality, capturing different stages of sleep, and identifying specific events occurring during
 sleep~\cite{kay2012lullaby,zhang2013real,sleepmonitor}, they offer little help in understanding the characteristics that surround poor
-sleep. Thus, these solutions are unable to capture the root cause behind poor sleep or to provide recommendations on how to improve sleep
+sleep. Thus, these solutions are unable to capture the root cause behind poor sleep or to provide \nt{actionable} recommendations on how to improve sleep
 quality. This is because current solutions focus on monitoring characteristics of the sleep itself, without considering behaviours
 occurring during sleep and the environmental context affecting sleep, e.g., ambient light-level and noise. Indeed, sleep quality has been
 shown to depend on a wide range of factors. For example, intensity of ambient light~\cite{hood04determinants},
@@ -95,10 +93,10 @@ rely on sensor information available on off-the-shelf smartwatches for capturing
 Table~\ref{tab:test}). The key insight in {\systemname} is that sleep quality is strongly correlated with characteristics of body
 movements, health related factors that can be identified from audio information, and characteristics of the sleep
 environment~\cite{shelgikar2016sleep}. By using a smartwatch, the sensors are close to the user during all stages of the night, enabling
-detailed capture of not only sleep cycles, but body movements and environmental changes taking place during the sleep period. capturing
+detailed capture of not only sleep cycles, but body movements and environmental changes taking place during the sleep period. Capturing
 these sleeping events from sensor data, however, is non-trivial due to changes in sensor measurements caused by hand motions during sleep.
 To overcome this challenge, changes in sensor orientation relative to user's body need to be tracked and opportune moments where to capture
-sensor data need to be detected. To address these issues, \systemname integrates a set of new methods for analysing and capturing
+sensor data need to be detected. \systemname \nt{addresses these issues by integrating} a set of new methods for analysing and capturing
 sleep-related information from sensor measurements available on a smartwatch. \systemname also incorporates a model that uses the detected
 events to infer the user's sleep stages and sleep quality. While some prior research has examined the use of smartwatches for sleep
 monitoring~\cite{pombo2016ubisleep,shelgikar2016sleep,haescher2015anomaly,borazio2012combining}, these approaches have only been able to
