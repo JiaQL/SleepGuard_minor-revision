@@ -288,9 +288,13 @@ When we detect different sleep stages, we also consider the respiratory amplitud
 
 \subsubsection{Performance comparison}
 
-We compare {\systemname} with two state-of-the-art work, the sleep detection app Sleep As Android and smartphone-based system Sleep Hunter \cite{gu2016sleep}. \textcolor{red}{The former is to estimate sleep time and assess sleep by recording the state of motion and the amount of exercise, and the latter is to predict sleep stage and assess sleep by a statistical model based on some observable sleep-related events.
-.} Considering that Sleep As Android can only detect light sleep stage and deep sleep stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results.
-As we can see, {\systemname}  performs much better than Sleep As Android and slightly better than Sleep Hunter. This good performance comes from the incorporation of rich and complicated sleep events. Therefore, our system helps users understand their sleep more easily and improve  sleep quality more effectively.
+We compare {\systemname} with two state-of-the-art sleep monitoring applications. The first is a sleep detection app called ``Sleep As
+Android", and a smartphone-based system named Sleep Hunter~\cite{gu2016sleep}. \rt{The former app is designed to estimate sleep time and
+assess sleep by recording the state of motions and the amount of body exercises. The latter is to estimate sleep stages and evaluate the
+sleep quality using the tracked sleep-related events.} Considering that Sleep As Android can only detect light sleep stage and deep sleep
+stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results. As we can see,
+{\systemname} significantly outperforms Sleep As Android and deliver  better performance than Sleep Hunter. The performance advantage of
+\systemname comes from the incorporation of rich and complicated sleep events.
 
   \begin{table}[!t]\footnotesize
  	\centering  % 表居中
@@ -334,75 +338,62 @@ As we can see, {\systemname}  performs much better than Sleep As Android and sli
  \end{table}
 
 
-Further, we compare {\systemname}'s functions with 8 other sleep detection products  in Table \ref{tab:function}, including Sleep As Android, Sleep Hunter, sleepMonitor \cite{sleepmonitor}, Sleeptracker \cite{sleeptracker}, Fitbit, isleep \cite{hao2013isleep}, Jawbone \cite{Jawbone} and ubiSleep \cite{pombo2016ubisleep}.  {\systemname} detects a wider range of sleep events and thus provides a better user experience.
-
-\begin{table*}[!thbp]\footnotesize
-%\setlength{\abovecaptionskip}{0.8pt}
-  \centering  % 表居中
-  \tabcolsep7pt
-  %\arrayrulewidth1pt
-  \caption{Functions comparision between different systems.}\label{tab:function}
-  \renewcommand{\multirowsetup}{\centering}
-  \noindent\makebox[\textwidth]{%
-        \begin{tabularx}{1.0\textwidth}{|c|c|c|c|c|c|c|}
-        \cline{1-7}
-        \multicolumn{1}{|c|}{\multirow{2}*{\textbf{\footnotesize System}}}
-        &\multicolumn{6}{c|}{\textbf{ \footnotesize Detected Events}} \\
-         \cline{2-7}
-    &  \multicolumn{1}{c|}{\textbf{ \footnotesize Heart Rate }}
-    &  \multicolumn{1}{c|}{\textbf{ \footnotesize Acoustic Event }}
-    &  \multicolumn{1}{c|}{\textbf{ \footnotesize Sleep Posture }}
-     &  \multicolumn{1}{c|}{\textbf{ \footnotesize Body Movement }}
-      &  \multicolumn{1}{c|}{\textbf{ \footnotesize Hand Position}}
-       &  \multicolumn{1}{c|}{\textbf{ \footnotesize Sleep Stage}} \\
-        \cline{1-7}
-        \multirow{7}{2.14cm}
-        {\textbf{{\systemname}\\Sleep as Android\\Sleep Hunter\\SleepMonitor\\Sleeptracker\\isleep \\Fitbit\\Jawbone\\ ubiSleep } }
-        & &$\checkmark$ & $\checkmark$ &  $\checkmark$  &$\checkmark$ &$\checkmark$\\
-        & &$\checkmark$ & & & &$\checkmark$\\
-        & & $\checkmark$& &$\checkmark$ & &$\checkmark$\\
-        & & & $\checkmark$ & & &\\
-        &$\checkmark$ & & & & &$\checkmark$\\
-         & &$\checkmark$ &   &$\checkmark$ & &\\
-         &$\checkmark$ & & & & &$\checkmark$ \\
-        & & & & & &$\checkmark$ \\
-        & $\checkmark$&$\checkmark$ & & & &\\
-        \cline{1-7}
- \end{tabularx}}
-\end{table*}
-
-\textcolor{red}{What's more, to better demonstrate the advancement of our algorithm itself, not the benefits of equipment changes, we reproduce some algorithms of Sleep Hunter and apply its algorithm to the sleep data collected by our smartwatch. For the algorithm of body movement detection, since the algorithm in Sleep Hunter can only perform two classifications, namely large body movement and tiny movement, we combine body rollover and arm raising that are originally marked in our data into large body movement, while regard the remaining two kind of micro-body movement as tiny movement, according to the definition in Sleep Hunter. And the results show that the accuracy of body motion detection is about 96\%, which is comparable to the results of using smartphone data in Sleep Hunter. Compared to \systemname, although this result seems to be better than our results, when we consider a more fine-grained event classification, the worst performance can still reach more than 78\%. For the detection of acoustic event, we only compare the results of the three types of events: snore, cough, and somniloquy. This is because the sound data in our smartwatch failed to detect the respiration event, which may be because in Sleep Hunter, the smartphone is placed on the pillow near the nose, making it sensitive to the sound of respiration,so that apneustic and tachypneic can be detected. Fig.~\ref{fig:compare_sound1} shows the results of the comparison. We can see that the results of applying the algorithm in Sleep Hunter to the smartwatch data are not better than \systemname. So it can show the advantages of our acoustic detection algorithm and this is not brought about by smartwatch. In particular, since the proximity sensor used in the illumination condition detection algorithm in Sleep Hunter is not available in the sensor of smartwatch, this algorithm is not compared. And we also use CRF model given by Sleep Hunter to combine these events to detect sleep stage detection. We can see the comprehensive performance comparison results form Fig.~\ref{fig:compare_stage1}. We find that the performance of smartwatch-based is worse than the performance of \systemname. So it can be seen that \systemname can achieve better performance than sleep Hunter on some algorithms and detect finer-grained events, and this is not only because of the use of smartwatch. Even though \systemname's performance in sleep stage detection is not much better than Sleep Hunter, we put more effort into help users better analyze the factors that affect sleep quality.}
-
-
-%\begin{figure}
-%  %\centering
-%  % Requires \usepackage{graphicx}
-%  \includegraphics[width=0.37\linewidth]{Figures/compare_sound1.pdf}
-%  \caption{Comparison of the result of acoustic event detection algorithms in Sleep Hunter applied to smartphone and smartwatch.}\label{fig:compare_sound1}
-%\end{figure}
-%
-%\begin{figure}
-%  %\centering
-%  % Requires \usepackage{graphicx}
-%  \includegraphics[width=0.37\linewidth]{Figures/compare_stage1.pdf}
-%  \caption{Comparison of the result of sleep stage detection algorithms in Sleep Hunter applied to smartphone and smartwatch.}\label{fig:compare_stage1}
-%\end{figure}
-
-
-\begin{figure}
+\begin{figure}[t!]
 	\centering
 	\begin{minipage}{.49\textwidth}
 \centering
 		 \includegraphics[width=5.7cm,height=4.7cm]{Figures/compare_sound1.pdf}
-  \caption{Comparison of the result of acoustic event detection algorithms in Sleep Hunter applied to smartwatch and SleepGuard.}\label{fig:compare_sound1}
+  \caption{Applying the event detection algorithms in Sleep Hunter our smartwatch data and compare them with SleepGuard.}\label{fig:compare_sound1}
 	\end{minipage}%
 \hspace{2pt}
 	\begin{minipage}{.49\textwidth}
 	 \centering
 	\includegraphics[width=5.7cm,height=4.7cm]{Figures/compare_stage1.pdf}
-  \caption{Comparison of the result of sleep stage detection algorithms in Sleep Hunter applied to smartwatch and SleepGuard.}\label{fig:compare_stage1}
+  \caption{Aplying the sleep stage detection algorithms in Sleep Hunter to our smartwatch  data and compare them with SleepGuard.}\label{fig:compare_stage1}
 	\end{minipage}
 \end{figure}
+
+\rt{We also implement the algorithms employed by Sleep Hunter, a smartphone-based solution, and apply them to the data collected using our
+smartwatches. This experiment allows us to check if the better performance of \systemname is due to the use of a smartwatch instead of a
+mobile phone.}
+
+\rt{ For body movement detection, applying the algorithms employed by Sleep Hunter to our smartwatch data gives a comparable accuracy of
+around 96\% when the system only needs to identify between drastic and small body movements. However, the accuracy of the Sleep Hunter
+algorithms drops to 78\% when we need to detect finer-grained body movements. In this scenario, the Sleep Hunter algorithms are
+outperformed \systemname which delivers an accuracy of around 90\% (see Table~\ref{tab:rollver}). For acoustic event detections, we apply
+the Sleep Hunter algorithms to detect snore, cough and somniloquy. The results in Fig.~\ref{fig:compare_sound1} suggest that \systemname
+gives better performance over Sleep Hunter in detecting these acoustic events. Finally, we apply the sleep stage detection model used by
+Sleep Hunter to combine sleep-related events to identify sleep stages. The results are shown in Fig.~\ref{fig:compare_stage1}. Again,
+\systemname outperforms the Sleep Hunter model with a higher accuracy and recall. }
+
+
+\rt{ This experiment confirms that the algorithms used by Sleep Hunter for sleep event and stage detection are not tuned for smartwatches.
+Compared to Sleep Hunter, \systemname can detect sleep events and stages with a higher accuracy using a set of carefully designed methods
+to target smartwatches. }
+
+%\textcolor{red}{What's more, to better demonstrate the advancement of our algorithm itself, not the benefits of equipment changes, we
+%reproduce some algorithms of Sleep Hunter and apply its algorithm to the sleep data collected by our smartwatch. For the algorithm of body
+%movement detection, since the algorithm in Sleep Hunter can only perform two classifications, namely large body movement and tiny movement,
+%we combine body rollover and arm raising that are originally marked in our data into large body movement, while regard the remaining two
+%kind of micro-body movement as tiny movement, according to the definition in Sleep Hunter. And the results show that the accuracy of body
+%motion detection is about 96\%, which is comparable to the results of using smartphone data in Sleep Hunter. Compared to \systemname,
+%although this result seems to be better than our results, when we consider a more fine-grained event classification, the worst performance
+%can still reach more than 78\%. For the detection of acoustic event, we only compare the results of the three types of events: snore,
+%cough, and somniloquy. This is because the sound data in our smartwatch failed to detect the respiration event, which may be because in
+%Sleep Hunter, the smartphone is placed on the pillow near the nose, making it sensitive to the sound of respiration,so that apneustic and
+%tachypneic can be detected. Fig.~\ref{fig:compare_sound1} shows the results of the comparison. We can see that the results of applying the
+%algorithm in Sleep Hunter to the smartwatch data are not better than \systemname. So it can show the advantages of our acoustic detection
+%algorithm and this is not brought about by smartwatch. In particular, since the proximity sensor used in the illumination condition
+%detection algorithm in Sleep Hunter is not available in the sensor of smartwatch, this algorithm is not compared. And we also use CRF model
+%given by Sleep Hunter to combine these events to detect sleep stage detection. We can see the comprehensive performance comparison results
+%form Fig.~\ref{fig:compare_stage1}. We find that the performance of smartwatch-based is worse than the performance of \systemname. So it
+%can be seen that \systemname can achieve better performance than sleep Hunter on some algorithms and detect finer-grained events, and this
+%is not only because of the use of smartwatch. Even though \systemname's performance in sleep stage detection is not much better than Sleep
+%Hunter, we put more effort into help users better analyze the factors that affect sleep quality.}
+
+
+
+
 
 \subsubsection{User Survey}
 \label{sec:user_survey}
@@ -418,13 +409,35 @@ For the above four items, each one is rated on a 1 to 5 scale. These scores are 
 
 %The final sleep quality score comes from the comprehensive scores of above four questionnaires.
 
-The 14-days average sleep quality scores of the 15 participates are presented in Table \ref{tab:quality} together with sleep quality estimates obtained from \systemname and Fitbit. \textcolor{red}{The last row in Table \ref{tab:quality} shows the degree of fit between our estimation results and the user's subjective feelings, where 3 indicate that the results of the two match exactly, and 2 indicate that the error is within one scale point, ie poor and general or good and excellent, 1 indicate that the error is greater than one scale point. Moreover, the marked portion of the table indicates that the detection results of the three are consistent. So as shown in Table \ref{tab:quality}, for $9$ users,} {\systemname}'s assessment of sleep quality perfectly matches the subjective assessments. For the remaining $6$ users, the error is within one scale point, with most of the errors being between $0$ and $1$ (poor and general) and $2$ and $3$ (good and excellent). Compared to Fitbit, the results are slightly better overall, and all errors made by \systemname are in line with those made by Fitbit. \textcolor{red}{Moreover, we can find that the average of our fit is 2.6. Accordingly, our results demonstrate that \systemname is capable of estimating overall sleep quality in line effectively, corresponding to subjective estimates given by the PSQI questionnaire.} %Accordingly, our results demonstrate that \systemname is capable of estimating overall sleep quality in line compared with subjective estimates, as given by the PSQI questionnaire.
+The 14-days average sleep quality scores of the 15 participates are presented in Table \ref{tab:quality} together with sleep quality
+estimations obtained from \systemname and Fitbit. \rt{Here, the number in the brackets shows the standard deviation of the scores across
+the 14-day period per user.} \rt{The last two rows in Table~\ref{tab:quality} compare the estimation given by \systemname and the user
+self-rating score. In these two specific rows, a label of `P' indicates the estimated score perfectly matches the user score, a label of
+`O' means the estimation error is within one scale point (for example, the estimation is excellent while the user's self-rating is good),
+and a label of `B' suggests the estimation error is greater than a scale point. As can be seen from the table, the estimation given by
+\systemname is more likely to match the user's self-rating compared to Fitbit (as indicating by having more `P' labels - 9 `P' labels
+achieved by \systemname vs 6 `P' labels achieved by Fitbit) ; and unlikely Fitbit, the estimation error given by \systemname is never
+greater than one scale point (i.e., there is no `B' label for \systemname).} Overall, \systemname gives a better sleep quality assessment
+compared to Fitbit during our evaluation.
 
- %A potential reason for these discrepancies is that the user feels overall good (or bad) about his/her own sleep but actually still has some neglected problems during sleep, which is detected by the sleep detection device, which is very helpful to the user. So we can find through the user survey these sleep behaviour we detected are indeed effective and beneficial for people, especially for users with sleep problems.}
-	
-%	 and only slightly better than Fitbit's results.However, results of the {\systemname} assessment are similar to those of the user survey. Possible inconsistencies are scores 2 and 3, that is, good and excellent, score 0 and 1, that is, poor and general, and there are few cases in which bad sleep has been assessed as good. These similar results are acceptable. We also found that when the results of the {\systemname} were inconsistent with the results of the user survey, it was consistent with the Fitbit results.
-
-While the results above demonstrate that \systemname is capable of accurately estimating sleep quality, the main benefit from \systemname compared to previous works is not its sleep quality performance but its capability to analyse and capture the {\em root cause} of sleep issues. To demonstrate this, we carried out a follow up analysis where we examined the events captured by \systemname for each of the six users assessing their sleep quality negatively (poor or general subjective quality, i.e., rating 0 or 1 in Table~\ref{tab:quality}). For four of the six users we were able to find clear causes for their poor sleep. For one of the users, \systemname indicated difficulties in falling asleep, which was reflected in a high body rollover count. Further analysis of captured events indicated ambient noise and lighting to be most likely reasons for this participant. Another user complained feeling of numbness in the arm after sleep. Events captured by \systemname showed that this was likely due to bad hand posture as the person tended to put the hand on top of head before sleeping. Third user complained of frequent nightmares. Analysis of \systemname events showed that the person habitually slept on the left side, which has been shown to have higher risk on nightmares~\cite{nightmare}, and often placed a hand on top of the chest, which creates additional pressure and can lead to nightmares. Finally, one of the users mentioned suffering from long-term snoring problems, which we also were able to detect from the events captured by \systemname. The events also highlighted that the person was often sleeping in supine position, which further increases susceptibility to snoring-related problems. Existing systems are only capable of capturing some of these factors influencing sleep quality and thus they are not capable of providing a holistic view of the participant's sleep quality, whereas \systemname is capable of providing very detailed information about sleep events. To further demonstrate the benefits of \systemname compared to previous works, we asked the 15 participants to make appropriate adjustments according to our recommendations and to conduct a return visit survey three weeks later. It was found that some of the users were able to reduce symptoms and to improve their average quality of sleep based on the suggestions.
+While the results above demonstrate that \systemname is capable of accurately estimating sleep quality, the main benefit from \systemname
+compared to previous works is not its sleep quality performance but its capability to analyse and capture the {\em root cause} of sleep
+issues. To demonstrate this, we carried out a follow up analysis where we examined the events captured by \systemname for each of the six
+users assessing their sleep quality negatively (poor or general subjective quality, i.e., rating 0 or 1 in Table~\ref{tab:quality}). For
+four of the six users we were able to find clear causes for their poor sleep. For one of the users, \systemname indicated difficulties in
+falling asleep, which was reflected in a high body rollover count. Further analysis of captured events indicated ambient noise and lighting
+to be most likely reasons for this participant. Another user complained feeling of numbness in the arm after sleep. Events captured by
+\systemname showed that this was likely due to bad hand posture as the person tended to put the hand on top of head before sleeping. Third
+user complained of frequent nightmares. Analysis of \systemname events showed that the person habitually slept on the left side, which has
+been shown to have higher risk on nightmares~\cite{nightmare}, and often placed a hand on top of the chest, which creates additional
+pressure and can lead to nightmares. Finally, one of the users mentioned suffering from long-term snoring problems, which we also were able
+to detect from the events captured by \systemname. The events also highlighted that the person was often sleeping in supine position, which
+further increases susceptibility to snoring-related problems. Existing systems are only capable of capturing some of these factors
+influencing sleep quality and thus they are not capable of providing a holistic view of the participant's sleep quality, whereas
+\systemname is capable of providing very detailed information about sleep events. To further demonstrate the benefits of \systemname
+compared to previous works, we asked the 15 participants to make appropriate adjustments according to our recommendations and to conduct a
+return visit survey three weeks later. It was found that some of the users were able to reduce symptoms and to improve their average
+quality of sleep based on the suggestions.
 
 		
 	%For one user, the light intensity and ambient noise detection indicated frequent light and noise pollution, and hence is most likely cause of poor sleep. This fin
@@ -440,58 +453,76 @@ While the results above demonstrate that \systemname is capable of accurately es
 	
 As for the user experience, results from the survey highlighted a strong interest in the information captured by \systemname. In particular, 80\% of participants believe that the detection of sleep posture is very necessary, showing their sleep posture can not only help people to avoid health problems caused by long-term improper sleeping posture, but also help us find out the reasons for the next day's physical discomfort, such as dizziness, muscle soreness may be due to improper sleeping posture. And there are some users are troubled by snoring. This may be due to improper sleeping posture. We map the detected snoring event and sleeping posture to suggest the user to modify his posture to a suitable posture to reduce the harm caused by long-term snoring. 60\% of the participants thought it useful to detect the hand position in supine posture, even one user mentioned that he did often have nightmares and our system found his hand was often placed on his chest, and then {\systemname} could remind him that he should take some measures to avoid such a position and thus reduce the poor sleep quality that nightmare brings. Only 20\% of participants found it useful to calculate the number of body rollover. However, detection of rollovers is useful in segmenting sleep stages. Furthermore, body rollover counts could be used to derive additional information to the user, such as how restless or peaceful the sleep has been overall.
 
-
 \begin{table} \footnotesize
-  \centering  % 表居中
-  \renewcommand\arraystretch{0.5}
-  \caption{Results of sleep quality assessment.}\label{tab:quality}
-\begin{tabular}{|c| c | c | c | c | c |c |c |c |c |c| c |c |c |c |c |c }
-    \cline{1-16}
-    %\multicolumn{1}{c|}{\textbf{}}
-    %&
-      \multicolumn{1}{|c|}{\diagbox{System}{User ID}}
-    &  \multicolumn{1}{c|}{\footnotesize  1}
-    &  \multicolumn{1}{c|}{\footnotesize  2}
-    &  \multicolumn{1}{c|}{\footnotesize  3}
-    &  \multicolumn{1}{c|}{\footnotesize  4}
-    &  \multicolumn{1}{c|}{\footnotesize  5}
-    &  \multicolumn{1}{c|}{\footnotesize  6}
-    &  \multicolumn{1}{c|}{\footnotesize  7}
-    &  \multicolumn{1}{c|}{\footnotesize  8}
-    &  \multicolumn{1}{c|}{\footnotesize  9}
-    &  \multicolumn{1}{c|}{\footnotesize  10}
-    &  \multicolumn{1}{c|}{\footnotesize  11}
-    &  \multicolumn{1}{c|}{\footnotesize  12}
-    &  \multicolumn{1}{c|}{\footnotesize  13}
-    &  \multicolumn{1}{c|}{\footnotesize  14}
-    &  \multicolumn{1}{c|}{\footnotesize  15}\\
-     \cline{1-16}
-     & & & & & & & & & & & & & & & \\
-    \multirow{16}{*}
-      \textbf{\footnotesize {\systemname}}  & $3$ & $3$ & $0$ & $1$ & $2$ & $2$ & $3$ & $0$ & $2$ & $2$ & $2$ & $2$ & $1$ & $0$ & $2$ \\
-   & & & & & & & & & & & & & & & &\\
-    \cline{1-16}
-   & & & & & & & & & & & & & & & &\\
-     \textbf{\footnotesize Fitbit}   & $3$ & $3$ & $0$ & $0$ & $1$ & $3$ & $2$ & $3$ & $2$ & $2$ & $2$ & $2$ & $2$ & $1$ & $2$\\
-      & & & & & & & & & & & & & & & & \\
-      \cline{1-16}
-       & & & & & & & & & & & & & & & & \\
-      \textbf{\footnotesize User survey}  & $3$ & $2$ & $0$ & $0$ & $2$ & $2$ & $3$ & $1$ & $1$ & $2$ & $2$ & $3$ & $0$ & $0$ & $2$ \\
-     & & & & & & & & & & & & & & & & \\
-     \cline{1-16}
-      \cline{1-16} \rowcolor[RGB]{199,201,203}
-      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} & & & & & &
-      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}
-      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& & & &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} \\ \rowcolor[RGB]{199,201,203}
-
-     \textbf{\footnotesize Compatibility}  & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}l|}{3} & $2$ & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} & $2$ & $3$ & $3$ & $3$ & $2$ & $2$ & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} & $2$ & $2$ & $3$ & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} \\ \rowcolor[RGB]{199,201,203}
-
-      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} & & & & & &
-      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}
-      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& & & &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} \\ \rowcolor[RGB]{199,201,203}
-    \cline{1-16}
-   \end{tabular}
+  \centering
+  \caption{Results of sleep quality assessments.}\label{tab:quality}
+\begin{tabular}{l cccccccccccccccc }
+        \toprule
+         \textbf{User ID} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\
+         \midrule
+         \rowcolor{Gray}\systemname & 3 & 3 & 0 & 1 &  2 &  2 &  3 & 0 &  2 &  2 & 2 & 2 &  1 &  0 &  2\\
+         Fitbit & 3 & 3 & 0 & 0 & 1 & 3 & 2 & 3 & 2 & 2 & 2 & 2 & 2 & 1 & 2 \\
+         \rowcolor{Gray} User score & 3 & 2 & 0 &  0 & 2 &  2 & 3 & 1 & 1 & 2 &  2 & 3 & 0 & 0 & 2 \\
+         User score matching (\systemname) & P&O&P&O&P&P&P&O&O&P&P&O&O&P&P\\
+         \rowcolor{Gray} User score matching (Fitbit) & P&O&P&P&O&O&O&\textbf{B}&O&P&P&O&\textbf{B}&O&P     \\
+         \bottomrule
+\end{tabular}
 \end{table}
+
+%\begin{table} \footnotesize
+%  \centering  % 表居中
+%  \renewcommand\arraystretch{0.5}
+%  \caption{Results of sleep quality assessment.}\label{tab:quality}
+%\begin{tabular}{|c| c | c | c | c | c |c |c |c |c |c| c |c |c |c |c |c }
+%    \cline{1-16}
+%    %\multicolumn{1}{c|}{\textbf{}}
+%    %&
+%      \multicolumn{1}{|c|}{\diagbox{System}{User ID}}
+%    &  \multicolumn{1}{c|}{\footnotesize  1}
+%    &  \multicolumn{1}{c|}{\footnotesize  2}
+%    &  \multicolumn{1}{c|}{\footnotesize  3}
+%    &  \multicolumn{1}{c|}{\footnotesize  4}
+%    &  \multicolumn{1}{c|}{\footnotesize  5}
+%    &  \multicolumn{1}{c|}{\footnotesize  6}
+%    &  \multicolumn{1}{c|}{\footnotesize  7}
+%    &  \multicolumn{1}{c|}{\footnotesize  8}
+%    &  \multicolumn{1}{c|}{\footnotesize  9}
+%    &  \multicolumn{1}{c|}{\footnotesize  10}
+%    &  \multicolumn{1}{c|}{\footnotesize  11}
+%    &  \multicolumn{1}{c|}{\footnotesize  12}
+%    &  \multicolumn{1}{c|}{\footnotesize  13}
+%    &  \multicolumn{1}{c|}{\footnotesize  14}
+%    &  \multicolumn{1}{c|}{\footnotesize  15}\\
+%     \cline{1-16}
+%     & & & & & & & & & & & & & & & \\
+%    \multirow{16}{*}
+%      \textbf{\footnotesize {\systemname}}  & $3$ & $3$ & $0$ & $1$ & $2$ & $2$ & $3$ & $0$ & $2$ & $2$ & $2$ & $2$ & $1$ & $0$ & $2$ \\
+%   & & & & & & & & & & & & & & & &\\
+%    \cline{1-16}
+%   & & & & & & & & & & & & & & & &\\
+%     \textbf{\footnotesize Fitbit}   & $3$ & $3$ & $0$ & $0$ & $1$ & $3$ & $2$ & $3$ & $2$ & $2$ & $2$ & $2$ & $2$ & $1$ & $2$\\
+%      & & & & & & & & & & & & & & & & \\
+%      \cline{1-16}
+%       & & & & & & & & & & & & & & & & \\
+%      \textbf{\footnotesize User survey}  & $3$ & $2$ & $0$ & $0$ & $2$ & $2$ & $3$ & $1$ & $1$ & $2$ & $2$ & $3$ & $0$ & $0$ & $2$ \\
+%     & & & & & & & & & & & & & & & & \\
+%     \cline{1-16}
+%      \cline{1-16} \rowcolor[RGB]{199,201,203}
+%      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} & & & & & &
+%      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}
+%      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& & & &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} \\ \rowcolor[RGB]{199,201,203}
+%
+%     \textbf{\footnotesize Compatibility}  & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}l|}{3} & $2$ &
+%     \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} & $2$ & $3$ & $3$ & $3$ & $2$ & $2$ &
+%     \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} & $2$ & $2$ & $3$ &
+%     \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{3} \\ \rowcolor[RGB]{199,201,203}
+%
+%      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} & & & & & &
+%      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}
+%      & \multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{}& & & &\multicolumn{1}{>{\columncolor[RGB]{112,113,116}}c|}{} \\ \rowcolor[RGB]{199,201,203}
+%    \cline{1-16}
+%   \end{tabular}
+%\end{table}
 
 %\begin{figure}
  %\centering
