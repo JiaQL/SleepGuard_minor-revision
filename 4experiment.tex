@@ -359,16 +359,17 @@ mobile phone.}
 
 \rt{ For body movement detection, applying the algorithms employed by Sleep Hunter to our smartwatch data gives a comparable accuracy of
 around 96\% when the system only needs to identify between drastic and small body movements. However, the accuracy of the Sleep Hunter
-algorithms drops to 78\% when we need to detect finer-grained body movement. In this scenario, the Sleep Hunter algorithms are outperformed
-\systemname which delivers an accuracy of around 90\% (see Table~\ref{tab:rollver}). For acoustic event detections, we also apply Sleep
-Hunter algorithms to snore, cough and somniloquy. The results in Fig.~\ref{fig:compare_sound1} suggest that \systemname gives better
-performance over Sleep Hunter in detecting these acoustic events. Finally, we apply the CRF model used by Sleep Hunter to combine the
-detected events to identify sleep stages. The results are shown in Fig.~\ref{fig:compare_stage1}. Again, \systemname outperforms the Sleep
-Hunter methods with a higher accuracy and recall. }
+algorithms drops to 78\% when we need to detect finer-grained body movements. In this scenario, the Sleep Hunter algorithms are
+outperformed \systemname which delivers an accuracy of around 90\% (see Table~\ref{tab:rollver}). For acoustic event detections, we apply
+the Sleep Hunter algorithms to detect snore, cough and somniloquy. The results in Fig.~\ref{fig:compare_sound1} suggest that \systemname
+gives better performance over Sleep Hunter in detecting these acoustic events. Finally, we apply the sleep stage detection model used by
+Sleep Hunter to combine sleep-related events to identify sleep stages. The results are shown in Fig.~\ref{fig:compare_stage1}. Again,
+\systemname outperforms the Sleep Hunter model with a higher accuracy and recall. }
 
 
 \rt{ This experiment confirms that the algorithms used by Sleep Hunter for sleep event and stage detection are not tuned for smartwatches.
-By carefully designing better algorithms, \systemname can detect sleep events and stages with a higher accuracy compared to Sleep Hunter. }
+Compared to Sleep Hunter, \systemname can detect sleep events and stages with a higher accuracy using a set of carefully designed methods
+to target smartwatches. }
 
 %\textcolor{red}{What's more, to better demonstrate the advancement of our algorithm itself, not the benefits of equipment changes, we
 %reproduce some algorithms of Sleep Hunter and apply its algorithm to the sleep data collected by our smartwatch. For the algorithm of body
