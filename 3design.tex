@@ -273,8 +273,7 @@ Even when the hand is placed on the abdomen, due to minor changes in the exact l
 accelerometer fluctuations caused by respiration varies. Hence, we cannot use the amplitude information to determine true respiratory
 amplitude directly. This problem is illustrated in Fig.~\ref{fig:breath_ok1}, where (a) and (b) contain triaxial acceleration measurements
 at different locations of the abdomen during REM sleep stage, and in (c) which consists of acceleration data for NREM stages at the same
-approximate position as in (a). We can see that when hand on the abdomen, but the location is different,  we can
-not directly judge the respiratory amplitude using only the amplitude of the three axes of the acceleration.
+approximate position as in (a). \nt{We can see that when the hand is on the abdomen, but the location differs, we cannot directly judge the respiratory amplitude from the amplitude of the three accelerometer axes.}
 
 \begin{figure}[!t]
 \centering
@@ -282,7 +281,7 @@ not directly judge the respiratory amplitude using only the amplitude of the thr
   \caption{The first figure on the left is the torso coordinate system, and $Y_t$ points north. The middle figure shows the watch coordinate system when the watch an arbitrary position, and the right of the figure shows that the  watch coordinate system after we completed the coordinate system conversion.}\label{fig:watch}
 \end{figure}
 
-To solve this problem, we convert the acceleration data from the wristwatch coordinate system into the torso coordinate system. Because we can know that when the person is in the supine position, the abdomen and the chest will move up and down due to breathing, that is, move along the z-axis direction of the torso coordinate system. We express the triaxial acceleration data as $Acc_w$ = [$X_w$, $Y_w$, $Z_w$] in the wristwatch coordinate system and $Acc_t$ = [$X_t$, $Y_t$, $Z_t$] in the torso coordinate system, as shown in Fig. \ref{fig:watch}. And the watch coordinate system ({[$X_w$, $Y_w$, $Z_w$]}) is determined by the position of the watch. Our coordinate alignment aims to find a rotation matrix R to align the watch's coordinate system to the torso coordinate system ({[$X_t$, $Y_t$, $Z_t$]}) and R can be obtained by the three-axis direction information in the orientation sensor. After the coordinate system is aligned, the angle between the y-axis of the wristwatch coordinate system and the y-axis of the torso coordinate system is 180 degrees.
+To solve this problem, we convert the acceleration data from the wristwatch coordinate system into the torso coordinate system. \nt{As breathing results in chest moving up and down, movements along the z-axis in the torso coordinate system can be used to identify respiratory amplitude}. We express the tri-axial acceleration data as $Acc_w$ = [$X_w$, $Y_w$, $Z_w$] in the wristwatch coordinate system and $Acc_t$ = [$X_t$, $Y_t$, $Z_t$] in the torso coordinate system, as shown in Fig.~\ref{fig:watch}. \nt{Our coordinate alignment aims to find a rotation matrix $R$ that aligns the watch's coordinate system with the torso coordinate system ({[$X_t$, $Y_t$, $Z_t$]}). Matrix $R$ can be obtained from the three-axis direction information of the orientation sensor. Specifically, we have:} %After the coordinate system is aligned, the angle between the y-axis of the wristwatch coordinate system and the y-axis of the torso coordinate system is 180 degrees.
 \begin{equation}
       X_t  = (X_w {\cos\gamma} + Y_w{\sin\gamma}){\cos\theta} + (Y_w\cos\sigma + Y_w\sin\sigma)\sin\theta,
 \end{equation}
@@ -292,8 +291,7 @@ To solve this problem, we convert the acceleration data from the wristwatch coor
 \begin{equation}
       Z_t = (Z_w\cos\gamma - Z_w\sin\gamma)\cos\sigma - (Z_w\cos\gamma - Z_w\sin\gamma)\sin\sigma,
 \end{equation}
-
-$\theta$, $\sigma$ and $\gamma$ are the x, y and z axis data of the orientation sensor respectively, representing the direction angle, the tilt angle and the roll angle collected from the orientation sensor. After the alignment of the coordinate system, we can see from Fig.~\ref{fig:cordi} that the z-axis shows a periodic signal with significant fluctuations, while the x- and y-axis data undergo smaller changes around zero, which is consistent with the actual situation that when the person is in the supine posture with the abdomen up and down caused by respiration.
+where $\theta$, $\sigma$ and $\gamma$ are the x, y and z axis data of the orientation sensor respectively, representing the direction angle, the tilt angle and the roll angle collected from the orientation sensor. After alignment, we can see in Fig.~\ref{fig:cordi} that the z-axis shows a periodic signal with significant fluctuations, \nt{while the x- and y-axis data undergo smaller changes around zero, which is consistent with stable sleep influenced only by respiratory patterns.} %the actual situation that when the person is in the supine posture with the abdomen up and down caused by respiration.
 
  \begin{figure}[!t]
 \centering
@@ -302,15 +300,14 @@ $\theta$, $\sigma$ and $\gamma$ are the x, y and z axis data of the orientation 
 \end{figure}
 
 The two graphs on the left of Fig.~\ref{fig:cordi} show the same acceleration data as has been used in (a) and (c) of
-Fig.~\ref{fig:breath_ok1}, respectively, whereas the two right-most graphs correspond to data after coordinate system alignment.  We
-can see that prior to aligning the measurements, we cannot effectively distinguish the respiratory amplitude of REM and NREM stages from the
-acceleration amplitude. After coordinate alignment, the respiratory amplitudes are clearly visible from the z-axis data. We then calculate
+Fig.~\ref{fig:breath_ok1}, respectively. The two right-most graphs correspond to data after coordinate system alignment.  We
+can see that, prior to alignment, we cannot effectively distinguish the respiratory amplitude of REM and NREM stages from the
+acceleration amplitude. After coordinate alignment, the respiratory amplitudes are clearly visible from the z-axis data. \nt{To separate REM and NREM stages,} we calculate
 the variance of z-axis acceleration and use it as a feature to measure the intensity of the fluctuation in a signal, with larger variance
 corresponding to greater breath amplitude. Note that we cannot use the sum or magnitude of the z-axis as a measure of intensity as the
 measurements remain affected by gravity.
 
-To summarize, we use respiratory amplitude to detect whether the user is in the REM stage or not. Specifically, we calculate
-respiratory amplitude when the hand is found to be placed on the abdomen or the chest (as \systemname operates using a wrist worn device, it can only detect respiratory events when the hand is placed one of these two positions), that is the variance of z-axis acceleration. We then use a kNN classifier to find from our training examples, which training example is most similar to the input respiratory amplitudes collected from z directions. The similarity is measured by calculating the distance on the feature space. We then use the label (either REM or NREM) associated with the nearest training
+To summarize, we use respiratory amplitude to detect when the user is in the REM stage. We calculate respiratory amplitude when the hand is found to be placed on the abdomen or the chest. \nt{Note that as \systemname operates using a wrist worn device, it can only detect respiratory events when the hand is placed one of these two position. As measure of respiratory amplitude, we use }the variance of z-axis acceleration. We then use a kNN classifier to find from our training examples, which training example is most similar to the input respiratory amplitudes collected from z directions. The similarity is measured by calculating the distance on the feature space. We then use the label (either REM or NREM) associated with the nearest training
 example as the classification outcome.
 
 %To generate the training examples, we first use our hand position recognition algorithm described in
