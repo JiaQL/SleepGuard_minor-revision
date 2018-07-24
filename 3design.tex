@@ -107,11 +107,23 @@ To separate sleep postures, {\systemname} considers a set of feasible hand posit
 %dimension.
 
 
-Similarly to SleepMonitor~\cite{sleepmonitor}, we use \nt{three dimensional tilt angles} to detect postures. To identify \nt{which posture data collected within a time window corresponds to}, we average all the calculated tilt angle values of that window in each dimension. We then calculate the Euclidean distance of the input values to a set of posture profiles, which are based on measurements collected in a pilot study that involved 10 users (see Sec.~\ref{sec:trainingdata}). We then use the body posture associated with the nearest neighbor as the detection outcome. Fig.~\ref{fig:posture} shows the angle values of the four sleep postures targeted in this work. \nt{We can observe clear differences in the tilt angles of the three axes}. The sleep posture thus can be inferred based on the position of the smartwatch and the created
-angle mapping. However, a limitation of this approach is that the hand positions during supine and prone postures \nt{can be} similar when the hand
-is located on the side of the head (Fig. \ref{fig:Supine} and \ref{fig:Prone}), thus the classification accuracy will be affected.
+Like to SleepMonitor~\cite{sleepmonitor}, we use \nt{three dimensional tilt angles} to detect postures. To identify \nt{which posture the
+data collected within a time window corresponds to}, we average all the calculated tilt angle values of that window in each dimension. We
+then calculate the Euclidean distance of the input values to a set of posture profiles, which are based on measurements collected in a
+pilot study that involved 10 users (see Sec.~\ref{sec:trainingdata}). We then use the body posture associated with the nearest neighbor as
+the detection outcome. Fig.~\ref{fig:posture} shows the angle values of the four sleep postures targeted in this work. \nt{We can observe
+clear differences in the tilt angles of the three axes}. The sleep posture thus can be inferred based on the position of the smartwatch and
+the created angle mapping. However, a limitation of this approach is that the hand positions during supine and prone postures \nt{can be}
+similar when the hand is located on the side of the head (Fig. \ref{fig:Supine} and \ref{fig:Prone}), thus the classification accuracy will
+be affected.
 
-To improve detection accuracy between supine and prone postures, \systemname integrates orientation data as auxiliary feature. This is \nt{motivated by the observation that hand directions differ in supine and prone positions}. When the result of the previous step is prone or supine and hand is detected to be located next to the body, we combine the tilt angle with three axes data obtained from the direction sensor as a new feature, and classify these postures using a template-based distance matching approach. Specifically, we return the position corresponding to the template with minimum Euclidean distance with current sensor measurements as the user's posture. %Note that when we use the direction sensor, we must limit the pillow orientation remaining unchanged (in the experiment our pillow is placed on the north). In fact, this assumption can be easily satisfied since most people usually have fixed sleep directions.
+To improve detection accuracy between supine and prone postures, \systemname integrates orientation data as auxiliary feature. This is
+\nt{motivated by the observation that hand directions differ in supine and prone positions}. When the result of the previous step is prone
+or supine and hand is detected to be located next to the body, we combine the tilt angle with three axes data obtained from the direction
+sensor as a new feature, and classify these postures using a template-based distance matching approach. Specifically, we return the
+position corresponding to the template with minimum Euclidean distance with current sensor measurements as the user's posture. %Note that
+when we use the direction sensor, we must limit the pillow orientation remaining unchanged (in the experiment our pillow is placed on the
+north). In fact, this assumption can be easily satisfied since most people usually have fixed sleep directions.
 
 
 \subsubsection{Hand Position Recognition\label{sec:handpr}}
@@ -131,7 +143,7 @@ detect if the hand was placed on the head. \nt{When the hand is not on the head,
 identify whether the hand is on the abdomen or chest}. We now describe how to detect each of the three positions in more details.
 
 %if the hand was placed on the abdomen or the chest, but not elsewhere before it utilizes the %rotation angles to distinguish the
-%abdomen position from the chest position. 
+%abdomen position from the chest position.
 
 
 
@@ -150,7 +162,7 @@ first kNN model suggests that the palm was facing upward, \nt{the second kNN use
 (from the x, y, and z directions) before and after hand movement to determine if the most likely position is on the head or elsewhere. As similarity measure we consider}  Euclidean distance from the input
 data to each of the training samples -- consisting of the rotation angle values from the three directions. %Again, the training samples for the
 %second kNN model are the changing rotation angle values obtained from our users involved in %training when their hands were moved to the head, the
-%abdomen and the chest respectively. 
+%abdomen and the chest respectively.
 If our hierarchical model predicts that the hand was not placed on the head, we then use the method
 described in the next paragraph to detect if it was placed on the abdomen or the chest.
 
@@ -224,8 +236,8 @@ described in the next paragraph to detect if it was placed on the abdomen or the
 \nt{When the hierarchical model predicts the hand to placed elsewhere than the head, it can be located at anywhere, including different
 parts of the body. However, in our case we are only interested in detection if the hand is on the chest or abdomen -- or at neither of these positions. We build on the intuition that the hand is likely to be affected by breathing whenever it is placed on chest or abdomen.} Specifically, the
  impact of breathing results in periodical fluctuations on the accelerometer readings. This is because the hand will be pushed up and drop down due to
-breathing. \nt{Our experimental data suggest that this behaviour only takes place when 
-the hand is placed on the abdomen or the chest, not when the hand is located elsewhere (such as the shoulder). Thus we can separate these two locations from other locations by examining whether the accelerometer values are impacted by respiration.} 
+breathing. \nt{Our experimental data suggest that this behaviour only takes place when
+the hand is placed on the abdomen or the chest, not when the hand is located elsewhere (such as the shoulder). Thus we can separate these two locations from other locations by examining whether the accelerometer values are impacted by respiration.}
 
 To examine if the accelerometer data are affected by the respiration, we calculate
 the power spectral density (PSD) of the collected accelerometer data. \nt{We then check the PSD to see if we can observe any peak that closely matches human
@@ -251,7 +263,7 @@ user's current sleep stage based on the respiratory amplitude. Respiratory ampli
 stage and we can not regard it as a basis for final judgement. \nt{However, it serves as an early reference that helps later phases of the sleep
 stage detection. Normally chest movement amplitude is smaller than abdominal movement amplitude. However, in
 during different sleep stages, respiration amplitudes differ~\cite{respiratory}. Hence, it is likely that there is a situation where chest
-movement amplitude in the NREM stages is close to the abdominal movement amplitude in the REM sleep stage. As a result, a na{\"i}ve solution of applying a threshold cannot work satisfactorily but we need to combine it with the position of hand detected earlier. Through 
+movement amplitude in the NREM stages is close to the abdominal movement amplitude in the REM sleep stage. As a result, a na{\"i}ve solution of applying a threshold cannot work satisfactorily but we need to combine it with the position of hand detected earlier. Through
 above steps, we have been able to determine whether the hands are on the chest or abdomen, and then we can go further to determine the
 extent of breathing according to the degree of up and down motions, from which we can approximately infer current sleep stage}. Now we take the case of hands
 on the abdomen as an example.
@@ -529,7 +541,7 @@ where $\alpha$ and $\beta$ are the multiplier factors of the energy value $DE$.
 Here, we need to choose the right values for $\alpha$ and $\beta$ to ensure
  that we can accurately detect the start and end points of a speech signal. To that end, we use the night time sound data from our training dataset to determine $\alpha$ and $\beta$.
  Specifically, we tested $\alpha$ with values ranging between 0.1 and 0.5, and $\beta$ with values ranging from 0.01 to 0.09. We found that setting $\alpha$ to  0.1 and $\beta$ to  0.06 gives the best overall results in our training dataset.
- 
+
 To ensure sudden noise does not interfere with detection results, we set the minimum length of the signal segment and count the length of the signal during the search for the start and end point. Finally, if the signal length is less than the set minimum, it is considered as a noise segment. The results of the start-point and end-point detection are shown in Fig. \ref{acoustic}, we calculate the length of each speech segment and calculate their averages as the duration of the acoustic event. Last, we count the number of peak points to determine whether it meets the third key observation or not.
 
 
@@ -621,4 +633,3 @@ Further, to quantize the quality of a sleep, we use the Sleep Quality Report mod
 SQ=\frac{(REM \times 0.5+Light \times 0.75+Deep) \times 100}{REM+Light+Deep}
  \end{equation}
 where, REM, Deep and Light represents the duration time in a sleep process. The range of $SQ$ is from 50 to 100. A high value of $SQ$ shows a good  sleep quality.
-

@@ -24,13 +24,13 @@ We first test the overall classification performance of different body postures.
 	\end{minipage}
 \end{figure}
 
-\begin{table}[!thbp]\footnotesize
+\begin{table}[!t]\footnotesize
 %	\tabcolsep1pt
 	\centering  % 表居中
 	%\renewcommand\arraystretch{0.277}
 	%\caption{The confusion matrix of body posture classification.}\label{tab:posture}
 	%\noindent\makebox{%
-	%\begin{tabularx}{1\textwidth}{ c | c | c | c | c | c | c}
+	%\begin{tabular}{1\textwidth}{ c | c | c | c | c | c | c}
 	\renewcommand\arraystretch{0.3}
 	\caption{The confusion matrix of body posture classification.}\label{tab:posture}
 	\begin{tabular}{c| c | c | c | c | c | c}
@@ -111,41 +111,64 @@ the detected features in each stage, such as micro body movement and acoustic ev
 \end{table}
 
 \subsubsection{Performance of hand position recognition}
-To test the recognition performance of different hand positions, we consider the same cross-validation scheme used for body posture detection, i.e., one user's data is used for training the classifier and the remaining 14 users' data as test data. The classifier for detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then the hand position on the chest (or abdomen or head) can be identified. \rt{In our dataset, the percentages of three hand positions in the supine posture during sleep are 14\% (head), 36\% (abdomen), 22\% (chest).} Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15 users. As we can see that with just one set of training data, the accuracies for different users are all higher than 87\%. Therefore, our system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least four out of fifteen participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which makes him have nightmares. Those are all bad habits disrupting a good sleep.  {\systemname} can report such key findings to improve the users' sleep qualities.
+To test the recognition performance of different hand positions, we consider the same cross-validation scheme used for body posture
+detection, i.e., one user's data is used for training the classifier and the remaining 14 users' data as test data. The classifier for
+detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then the hand position on
+the chest (or abdomen or head) can be identified. \rt{In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during
+sleep was placed on the head, abdomen, and chest respectively.} Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15
+users. As we can see that with just one set of training data, the accuracies for different users are all higher than 87\%. Therefore, our
+system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least four out of fifteen
+participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which makes him have
+nightmares. Those are all bad habits disrupting a good sleep.  {\systemname} can report such key findings to improve the users' sleep
+qualities.
 
 
 \subsubsection{Performance of micro body movement detection}
 
-To assess the detection accuracy of micro body movements, we manually label the ground truth recorded by the camera during sleep, including hand moving, arm raising, and body trembling. We also use the accelerometer embedded in the smartphone which placed on the bed to record the occurrence of micro body movements, so as to avoid missing some movements such as trembling concealed by the duvet. For the acceleration data collected by smartphone, we first smooth the acceleration along the three axes, calculate Root Sum Square (RSS) to merge them, and obtain the first-order derivative of the merged acceleration. And then we use the threshold detection method to mark the occurrence of motion. Since body trembling is the easiest to be covered, we only focus on such events. So we use smartphone to detect the occurrence of events and the classification of the event is not performed. \rt{ Table~\ref{tab:micro_move} shows the total number of three micro body movements for each user for 14 days. And Fig.~\ref{fig:micro_movement_zhu} illustrates the detection accuracy across 15 users.} It shows that the accuracies for all users are very close, that is, there will be no major changes between users. And from Fig. \ref{fig:micro_combine}, we find that even though the worst classification result belongs to the hand movement, the average precision value and recall value still exceed 75\%. The averaged accuracies of arm raising and body trembling are 93\% and 84\%, respectively. Because the training data volume for the hand movement and body trembling is small, so the performance can be improved by setting each user a threshold by collecting a longer term's sleeping data. In addition, the purpose of  micro body movement detection is to detect different sleep stages, and the hand movement usually appears in all sleep stages, thus the poor accuracy of hand moving does not have a significant impact on the final result.
+To assess the detection accuracy of micro body movements, we manually label the ground truth recorded by the camera during sleep, including
+hand moving, arm raising, and body trembling. We also use the accelerometer embedded in the smartphone which placed on the bed to record
+the occurrence of micro body movements, so as to avoid missing some movements such as trembling concealed by the duvet. For the
+acceleration data collected by smartphone, we first smooth the acceleration along the three axes, calculate Root Sum Square (RSS) to merge
+them, and obtain the first-order derivative of the merged acceleration. And then we use the threshold detection method to mark the
+occurrence of motion. Since body trembling is the easiest to be covered, we only focus on such events. So we use smartphone to detect the
+occurrence of events and the classification of the event is not performed. \rt{ Table~\ref{tab:micro_move} list the total number of three
+micro body movements for each user over the testing period of 14 days, and Fig.~\ref{fig:micro_movement_zhu} reports the accuracy of
+\systemname for detecting these micro body movements.} It shows that the accuracies for all users are very close, that is, there will be no
+major changes between users. And from Fig. \ref{fig:micro_combine}, we find that even though the worst classification result belongs to the
+hand movement, the average precision value and recall value still exceed 75\%. The averaged accuracies of arm raising and body trembling
+are 93\% and 84\%, respectively. Because the training data volume for the hand movement and body trembling is small, so the performance can
+be improved by setting each user a threshold by collecting a longer term's sleeping data. In addition, the purpose of  micro body movement
+detection is to detect different sleep stages, and the hand movement usually appears in all sleep stages, thus the poor accuracy of hand
+moving does not have a significant impact on the final result.
 
 
 \begin{figure}
 	\centering
 	\begin{minipage}{.5\textwidth}
-		 \includegraphics[width=6.5cm,height=4.7cm]{Figures/micro_movement_zhu.pdf}
-		\caption{Detection accuracy of micro body movement.}\label{fig:micro_movement_zhu}	
+		 \includegraphics[width=1\textwidth]{Figures/micro_movement_zhu.pdf}
+		\caption{Micro body movement detection accuracy.}\label{fig:micro_movement_zhu}	
 	\end{minipage}%
 	\begin{minipage}{.5\textwidth}
 	 \centering
-	\includegraphics[width=6.5cm,height=4.7cm]{Figures/micro_combine1.pdf}
-	\caption{Performance of micro body movement detection.}\label{fig:micro_combine}
+	\includegraphics[width=1\textwidth]{Figures/micro_combine1.pdf}
+	\caption{Precision and recall for micro body movement detection.}\label{fig:micro_combine}
 	\end{minipage}
 \end{figure}
 
 
-\begin{table}[!thbp]\footnotesize
+\begin{table}[!t]\footnotesize
   %\centering  % 表居中
  % \tabcolsep 1pt
   %\arrayrulewidth1pt
-  \caption{The number of micro body movement events.}\label{tab:micro_move}
+  \caption{The number of micro body movements per user.}\label{tab:micro_move}
    \renewcommand\arraystretch{1}{\multirowsetup}{\centering}
-        \begin{tabular}{cccccccccccccccc}
+        \begin{tabular}{lccccccccccccccc}
         \toprule
          \textbf{Testing User ID}    & 1& 2  & 3& 4& 5& 6& 7& 8& 9& 10& 11& 12& 13& 14& 15\\
         \midrule
-             {Labeled \#hand movement}  &52&49&67&55&58&55&59&56&61&53&57&55&60&59&62 \\
+            \rowcolor{Gray} {Labeled \#hand movement}  &52&49&67&55&58&55&59&56&61&53&57&55&60&59&62 \\
              { Labeled \#arm raising} &48&44&48&53&46&49&47&50&53&45&54&49&57&46&51\\
-             { Labeled \#body trembling} &28&32&25&29&34&25&20&30&24&26&27&35&24&22&25\\
+             \rowcolor{Gray} { Labeled \#body trembling} &28&32&25&29&34&25&20&30&24&26&27&35&24&22&25\\
         \bottomrule
  \end{tabular}
 \end{table}
@@ -156,7 +179,7 @@ To assess the detection accuracy of micro body movements, we manually label the 
 To study the detection accuracies of different acoustic events, we compare the ground truth recorded by the camera with the detected results by our system. Table~\ref{tab:sound} shows the results across 15 participants. We can see that the precision for cough event is 88.9\%, which is slightly lower than for the other three event types. The reason is that different user's cough patterns are different, the pre-defined parameters in the detection model does not include all possible patterns. For example, some people have a fast and continuous pattern of coughing, while others have a slower intermittent pattern. In fact, we train these parameters, namely the "interval", "duration" and "frequency" of acoustic events, with only 120 sets of nighttime sound data. Those data come from 40 (21 males and 19 females) volunteers of different ages (from 15 to 60 years old) who are prone to snoring, coughing, or somniloquy at night. To further improve the detection accuracy, we can train particular parameters for different users. And we can further expand the training data to include more possible patterns, and can also make reasonable estimates of the possible patterns to refine the range of parameters and thus increase the accuracy.
 
 
-\begin{table}[!thbp]\footnotesize
+\begin{table}[!t]\footnotesize
 % \tabcolsep1pt
   \centering  % 表居中
  \renewcommand\arraystretch{0.3}
@@ -212,7 +235,7 @@ To study the detection accuracies of different acoustic events, we compare the g
 
 In order to prove that the detected events not only reflect the user's sleep habits, but also effectively identify the sleep stages to assess the sleep quality, we regard the reported results from Fitbit Charge2 as the ground truth. To perform the evaluation, we randomly choose $50$ sets of sleep data from the data so that at least $3$ sets per participant are chosen for evaluation. For detecting changes in sleep stage, \systemname uses event-driven detection. When there is no sleep event detected in 15 minutes, we evaluate the sleep stage. When an event occurs, we immediately evaluates the sleep stage and use this time as the starting point for the next 15 minutes. The averaged precision value and recall value are shown in Table~\ref{tab:sleep stage}. It indicates that though {\systemname} may make misjudgement between the light sleep and REM, overall the performance is satisfying and comparable to current consumer grade monitors. Moreover, as we later demonstrate, the main benefits of \systemname result from its capability to estimate a wide range of sleep events and how they relate to sleep quality, not from its performance in sleep stage detection where medical PSG measurements are required for accurate assessment of sleep stages.
 
-\begin{table}[!thbp]\footnotesize
+\begin{table}[!t]\footnotesize
 %	\tabcolsep1pt
 	\centering  % 表居中
 	\renewcommand\arraystretch{0.4}
@@ -303,16 +326,6 @@ When we detect different sleep stages, we also consider the respiratory amplitud
 	\end{tabular}
 \end{table}
 
-\subsubsection{Performance comparison}
-
-We compare {\systemname} with two state-of-the-art sleep monitoring applications. The first is a sleep detection app called ``Sleep As
-Android", and a smartphone-based system named Sleep Hunter~\cite{gu2016sleep}. \rt{The former app is designed to estimate sleep time and
-assess sleep by recording the state of motions and the amount of body exercises. The latter focuses on estimating sleep stages and evaluate the
-sleep quality using the tracked sleep-related events.} Considering that Sleep As Android can only detect light sleep stage and deep sleep
-stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results. As we can see,
-{\systemname} significantly outperforms Sleep As Android and deliver  better performance than Sleep Hunter. The performance advantage of
-\systemname comes from the incorporation of rich and complicated sleep events.
-
   \begin{table}[!t]\footnotesize
  	\centering  % 表居中
  	\renewcommand\arraystretch{0.3}
@@ -353,6 +366,18 @@ stage, we only compare the performance of these two stages. Table \ref{tab:compa
  		
  	\end{tabular}
  \end{table}
+
+\subsubsection{Performance comparison}
+
+We compare {\systemname} with two state-of-the-art sleep monitoring applications. The first is a sleep detection app called ``Sleep As
+Android", and a smartphone-based system named Sleep Hunter~\cite{gu2016sleep}. \rt{The former app is designed to estimate sleep time and
+assess sleep by recording the state of motions and the amount of body exercises. The latter focuses on estimating sleep stages and evaluate the
+sleep quality using the tracked sleep-related events.} Considering that Sleep As Android can only detect light sleep stage and deep sleep
+stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results. As we can see,
+{\systemname} significantly outperforms Sleep As Android and deliver  better performance than Sleep Hunter. The performance advantage of
+\systemname comes from the incorporation of rich and complicated sleep events.
+
+
 
 \begin{figure}[!t]
 	\centering
@@ -442,15 +467,15 @@ For the above four items, each one is rated on a 1 to 5 scale. These scores are 
 
 %The final sleep quality score comes from the comprehensive scores of above four questionnaires.
 
-The 14-days average sleep quality scores of the 15 participates are presented in Table \ref{tab:quality} together with sleep quality
-estimations obtained from \systemname and Fitbit. \rt{Here, the number in the brackets shows the standard deviation of the scores across
-the 14-day period per user.} \rt{The last two rows in Table~\ref{tab:quality} compare the estimation given by \systemname and the user
-self-rating score. In these two specific rows, a label of `P' indicates the estimated score perfectly matches the user score, a label of
-`O' means the estimation error is within one scale point (for example, the estimation is excellent while the user's self-rating is good),
-and a label of `B' suggests the estimation error is greater than a scale point. As can be seen from the table, the estimation given by
-\systemname is more likely to match the user's self-rating compared to Fitbit (as indicating by having more `P' labels - 9 `P' labels
-achieved by \systemname vs 6 `P' labels achieved by Fitbit) and, unlike Fitbit, the estimation error given by \systemname is never
-greater than one scale point (i.e., there is no `B' label for \systemname). To further validate this, we calculated the Spearman $\rho$-correlation between the user scores and each of the two systems, \systemname and Fitbit. \systemname provides higher correlation coefficient ($\rho = 0.84188$) than Fitbit ($\rho = 0.50008$). The difference in correlation was found statistically significant using an one-tailed test carried out through a Fisher r-z transformation ($Z = 1.66, p < 0.05$).  In summary, \systemname thus gives a better sleep quality assessment
+In Table \ref{tab:quality}, we show the mean sleep quality score across 14 days given by each user together the estimations produced by
+\systemname and Fitbit. \rt{We also give the standard deviation of the scores across the 14-day period per user. This number is given in
+the brackets next to the mean score.} \rt{The last two rows in Table~\ref{tab:quality} compare the estimation given by \systemname and
+Fitbit against the user self-rating score. In these two specific rows, a label of `P' indicates the estimated score perfectly matches the
+user score, a label of `O' means the estimation error is within one scale point (for example, \systemname rates the user sleep to be
+excellent while the user's self-rating is good), and a label of `B' suggests the estimation error is greater than a scale point. As can be
+seen from the table, the estimation given by \systemname is more likely to match the user's self-rating compared to Fitbit (as indicating
+by having more `P' labels - 9 vs 6 ) and, unlike Fitbit, the estimation error given by \systemname is never greater than one scale point. 
+To further validate this, we calculated the Spearman $\rho$-correlation between the user scores and each of the two systems, \systemname and Fitbit. \systemname provides higher correlation coefficient ($\rho = 0.842$) than Fitbit ($\rho = 0.500$). The difference in correlation was found statistically significant using an one-tailed test carried out through a Fisher r-z transformation ($Z = 1.66, p < 0.05$).  In summary, \systemname thus gives a better sleep quality assessment
 compared to Fitbit in our evaluation.}
 
 While the results above demonstrate that \systemname is capable of accurately estimating sleep quality, the main benefit from \systemname
@@ -489,14 +514,14 @@ As for the user experience, results from the survey highlighted a strong interes
 
 \begin{table} \tiny%\scriptsize%\footnotesize
   \centering
-  \caption{\rt{Results of sleep quality assessments. The first three rows show the sleep quality scores of the different systems (mean and standard deviation), whereas the last two rows  compare sleep quality labels between subjective assessments and those returned by \systemname. }}\label{tab:quality}
+  \caption{\rt{Results of sleep quality assessments. The first three rows show the sleep quality scores of the different systems (mean and standard deviation) for each user across $14$ days, whereas the last two rows  compare sleep quality labels between subjective assessments and those returned by \systemname. }}\label{tab:quality}
 \begin{tabularx}{\textwidth}{X cccccccccccccccc }
         \toprule
          \textbf{User ID} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\
          \midrule
          \rowcolor{Gray}\systemname & 3 (1.8) & 3 (1.5) & 0 (1.0) & 1 (1.8) &  2 (1.2) &  2 (1.7) &  3 (1.0) & 0 (1.3) &  2 (1.3) &  2 (1.0) & 2 (0) & 2 (1.5) &  1 (1.8) &  0 (1.0) &  2 (1.3)\\
          Fitbit & 3 (1.7) & 3 (2.2) & 0 (1.3) & 0 (1.8) & 1 (2.2) & 3 (1.8) & 2 (1.9) & 3 (1.8) & 2 (1.7) & 2 (1.9) & 2 (1.3) & 2 (2.0) & 2 (2.3) & 1 (1.8) & 2 (1.7) \\
-         \rowcolor{Gray} User score & 3 (0) & 2 (1.4) & 0 (0) &  0 (1.7) & 2 (1.7) &  2 (1.0) & 3 (1.0) & 1 (1.7) & 1 (1.4) & 2 (1.0) &  2 (1.0) & 3 (2.0) & 0 (1.8) & 0 (1.0) & 2 (1.0) \\
+         \rowcolor{Gray} User score & 3 (0.0) & 2 (1.4) & 0 (0.0) &  0 (1.7) & 2 (1.7) &  2 (1.0) & 3 (1.0) & 1 (1.7) & 1 (1.4) & 2 (1.0) &  2 (1.0) & 3 (2.0) & 0 (1.8) & 0 (1.0) & 2 (1.0) \\
          User score matching (\systemname) & P&O&P&O&P&P&P&O&O&P&P&O&O&P&P\\
          \rowcolor{Gray} User score matching (Fitbit) & P&O&P&P&O&O&O&\textbf{B}&O&P&P&O&\textbf{B}&O&P     \\
          \bottomrule
