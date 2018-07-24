@@ -337,21 +337,37 @@ stage, we only compare the performance of these two stages. Table \ref{tab:compa
  	\end{tabular}
  \end{table}
 
-
-\begin{figure}[t!]
+\begin{figure}[!t]
 	\centering
-	\begin{minipage}{.49\textwidth}
-\centering
-		 \includegraphics[width=5.7cm,height=4.7cm]{Figures/compare_sound1.pdf}
-  \caption{Applying the event detection algorithms in Sleep Hunter our smartwatch data and compare them with SleepGuard.}\label{fig:compare_sound1}
-	\end{minipage}%
-\hspace{2pt}
-	\begin{minipage}{.49\textwidth}
-	 \centering
-	\includegraphics[width=5.7cm,height=4.7cm]{Figures/compare_stage1.pdf}
-  \caption{Aplying the sleep stage detection algorithms in Sleep Hunter to our smartwatch  data and compare them with SleepGuard.}\label{fig:compare_stage1}
-	\end{minipage}
+    	\subfigure[Precision]{\label{compare_prec}
+		\includegraphics[width=0.45\linewidth]{Figures/compare_sound21.pdf}}
+	\subfigure[Recall]{\label{compare_reca}
+		\includegraphics[width=0.45\linewidth]{Figures/compare_sound22.pdf}}
+	\caption{Applying the event detection algorithms in Sleep Hunter our smartwatch data and compare them with SleepGuard.}\label{fig:compare_sound1}
 \end{figure}
+
+\begin{figure}[!t]
+	\centering
+    	\subfigure[Precision]{\label{compare_prec}
+		\includegraphics[width=0.45\linewidth]{Figures/compare_stage21.pdf}}
+	\subfigure[Recall]{\label{compare_reca}
+		\includegraphics[width=0.45\linewidth]{Figures/compare_stage22.pdf}}
+	\caption{Aplying the sleep stage detection algorithms in Sleep Hunter to our smartwatch  data and compare them with SleepGuard.}\label{fig:compare_stage1}
+\end{figure}
+%\begin{figure}[t!]
+%	\centering
+%	\begin{minipage}{.49\textwidth}
+%\centering
+%		 \includegraphics[width=5.7cm,height=4.7cm]{Figures/compare_sound1.pdf}
+ % \caption{Applying the event detection algorithms in Sleep Hunter our smartwatch data and compare them with SleepGuard.}\label{fig:compare_sound1}
+	%\end{minipage}%
+%\hspace{2pt}
+%	\begin{minipage}{.49\textwidth}
+%	 \centering
+%	\includegraphics[width=5.7cm,height=4.7cm]{Figures/compare_stage1.pdf}
+ % \caption{Aplying the sleep stage detection algorithms in Sleep Hunter to our smartwatch  data and compare them with SleepGuard.}\label{fig:compare_stage1}
+%	\end{minipage}
+%\end{figure}
 
 \rt{We also implement the algorithms employed by Sleep Hunter, a smartphone-based solution, and apply them to the data collected using our
 smartwatches. This experiment allows us to check if the better performance of \systemname is due to the use of a smartwatch instead of a
@@ -452,21 +468,23 @@ quality of sleep based on the suggestions.
 	
 As for the user experience, results from the survey highlighted a strong interest in the information captured by \systemname. In particular, 80\% of participants believe that the detection of sleep posture is very necessary, showing their sleep posture can not only help people to avoid health problems caused by long-term improper sleeping posture, but also help us find out the reasons for the next day's physical discomfort, such as dizziness, muscle soreness may be due to improper sleeping posture. And there are some users are troubled by snoring. This may be due to improper sleeping posture. We map the detected snoring event and sleeping posture to suggest the user to modify his posture to a suitable posture to reduce the harm caused by long-term snoring. 60\% of the participants thought it useful to detect the hand position in supine posture, even one user mentioned that he did often have nightmares and our system found his hand was often placed on his chest, and then {\systemname} could remind him that he should take some measures to avoid such a position and thus reduce the poor sleep quality that nightmare brings. Only 20\% of participants found it useful to calculate the number of body rollover. However, detection of rollovers is useful in segmenting sleep stages. Furthermore, body rollover counts could be used to derive additional information to the user, such as how restless or peaceful the sleep has been overall.
 
-\begin{table} \footnotesize
+
+\begin{table} \tiny%\scriptsize%\footnotesize
   \centering
   \caption{Results of sleep quality assessments.}\label{tab:quality}
 \begin{tabular}{l cccccccccccccccc }
         \toprule
          \textbf{User ID} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\
          \midrule
-         \rowcolor{Gray}\systemname & 3 & 3 & 0 & 1 &  2 &  2 &  3 & 0 &  2 &  2 & 2 & 2 &  1 &  0 &  2\\
-         Fitbit & 3 & 3 & 0 & 0 & 1 & 3 & 2 & 3 & 2 & 2 & 2 & 2 & 2 & 1 & 2 \\
-         \rowcolor{Gray} User score & 3 & 2 & 0 &  0 & 2 &  2 & 3 & 1 & 1 & 2 &  2 & 3 & 0 & 0 & 2 \\
+         \rowcolor{Gray}\systemname & 3 (1.8) & 3 (1.5) & 0 (1.0) & 1 (1.8) &  2 (1.2) &  2 (1.7) &  3 (1.0) & 0 (1.3) &  2 (1.3) &  2 (1.0) & 2 (0) & 2 (1.5) &  1 (1.8) &  0 (1.0) &  2 (1.3)\\
+         Fitbit & 3 (1.7) & 3 (2.2) & 0 (1.3) & 0 (1.8) & 1 (2.2) & 3 (1.8) & 2 (1.9) & 3 (1.8) & 2 (1.7) & 2 (1.9) & 2 (1.3) & 2 (2.0) & 2 (2.3) & 1 (1.8) & 2 (1.7) \\
+         \rowcolor{Gray} User score & 3 (0) & 2 (1.4) & 0 (0) &  0 (1.7) & 2 (1.7) &  2 (1.0) & 3 (1.0) & 1 (1.7) & 1 (1.4) & 2 (1.0) &  2 (1.0) & 3 (2.0) & 0 (1.8) & 0 (1.0) & 2 (1.0) \\
          User score matching (\systemname) & P&O&P&O&P&P&P&O&O&P&P&O&O&P&P\\
          \rowcolor{Gray} User score matching (Fitbit) & P&O&P&P&O&O&O&\textbf{B}&O&P&P&O&\textbf{B}&O&P     \\
          \bottomrule
 \end{tabular}
 \end{table}
+
 
 %\begin{table} \footnotesize
 %  \centering  % ±í¾ÓÖÐ
