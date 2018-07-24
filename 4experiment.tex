@@ -449,9 +449,9 @@ self-rating score. In these two specific rows, a label of `P' indicates the esti
 `O' means the estimation error is within one scale point (for example, the estimation is excellent while the user's self-rating is good),
 and a label of `B' suggests the estimation error is greater than a scale point. As can be seen from the table, the estimation given by
 \systemname is more likely to match the user's self-rating compared to Fitbit (as indicating by having more `P' labels - 9 `P' labels
-achieved by \systemname vs 6 `P' labels achieved by Fitbit) ; and unlikely Fitbit, the estimation error given by \systemname is never
-greater than one scale point (i.e., there is no `B' label for \systemname).} Overall, \systemname gives a better sleep quality assessment
-compared to Fitbit during our evaluation.
+achieved by \systemname vs 6 `P' labels achieved by Fitbit) and, unlike Fitbit, the estimation error given by \systemname is never
+greater than one scale point (i.e., there is no `B' label for \systemname). To further validate this, we calculated the Spearman $\rho$-correlation between the user scores and each of the two systems, \systemname and Fitbit. \systemname provides higher correlation coefficient ($\rho = 0.84188$) than Fitbit ($\rho = 0.50008$). The difference in correlation was found statistically significant using an one-tailed test carried out through a Fisher r-z transformation ($Z = 1.66, p < 0.05$).  In summary, \systemname thus gives a better sleep quality assessment
+compared to Fitbit in our evaluation.}
 
 While the results above demonstrate that \systemname is capable of accurately estimating sleep quality, the main benefit from \systemname
 compared to previous works is not its sleep quality performance but its capability to analyse and capture the {\em root cause} of sleep
@@ -489,7 +489,7 @@ As for the user experience, results from the survey highlighted a strong interes
 
 \begin{table} \tiny%\scriptsize%\footnotesize
   \centering
-  \caption{Results of sleep quality assessments.}\label{tab:quality}
+  \caption{\rt{Results of sleep quality assessments. The first three rows show the sleep quality scores of the different systems (mean and standard deviation), whereas the last two rows  compare sleep quality labels between subjective assessments and those returned by \systemname. }}\label{tab:quality}
 \begin{tabularx}{\textwidth}{X cccccccccccccccc }
         \toprule
          \textbf{User ID} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\

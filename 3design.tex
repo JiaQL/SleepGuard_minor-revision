@@ -262,7 +262,7 @@ accelerometer fluctuations caused by respiration varies. Hence, we cannot use th
 amplitude directly. This problem is illustrated in Fig.~\ref{fig:breath_ok1}, where (a) and (b) contain triaxial acceleration measurements
 at different locations of the abdomen during REM sleep stage, and in (c) which consists of acceleration data for NREM stages at the same
 approximate position as in (a). \nt{We can see that when the hand is on the abdomen, but the location differs, we cannot directly judge the respiratory amplitude from the amplitude of the three accelerometer axes.}
-
+e can 
 \begin{figure}[!t]
 \centering
       \includegraphics[width=0.67\linewidth]{Figures/watch.pdf}
@@ -322,11 +322,11 @@ example as the classification outcome.
 
 \subsection{Body rollover counts \label{sec:bodyrollover}}
 
-Under normal circumstances, people usually rollover their body around 20-45 times a night. The main function of body rollovers is simply to
-maintain a comfortable sleeping position as maintaining the same position for prolonged period will result in muscular tension due to
-hindered blood supply, which can also lead to local numbness~\cite{rollover2014}. So body rollover is another key indicator about the sleep
-quality. {\systemname} can detect the number of body rollovers, which can get some reflections of sleep status and the roll-over frequency
-can also help us to classify the sleep stage~\cite{rollover2007}. In general, there are six cases: four posture transition cases between
+Normally, people roll their body around 20-45 times a night. The main function of body rollovers is simply to
+maintain a comfortable sleeping position as maintaining the same position for a prolonged period will result in muscular tension due to
+hindered blood supply, which can also lead to local numbness~\cite{rollover2014}. Hence, body rollovers are another key indicator about sleep
+quality. \nt{{\systemname} detects the number of body rollovers, which provides cues about sleep quality, and roll-over frequency which
+can help to classify current sleep stage~\cite{rollover2007}}. In general, there are six cases: four posture transition cases between
 the supine posture and lateral (left or right) posture, and two posture transitions between the left lateral posture and right lateral
 posture. Fig. \ref{fig:BodyRollover} shows the case when the body moves from the left side to the right side.
 %
