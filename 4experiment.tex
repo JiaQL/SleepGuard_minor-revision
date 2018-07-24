@@ -470,13 +470,16 @@ For the above four items, each one is rated on a 1 to 5 scale. These scores are 
 In Table \ref{tab:quality}, we show the mean sleep quality score across 14 days given by each user together the estimations produced by
 \systemname and Fitbit. \rt{We also give the standard deviation of the scores across the 14-day period per user. This number is given in
 the brackets next to the mean score.} \rt{The last two rows in Table~\ref{tab:quality} compare the estimation given by \systemname and
-Fitbit against the user self-rating score. In these two specific rows, a label of `P' indicates the estimated score perfectly matches the
+Fitbit against the user self-rating score. In these two specific rows, a label of `P' indicates an estimated score perfectly matches the
 user score, a label of `O' means the estimation error is within one scale point (for example, \systemname rates the user sleep to be
-excellent while the user's self-rating is good), and a label of `B' suggests the estimation error is greater than a scale point. As can be
+excellent while the user's self-rating is good), and a label of `B' indicates the estimation error is greater than a scale point. As can be
 seen from the table, the estimation given by \systemname is more likely to match the user's self-rating compared to Fitbit (as indicating
-by having more `P' labels - 9 vs 6 ) and, unlike Fitbit, the estimation error given by \systemname is never greater than one scale point. 
-To further validate this, we calculated the Spearman $\rho$-correlation between the user scores and each of the two systems, \systemname and Fitbit. \systemname provides higher correlation coefficient ($\rho = 0.842$) than Fitbit ($\rho = 0.500$). The difference in correlation was found statistically significant using an one-tailed test carried out through a Fisher r-z transformation ($Z = 1.66, p < 0.05$).  In summary, \systemname thus gives a better sleep quality assessment
-compared to Fitbit in our evaluation.}
+by having more `P' labels - 9 vs 6 ) and, unlike Fitbit, the estimation error given by \systemname is never greater than one scale point.
+To further validate this, we calculated the Spearman $\rho$-correlation~\cite{richardson2015nonparametric} between the user scores and each
+of the two systems, \systemname and Fitbit. \systemname provides higher correlation coefficient ($\rho = 0.842$) than Fitbit ($\rho =
+0.500$). The difference in correlation was found statistically significant using an one-tailed test carried out through a Fisher r-z
+transformation ($Z = 1.66, p < 0.05$).  In summary, \systemname thus gives a better sleep quality assessment compared to Fitbit in our
+evaluation.}
 
 While the results above demonstrate that \systemname is capable of accurately estimating sleep quality, the main benefit from \systemname
 compared to previous works is not its sleep quality performance but its capability to analyse and capture the {\em root cause} of sleep
