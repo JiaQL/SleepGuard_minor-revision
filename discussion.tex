@@ -7,16 +7,15 @@ would need to be addressed in our system before larger-scale deployment would be
 discuss possible ways to overcome them.
 
 
-\cparagraph {The accuracy of sleep stage detection} \rt{In our experiment, we do not directly compare \systemname against medical-grade
-      solutions for sleep stage detection.} If it was compared with polysomnography-based sleep stage detection, the accuracy of {\systemname} will
-      be lower and will be rather difficult to achieve comparable performance. This is because polysomnography monitors and analyzes sleep
+\cparagraph {The accuracy of sleep stage detection} \rt{In our experiment, we were unable to directly compare \systemname against medical-grade
+      solutions for sleep stage detection due to lack of suitable clinical environment and expertise.} However, we would expect polysomnography to provide better sleep stage detection performance. This is because polysomnography monitors and analyzes sleep
       based on information that directly correlates with sleep such as EEG, EMG, EOG, and oxygen saturation, whereas {\systemname}
       estimates sleep quality from cues that have an indirect effect on sleep quality. In particular, \systemname only combines the body
       movement, acoustic events, sleep environment and other events during sleep to predict the sleep stage. Therefore, {\systemname} is
       not a replacement for professional medical equipment for high-precision sleep detection, but serves as a personal technology that
       provides easy-to-use and non-intrusive way to monitor personal sleep patterns and to obtain feedback about the sleep quality.
       Moreover, it can trace back to the real causes affecting sleep quality, and guide users to have the direction to improve sleep
-      quality. \rt{Nonetheless, in future work, we plan to compare \systemname against a polysomnography-based solution.}
+      quality. \rt{Nonetheless, in future work, we strive to perform further studies and compare \systemname against a polysomnography-based solution.}
 
 \cparagraph{Battery life} A critical design requirement for sleep detection is that the monitoring can operate sufficiently long to
       cover the entire duration of the user's sleep. Battery capacity on smartwatches is rather limited, resource consumption needs to be
