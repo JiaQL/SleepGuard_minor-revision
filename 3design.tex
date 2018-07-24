@@ -126,9 +126,9 @@ when we use the direction sensor, we must limit the pillow orientation remaining
 north). In fact, this assumption can be easily satisfied since most people usually have fixed sleep directions.
 
 
-\subsubsection{Hand Position Recognition\label{sec:handpr}}
+\subsubsection{Hand position recognition\label{sec:handpr}}
 
-Hand position during sleep can disclose potential health problems, and an improper hand position can even result in health issues~
+The hand position during sleep can disclose potential health problems, and an improper hand position can even result in health issues~
 \cite{position2014}. For instance, placing the hand on the abdomen may indicate discomfort whereas placing the hand on the chest can
 increase the likelihood of nightmares due to long-term pressure on the heart. Similarly, placing the hand on the head can put excess
 pressure on shoulder nerves and cause arm pain as blood flow is restricted. This can lead to eventual nerve damage, with symptoms including
@@ -254,7 +254,7 @@ classifier to make a binary decision to determine if the hand is placed on the a
 (see Fig.~\ref{Bodyhand} b and c). \nt{On the other hand, if no respiratory peak is detected, we assume the hand to be located at another place on the body that is not supported. } Similarly to the head position model, the training samples for the kNN model are also collected from our pilot
 study users -- where each training example includes the rotation angle readings when the hand is either placed on the abdomen or the chest.
 
-\subsubsection{Labeling REM/non-REM Stages}
+\subsubsection{Labeling REM/non-REM stages}
 
 We have also found that the extent of body movements can be used to judge the amplitude of respiration, which in turns allows us to detect
 rapid-eye-movement (REM) and non-rapid-eye-movement (NREM) stages. This is based on a prior study showing that when people sleep in the
@@ -274,7 +274,7 @@ accelerometer fluctuations caused by respiration varies. Hence, we cannot use th
 amplitude directly. This problem is illustrated in Fig.~\ref{fig:breath_ok1}, where (a) and (b) contain triaxial acceleration measurements
 at different locations of the abdomen during REM sleep stage, and in (c) which consists of acceleration data for NREM stages at the same
 approximate position as in (a). \nt{We can see that when the hand is on the abdomen, but the location differs, we cannot directly judge the respiratory amplitude from the amplitude of the three accelerometer axes.}
-e can 
+e can
 \begin{figure}[!t]
 \centering
       \includegraphics[width=0.67\linewidth]{Figures/watch.pdf}
@@ -332,7 +332,7 @@ example as the classification outcome.
 %
 
 
-\subsection{Body rollover counts \label{sec:bodyrollover}}
+\subsection{Body Rollover Counts \label{sec:bodyrollover}}
 
 Normally, people roll their body around 20-45 times a night. The main function of body rollovers is simply to
 maintain a comfortable sleeping position as maintaining the same position for a prolonged period will result in muscular tension due to
@@ -398,7 +398,7 @@ between two time points. Note that {\systemname} not only counts the number of r
 rollover event.
 
 
-\subsection{Detecting micro-body movements \label{sec:microbo}}
+\subsection{Detecting Micro-body Movements \label{sec:microbo}}
 
 Besides major body movement, such as rollovers, there often are involuntary body movements that can affect sleep quality. With the deepening of sleep, limbs are extremely relaxed, and a little stimulus will produce trembling and micro beating. Such behavior is most likely to occur during the deep sleep stage and the REM stage~\cite{ancoli2003role,Jean2000Sleep}. Therefore, by detecting such micro body movements and distinguish them from large body movements can help us to further analyze the user's sleep stage. In this paper, we are interested in the sleep-related body movements including hand moving, arm raising, and body trembling.
 
@@ -622,7 +622,7 @@ smartwatch; (ii) whether the light intensity maintains stable after the sharp dr
 light intensity as the intensity of the time period. It should be noted that, because the illumination condition detection algorithm is
 relatively simple, it is not explained in the experimental part.
 
-\subsection{Sleep stage and quality}
+\subsection{Sleep Stage and Quality}
 
 Sleep is generally considered as a cyclical physiological process composed of three stages: rapid eye movement (REM) stage, light sleep stage and deep sleep stage. REM is an active period of sleep marked by intense brain activities and dream occurrence. Light sleep stage is a period of relaxation, when the heartbeat, breathing rate and muscle activity slow down. Deep sleep stage triggers hormones to promote body growth, as well as the repair and restoration of energy.  The biological characteristics of different sleep stages exhibit distinguishingly. In clinical sleep study, the sleep stages are mainly identified by simultaneously evaluating three fundamental measurement modalities including brain activities, eye movements, and muscle contractions. The EEG measure using electrodes placed around the scalp interpret various sleep/wake states of the brain. And, EMG and EOG using electrodes placed on the skin near the eyes and on the muscles, respectively, measures in deeply differentiating REM stage from all the other stages. But, apart from the implicit physiological activities, sleepers usually exhibit distinguishable physical activities in different sleep stages. For example, there are somniloquy and body trembles caused by frequent dreams generally appear in REM, large body movements such as body rollovers and arm raising happen in light sleep and micro body movements such as body trembling and snoring occur in deep sleep.  In the meanwhile, the breathing amplitude in NREM stage is larger compared with the REM stage. Moreover, sleep cycle usually repeats four to six times over a night. The sleeper usually experiences a transition from light sleep to deep sleep and then enters REM, but sometimes there is also possible a phenomenon of skipping some certain sleep stages occurs during sleep. However, despite this, dependence between two successive sleep stages still exists and different sleep stages have potential conversion probabilities, which also mentioned in Sleep Hunter \cite{gu2016sleep}.
 

@@ -5,10 +5,24 @@ In this section, we detail the evaluation results for our system.
 We focus on the detection accuracy about five events, that are body posture, the body rollover, the hand position, the micro body movement and the acoustic events.
 %, the classification of micro body movement
 
-\subsubsection{Sleep Posture Classification Performance}
+\subsubsection{Sleep posture classification performance}
 \label{subsub:bodyposture}
 
-We first test the overall classification performance of different body postures. The ground truth of body postures are recorded by the cameras. To avoid biases in evaluation, and to assess the generalization performance of our approach, we consider a cross-validation scheme where all data from a single participant is used for training and data from the remaining $14$ participants is used for testing. The motivation for using data from a single user as training data is to highlight the capability of \systemname to accurately characterize body posture with very little training data, while at the same time being able to generalize across users.  The final performance is then calculated as the averaged accuracy across the 15 folds; as shown in Fig.~\ref{fig:posture_zhu} and Table \ref{tab:posture}. We can observe that the posture detection accuracy is consistently high across all users, and does not show major variations across users. This good performance benefits from the distinct characteristics of arm position under different sleeping postures. Compared to results reported for SleepMonitor~\cite{sleepmonitor}, \systemname consistently improves performance which is mainly due to the template-based classifier that we use to verify classifications of the prone and supine states. In particular, \systemname achieves around $5$ percentage units higher performance on the prone state than SleepMonitor and overall has a lower false positive rate. In terms of errors, due to angular characteristics of acceleration being similar between the supine posture with hand putting on the head and the left-lateral posture, a small amount of the supine postures are classified as left lateral. From the results we can also observe that the total amount of the prone posture is smaller than the number of other postures, which suggests that people are not accustomed to sleep in this position, because it is neither healthy nor comfortable.%
+We first test the overall classification performance of different body postures. The ground truth of body postures are recorded by the
+cameras. To avoid biases in evaluation, and to assess the generalization performance of our approach, we consider a cross-validation scheme
+where all data from a single participant is used for training and data from the remaining $14$ participants is used for testing. The
+motivation for using data from a single user as training data is to highlight the capability of \systemname to accurately characterize body
+posture with very little training data, while at the same time being able to generalize across users.  The final performance is then
+calculated as the averaged accuracy across the 15 folds; as shown in Fig.~\ref{fig:posture_zhu} and Table \ref{tab:posture}. We can observe
+that the posture detection accuracy is consistently high across all users, and does not show major variations across users. This good
+performance benefits from the distinct characteristics of arm position under different sleeping postures. Compared to results reported for
+SleepMonitor~\cite{sleepmonitor}, \systemname consistently improves performance which is mainly due to the template-based classifier that
+we use to verify classifications of the prone and supine states. In particular, \systemname achieves around $5$ percentage units higher
+performance on the prone state than SleepMonitor and overall has a lower false positive rate. In terms of errors, due to angular
+characteristics of acceleration being similar between the supine posture with hand putting on the head and the left-lateral posture, a
+small amount of the supine postures are classified as left lateral. From the results we can also observe that the total amount of the prone
+posture is smaller than the number of other postures, which suggests that people are not accustomed to sleep in this position, because it
+is neither healthy nor comfortable.%
 
 \begin{figure}
 	\centering
@@ -229,7 +243,7 @@ To study the detection accuracies of different acoustic events, we compare the g
 \end{table}
 
 
-\subsection{Overall performance \label{sec:overall_per}}
+\subsection{Overall Performance \label{sec:overall_per}}
 
 \subsubsection{Performance of sleep stage detection}
 
@@ -453,7 +467,7 @@ to target smartwatches. }
 
 
 
-\subsubsection{User Survey}
+\subsubsection{User survey}
 \label{sec:user_survey}
 
 To understand and verify how the additional information captured by \systemname supports users, at the end of the experiments the participants were administrated a survey to the participants asking about their experiences with \systemname and their personal sleeping patterns. We combine these results with the subjective sleep quality estimates obtained through the PSQI questionnaires administered during the study. We considered two groups of users in our survey. As the main source of information we consider the $15$ participants of our experiments who were asked about their experiences with \systemname, their subjective sleep quality assessment, and details of their personal sleep patterns. This set of users was augmented with external participants who were asked about their interested in the events that \systemname is capable of detecting.  The questions in our survey include:
