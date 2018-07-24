@@ -30,7 +30,7 @@ We first test the overall classification performance of different body postures.
 	%\renewcommand\arraystretch{0.277}
 	%\caption{The confusion matrix of body posture classification.}\label{tab:posture}
 	%\noindent\makebox{%
-	%\begin{tabular}{1\textwidth}{ c | c | c | c | c | c | c}
+	%\begin{tabularx}{1\textwidth}{ c | c | c | c | c | c | c}
 	\renewcommand\arraystretch{0.3}
 	\caption{The confusion matrix of body posture classification.}\label{tab:posture}
 	\begin{tabular}{c| c | c | c | c | c | c}
@@ -472,7 +472,7 @@ As for the user experience, results from the survey highlighted a strong interes
 \begin{table} \tiny%\scriptsize%\footnotesize
   \centering
   \caption{Results of sleep quality assessments.}\label{tab:quality}
-\begin{tabular}{l cccccccccccccccc }
+\begin{tabularx}{\textwidth}{X cccccccccccccccc }
         \toprule
          \textbf{User ID} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\
          \midrule
@@ -482,7 +482,7 @@ As for the user experience, results from the survey highlighted a strong interes
          User score matching (\systemname) & P&O&P&O&P&P&P&O&O&P&P&O&O&P&P\\
          \rowcolor{Gray} User score matching (Fitbit) & P&O&P&P&O&O&O&\textbf{B}&O&P&P&O&\textbf{B}&O&P     \\
          \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 
