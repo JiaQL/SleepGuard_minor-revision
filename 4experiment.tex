@@ -4,7 +4,7 @@ In this section, we detail the evaluation results for our system.
 \subsection{Evaluation of Subcomponents}
 We focus on the detection accuracy about five events, that are body posture, the body rollover, the hand position, the micro body movements and the acoustic events.
 
-\subsubsection{Sleep posture classification performance}
+\subsubsection{Sleep Posture Classification Performance}
 \label{subsub:bodyposture}
 
 We first test the overall classification performance of different body postures. The ground truth of body postures is recorded by the cameras. To avoid biases in the evaluation, and to assess the generalization performance of our approach, we consider a cross-validation scheme where all data from a single participant is used for training and data from the remaining $14$ participants is used for testing. The motivation for using data from a single user as training data is to highlight the capability of {\systemname} to accurately characterize body posture with very little training data, while at the same time being able to generalize across users. The final performance is then calculated as the averaged accuracy across the 15 folds; as shown in Fig.~\ref{fig:posture_zhu} and Table \ref{tab:posture}. We can observe that the posture detection accuracy is consistently high across all users, and does not show major variations across users. This good performance benefits from the distinct characteristics of arm position under different sleeping postures. Compared to results reported for SleepMonitor~\cite{sleepmonitor}, {\systemname} consistently improves performance which is mainly due to the template-based classifier that we use to verify classifications of the prone and supine states. In particular, {\systemname} achieves around $5$ percentage units higher performance on the prone state than SleepMonitor and overall has a lower false positive rate. In addition, {\systemname} considers more hand positions than SleepMonitor in 4 sleeping postures. In terms of errors, due to angular characteristics of acceleration being similar between the supine posture with the hand putting on the head and the left-lateral posture, a small amount of the supine postures are classified as left lateral. From the results, we can also observe that the total amount of the prone posture is smaller than the number of other postures, which suggests that people are not accustomed to sleeping in this position because it is neither healthy nor comfortable.
@@ -70,7 +70,7 @@ We first test the overall classification performance of different body postures.
 \end{table}
 
 
-\subsubsection{Performance of body rollover counting}
+\subsubsection{Performance of Body Rollover Counting}
 To verify the efficiency of body rollover detection algorithm, we compare each user's body rollover events detected by {\systemname} against the data labeled by watching the video. The performance is shown in Table \ref{tab:rollver}. We can see that User 3, User 4 and User 13 have an unusually high number of rollovers. For User 3 and User 4, they have difficulty in falling asleep due to the sleep disorder. User 13 needs to rollover frequently because of his loudly snoring. As we demonstrate in Sec.~\ref{sec:user_survey}, these participants also suffered from poor sleep quality and hence indicate how the information extracted by {\systemname} can support the detection of sleep problems. For all the 15 users, the detection accuracies are all very high, and the lowest one is still 87\%. Thus {\systemname} can accurately distinguish the large hand movement from the body rollover in bed. Moreover, detecting errors in body rollover events will not have a significant impact on our end result, because the division of sleep stages is a comprehensive consideration of all the detected features in each stage, such as micro body movement and acoustic events.
 
 \begin{table}[!thbp]\footnotesize
@@ -86,11 +86,11 @@ To verify the efficiency of body rollover detection algorithm, we compare each u
  \end{tabular}
 \end{table}
 
-\subsubsection{Performance of hand position recognition}
+\subsubsection{Performance of Hand Position Recognition}
 To test the recognition performance of different hand positions, we consider the same cross-validation scheme used for body posture detection, i.e., one user's data is used for training the classifier and the remaining 14 users' data as test data. The classifier for detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then the hand position on the chest (or abdomen or head) can be identified. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during sleep were placed on the head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15 users. As we can see that with just one set of training data, the accuracies for different users are all higher than 87\%. Therefore, our system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least four out of fifteen participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which makes him have nightmares. Those are all bad habits disrupting a good sleep. {\systemname} can report such key findings to improve the users' sleep qualities.
 
 
-\subsubsection{Performance of micro body movement detection}
+\subsubsection{Performance of Micro Body Movement Detection}
 
 To assess the detection accuracy of micro body movements, we manually label the ground truth recorded by the camera during sleep, including hand moving, arm raising, and body trembling. We also use the accelerometer embedded in the smartphone which placed on the bed to record the occurrence of micro body movements, so as to avoid missing some movements such as trembling concealed by the duvet. For the acceleration data collected by smartphone, we first smooth the acceleration along the three axes, calculate Root Sum Square (RSS) to merge them and obtain the first-order derivative of the merged acceleration. And then we use the threshold detection method to mark the occurrence of motion. Since body trembling is the easiest to be covered, we only focus on such events. So we use a smartphone to detect the occurrence of events and the classification of the event is not performed. Table~\ref{tab:micro_move} list the total number of three micro body movements for each user over the testing period of 14 days, and Fig.~\ref{fig:micro_movement_zhu} reports the accuracy of {\systemname} for detecting these micro body movements. It shows that the accuracies for all users are very close, that is, there will be no major changes between users. And from Fig. \ref{fig:micro_combine}, we find that even though the worst classification result belongs to the hand movement, the average precision value and recall value still exceed 75\%. The averaged accuracies of arm raising and body trembling are 93\% and 84\%, respectively. Because the training data volume for the hand movement and body trembling is small, so the performance can be improved by setting each user a threshold by collecting a longer term's sleeping data. In addition, the purpose of micro body movement detection is to detect different sleep stages, and the hand movement usually appears in all sleep stages, thus the poor accuracy of hand moving does not have a significant impact on the final result.
 
@@ -125,7 +125,7 @@ To assess the detection accuracy of micro body movements, we manually label the 
 \end{table}
 
 
- \subsubsection{Performance of acoustic events detection}
+ \subsubsection{Performance of Acoustic Events Detection}
 
 To study the detection accuracies of different acoustic events, we compare the ground truth recorded by the camera with the detected results by our system. Table~\ref{tab:sound} shows the results across 15 participants. We can see that the precision for the cough event is 88.9\%, which is slightly lower than for the other three event types. The reason is that different user's cough patterns are different, the pre-defined parameters in the detection model do not include all possible patterns. For example, some people have a fast and continuous pattern of coughing, while others have a slower intermittent pattern. In fact, we train these parameters, namely the "interval", "duration" and "frequency" of acoustic events, with only 120 sets of nighttime sound data. Those data come from 40 (21 males and 19 females) volunteers of different ages (from 15 to 60 years old) who are prone to snoring, coughing, or somniloquy at night. To further improve the detection accuracy, we can train particular parameters for different users. And we can further expand the training data to include more possible patterns, and can also make reasonable estimates of the possible patterns to refine the range of parameters and thus increase the accuracy.
 
@@ -179,7 +179,7 @@ To study the detection accuracies of different acoustic events, we compare the g
 
 \subsection{Overall Performance \label{sec:overall_per}}
 
-\subsubsection{Performance of sleep stage detection}
+\subsubsection{Performance of Sleep Stage Detection}
 
 In order to prove that the detected events not only reflect the user's sleep habits, but also effectively identify the sleep stages to assess the sleep quality, we regard the reported results from Fitbit Charge2 as the ground truth. To perform the evaluation, we randomly choose $50$ sets of sleep data from the data so that at least $3$ sets per participant are chosen for evaluation. For detecting changes in sleep stage, {\systemname} uses event-driven detection. When there is no sleep event detected in 15 minutes, we evaluate the sleep stage. When an event occurs, we immediately evaluate the sleep stage and use this time as the starting point for the next 15 minutes. The averaged precision value and recall value are shown in Table~\ref{tab:sleep stage}. It indicates that though {\systemname} may make misjudgment between the light sleep and REM, overall the performance is satisfying and comparable to current consumer-grade monitors. Moreover, as we later demonstrate, the main benefits of {\systemname} result from its capability to estimate a wide range of sleep events and how they relate to sleep quality, not from its performance in sleep stage detection where medical PSG measurements are required for accurate assessment of sleep stages.
 
@@ -224,7 +224,7 @@ In order to prove that the detected events not only reflect the user's sleep hab
 	\end{tabular}
 \end{table}
 
-\subsubsection{Effect of respiratory amplitude on sleep stage detection}
+\subsubsection{Effect of Respiratory Amplitude on Sleep Stage Detection}
 
 When we detect different sleep stages, we also consider the respiratory amplitude when the hand's position is in the abdomen or chest. To assess the effectiveness of respiratory amplitude estimation, we evaluate the performance of the sleep stage detection in two cases, that is with and without taking the respiration amplitude into account. The performance of sleep stage detection is shown in Table~\ref{tab:respiratory}. For three different sleep stages, both the precision and recall values are improved with the help of respiratory amplitude estimation. In fact, the respiratory frequency can also be used as a feature to help us to detect sleep stages. But in fact their essence the same. The difference in respiratory amplitude will also affect the difference in respiratory frequency, because when the respiratory amplitude is large, the time taken for one breath will be long, and the frequency of breathing will be slower. In {\systemname}, we choose the respiratory amplitude because the feature is very intuitive.
 
@@ -304,7 +304,7 @@ When we detect different sleep stages, we also consider the respiratory amplitud
  	\end{tabular}
  \end{table}
 
-\subsubsection{Performance comparison}
+\subsubsection{Performance Comparison}
 
 We compare {\systemname} with two state-of-the-art sleep monitoring applications. The first is a sleep detection app called ``Sleep As Android", and the second one is a smartphone-based system named Sleep Hunter~\cite{gu2016sleep}. The former app is designed to estimate sleep time and assess sleep by recording the state of motions and the number of body exercises. The latter focuses on estimating sleep stages and evaluate the sleep quality using the tracked sleep-related events. Considering that Sleep As Android can only detect light sleep stage and deep sleep stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results. As we can see, {\systemname} significantly outperforms Sleep As Android and deliver better performance than Sleep Hunter. The performance advantage of {\systemname} comes from the incorporation of rich and complicated sleep events.
 
@@ -408,7 +408,7 @@ For body movement detection, applying the algorithms employed by Sleep Hunter to
 This experiment confirms that the algorithms used by Sleep Hunter for sleep event and stage detection are not tuned for the smartwatch. Compared to Sleep Hunter, {\systemname} can detect sleep events and stages with a higher accuracy using a set of carefully designed methods target to target smartwatch.
 
 
-\subsubsection{User survey}\label{sec:user_survey}
+\subsubsection{User Survey}\label{sec:user_survey}
 
 To understand and verify how the additional information captured by {\systemname} supports users, at the end of the experiments the participants are administrated a survey to the participants asking about their experiences with {\systemname} and their personal sleeping patterns. We combine these results with the subjective sleep quality estimates obtained through the PSQI questionnaires administered during the study. We considered two groups of users in our survey. As the main source of information, we consider the $15$ participants in our experiments who were asked about their experiences with {\systemname}, their subjective sleep quality assessment, and details of their personal sleep patterns. This set of users was augmented with external participants who were asked about their interested in the events that {\systemname} is capable of detecting. The questions in our survey include:
 \begin{enumerate}

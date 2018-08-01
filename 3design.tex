@@ -33,7 +33,7 @@
 One's sleeping position, referred to as {\em sleep posture}, and the extent of body movements are important factors in determining overall sleep quality. Suboptimal posture has been shown to affect the severity of sleep disorders and is widely used in medical diagnoses to analyze effects of sleep disorders~\cite{oksenberg1998effect,eiseman2012impact} while having a good sleep posture has been shown to correlate with subjective assessments of sleep quality~\cite{dekoninck83sleep}. Similarly, the high degree of body movements during sleep likely reflects restlessness, which results in poor sleep quality. {\systemname} uses motion sensors (accelerometer, gyroscope, and orientation sensor) to capture the user's sleep posture and habits. In the following, we detail the techniques we use for capturing the body posture and movements.  {\systemname}, currently supports the 4 basic sleep postures (see Fig.~\ref{fig:BodyPosture}); 3 hand positions (see Fig.~\ref{fig:HandPosition}); 6 types of body rollovers (see Fig.~\ref{fig:BodyRollover} for an example); and 3 types of body micro movements.
 
 
-\subsubsection{Sleep posture detection}\label{sec:sleeppdet}
+\subsubsection{Sleep Posture Detection}\label{sec:sleeppdet}
 
 Dreaming and sleep quality are associated with underlying brain functions, which in turn are affected by body posture~\cite{posture2004}. Sleep posture also varies across individuals and should fit personal and physical needs of the individual~\cite{posture2016,posture2017}. For example, sleeping in a prone position is unsuitable for people with ailments, such as heart disease or high blood pressure. On the other hand, people can \nt{unconsciously} avoid postures that would be beneficial for health and sleep quality~\cite{posture2015}. Having an effective way to detect current posture and track changes in it would thus be essential for estimating overall sleep quality, and avoiding potential harm. {{\systemname} captures four basic sleep postures: supine, left lateral, right lateral, and prone. These are illustrated in} Fig.~\ref{fig:BodyPosture}. Detecting these postures using a single wrist sensor, however, is non-trivial because the
 sensor cannot accurately track movement of the entire body. To accomplish posture detection, we observe that the arm position strongly correlates \nt{with} sleep posture, i.e., the arm is typically located in a specific, stable location for a given posture. This  suggests that we can first identify the user's arm position and the {\em time the position is approximately stable, which can then be mapped into} a sleep posture. Later in this paper, we show that our approach \nt{achieves} high accuracy in identifying sleep postures.
@@ -68,7 +68,7 @@ Like to SleepMonitor~\cite{sleepmonitor}, we use \nt{three dimensional tilt angl
 To improve detection accuracy between supine and prone postures, {\systemname} integrates orientation data as an auxiliary feature. This is \nt{motivated by the observation that hand directions differ in supine and prone positions}. When the result of the previous step is prone or supine and hand is detected to be located next to the body, we combine the tilt angle with three axes data obtained from the direction sensor as a new feature, and classify these postures using a template-based distance matching approach. Specifically, we return the position corresponding to the template with minimum Euclidean distance with current sensor measurements as the user's posture. When we use the direction sensor, we must limit the pillow orientation remaining unchanged (in the experiment our pillow is placed on the north). In fact, this assumption can be easily satisfied since most people usually have fixed sleep directions.
 
 
-\subsubsection{Hand position recognition\label{sec:handpr}}
+\subsubsection{Hand Position Recognition\label{sec:handpr}}
 
 The hand position during sleep can disclose potential health problems, and an improper hand position can even result in health issues~\cite{position2014}. For instance, placing the hand on the abdomen may indicate discomfort whereas placing the hand on the chest can increase the likelihood of nightmares due to long-term pressure on the heart. Similarly, placing the hand on the head can put excess pressure on shoulder nerves and cause arm pain as blood flow is restricted. This can lead to eventual nerve damage, with symptoms including a tingling sensation and numbness \cite{position2014}.
 
@@ -121,7 +121,7 @@ To examine if the accelerometer data are affected by the respiration, we calcula
 \nt{Putting things together, we thus first use the PSD detector to identify whether a respiratory event is taking place. When respiratory events are detected, we }then use again a kNN classifier to make a binary decision to determine if the hand is placed on the abdomen or the chest based on the rotation angle readings (see Fig.~\ref{Bodyhand} b and c). \nt{On the other hand, if no respiratory peak is detected, we assume the hand to be located at another place on the body that is not supported. } Similarly to the head position model, the training samples for the kNN model are also collected from our pilot
 study users -- where each training example includes the rotation angle readings when the hand is either placed on the abdomen or the chest.
 
-\subsubsection{Labeling REM/non-REM stages}
+\subsubsection{Labeling REM/non-REM Stages}
 
 We have also found that the extent of body movements can be used to judge the amplitude of respiration, which in turns allows us to detect rapid-eye-movement (REM) and non-rapid-eye-movement (NREM) stages. This is based on a prior study showing that when people sleep in the REM stage, their respiratory amplitude is smaller than that in the other stages~\cite{respiratory1982}. Hence, we can roughly determine the user's current sleep stage based on the respiratory amplitude. Respiratory amplitude is only an indicator of the division of the sleep stage and we can not regard it as a basis for final judgement. \nt{However, it serves as an early reference that helps later phases of the sleep stage detection. Normally chest movement amplitude is smaller than abdominal movement amplitude. However, during in different sleep stages, respiration amplitudes differ~\cite{respiratory}. Hence, it is likely that there is a situation where chest movement amplitude in the NREM stages is close to the abdominal movement amplitude in the REM sleep stage. As a result, a naive solution of applying a threshold cannot work satisfactorily but we can combine it with the position of hand detected earlier. Through the above steps, we have been able to determine whether the hands are on the chest or abdomen, and then we can go further to determine the extent of breathing according to the degree of up and down motions, from which we can approximately infer the current sleep stage}. Now we take the case of hands on the abdomen as an example.
 
@@ -252,7 +252,7 @@ Acoustic events during sleep, such as snore, cough and somniloquy, can reflect a
 \end{figure*}
 
 
-\subsubsection*{Acoustic feature calculation}
+\subsubsection*{Acoustic Feature Calculation}
 In order to identify different acoustic events accurately, we select the short-term average energy and the zero-crossing rate as two features. The short-term average energy of acoustic signal is computed as:
 \begin{equation}
   E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
@@ -264,7 +264,7 @@ $N$ is the window length, $x$ is the signal and $\omega$ is the impulse response
 It indicates the number of times, which the acoustic signal waveform passes through the horizontal axis (zero level). We carry out an interesting recognition experiment using the microphone built in smartwatch to detect the sound of people during sleep and effectively identify different acoustic events. We focus on three common acoustic events: snore, cough and somniloquy. Ten volunteers worn the smartwatches during sleep to record the acoustic data. We manually label the data with different acoustic events. Fig. \ref{acoustic} shows the acoustic characteristics of  three events. There are six times snore event, two consecutive cough event and somniloquy event.
 
 
-\subsubsection*{Acoustic event recognition}
+\subsubsection*{Acoustic Event Recognition}
  At the beginning, the algorithm divides the audio stream into frames with equal durations. Each frame is composed of 256 samples, and its duration is 12 ms. To identify the three common acoustic events, we introduce an acoustic recognition algorithm based on the following key observations:
 
  \begin{itemize}[itemsep=1mm,nolistsep]
