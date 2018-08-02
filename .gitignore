@@ -255,4 +255,6 @@ main.aux
 main.bbl
 main.blg
 DUDe_eICIC_SWIPT.pdf
-SleepGuard.pdf
+main.synctex.gz
+*.m
+main.synctex.gz
