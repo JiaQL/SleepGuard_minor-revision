@@ -1,0 +1,71 @@
+\documentclass[acmlarge]{acmart}
+
+\input{preamble.tex}
+
+
+\begin{document}
+
+\title{\systemname: Capturing Rich Sleep Information Using Smartwatch Sensing Data}
+%\titlenote{We can add a note to the title}
+
+%% Uncomment  this part at the final submission
+\author{Liqiong Chang, Jiaqi Lu, Ju Wang}
+\author{Xiaojiang Chen}\authornote{This is the corresponding author}
+\author{Dingyi Fang, Zhanyong Tang}
+\orcid{1234-5678-9012-3456}
+\affiliation{
+	\institution{Northwest University}
+	\country{China}} \email{{clq, jqlu, wangju, xjchen, dyf, zytang}@nwu.edu.cn}
+
+\author{Petteri Nurmi$^{\dag\ddag}$}
+\affiliation{
+	\institution{Lancaster University$^{\dag}$}
+	\country{United Kingdom},
+  \institution{University of Helsinki$^{\ddag}$}
+	\country{Finland}} \email{{p.nurmi}@lancaster.ac.uk}
+
+\author{Zheng Wang}
+\affiliation{
+	\institution{University of Helsinki}
+	\country{United Kingdom}} \email{{z.wang}@lancaster.ac.uk}
+
+%NOTE: This is supposed to be anonymous review.
+
+\begin{abstract}
+Sleep is an important part of our daily routine -- we spend about one-third of our time doing it. By tracking sleep-related events and activities, sleep monitoring provides decision support to help us understand sleep quality and  causes of poor sleep. Wearable devices provide a new way for sleep monitoring, allowing us to monitor sleep from the comfort of our own home. However, existing  solutions do not take full advantage of the rich sensor data provided by these devices. In this paper, we present the design and development of {\systemname}, a novel approach to track a wide range of sleep-related events using smartwatches. We show that using merely a single smartwatch, it is possible to capture rich amount of information about sleep events and sleeping context, including body posture and movements, acoustic events, and illumination conditions. We demonstrate that through these events it is possible to estimate sleep quality and identify factors affecting it most. We evaluate our approach by conducting extensive experiments involved fifteen users across a 2-week period. Our experimental results show that our approach can track a richer set of sleep events, provide better decision support for evaluating sleep quality, and help to identify causes for sleep problems compared to prior work. We also show that {\systemname} can help users to improve their sleep quality by helping them to understand root causes of sleep problems.
+\end{abstract}
+
+
+\begin{CCSXML}
+	<ccs2012>
+	<concept>
+	<concept_id>10003120.10003138</concept_id>
+	<concept_desc>Human-centered computing~Ubiquitous and mobile computing</concept_desc>
+	<concept_significance>500</concept_significance>
+	</concept>
+	</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Human-centered computing~Ubiquitous and mobile computing}
+
+\keywords{Smartwatch, Sleep Events, Sensing}
+
+\thanks{This work is partially supported by the xxx.}
+
+\maketitle
+
+\renewcommand{\shortauthors}{L. Chang et al. }
+
+
+\input{1introduction.tex}
+\input{2design.tex}
+\input{3setup}
+\input{4experiment.tex}
+\input{5discussion.tex}
+\input{6related.tex}
+\input{7conclusions}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sleep_ref}
+
+\end{document}
