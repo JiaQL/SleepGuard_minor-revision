@@ -27,22 +27,22 @@ We first test the overall classification performance of different body postures.
 	\centering
 	\renewcommand\arraystretch{0.35}
 	\caption{The confusion matrix of body posture classification.}\label{tab:posture}
-	\begin{tabular}{c| c | c | c | c | c | c}
+	\begin{tabular}{c| r | r | r | r | r | r}
 		\cline{1-7}
 		&\multicolumn{1}{ c|}{ }
 		& \multicolumn{4}{ c|}{ }\\
 		\multirow{2}*{}
-		&\multicolumn{1}{c|}{\multirow{2}*{{Result}}}
-		&\multicolumn{4}{c|}{{Prediction}}
-		& \multirow{4}*{{Recall}} \\
+		&\multicolumn{1}{c|}{\multirow{2}*{{\textbf{Result}}}}
+		&\multicolumn{4}{c|}{{\textbf{Prediction}}}
+		& \multirow{4}*{{\textbf{Recall}}} \\
 		\cline{3-6}
 		& & & & & \\
 		\multicolumn{1}{c|}{{}}
 		&  \multicolumn{1}{c|}{{}}
-		&  \multicolumn{1}{c|}{{Supine}}
-		&  \multicolumn{1}{c|}{{Left Lateral}}
-		&  \multicolumn{1}{c|}{{Right Lateral}}
-		&  \multicolumn{1}{c|}{{Prone}}   \\
+		&  \multicolumn{1}{l|}{{Supine}}
+		&  \multicolumn{1}{l|}{{Left Lateral}}
+		&  \multicolumn{1}{l|}{{Right Lateral}}
+		&  \multicolumn{1}{l|}{{Prone}}   \\
 		& & & & & \\
 		\cline{1-7}
 		& & & & & \\
@@ -77,12 +77,12 @@ To verify the efficiency of body rollover detection algorithm, we compare each u
   \caption{Detection accuracy of body rollover.}\label{tab:rollver}
   \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{0.67}{\multirowsetup}{\centering}
-        \begin{tabular}{cccccccccccccccc}
+        \begin{tabular}{lccccccccccccccc}
         \toprule
          \textbf{Testing User ID}    & 1& 2  & 3& 4& 5& 6& 7& 8& 9& 10& 11& 12& 13& 14& 15\\
         \midrule
-             {Labeled \#body rollover}  &231&204&442&397&198&101&196&164&193&208&131&205&342&149&156 \\
-                 { Accuracy} &91\%& 94\% &88\%&93\%&96\%&94\%&87\%&90\% &93\% &94\% &92\% &94\% &89\% &90\% &95\%\\
+            \rowcolor{Gray} {Labeled \#body-rollover}  &231&204&442&397&198&101&196&164&193&208&131&205&342&149&156 \\
+                 {Accuracy} &91\%& 94\% &88\%&93\%&96\%&94\%&87\%&90\% &93\% &94\% &92\% &94\% &89\% &90\% &95\%\\
         \bottomrule
  \end{tabular}
 \end{table}
@@ -135,22 +135,22 @@ To study the detection accuracies of different acoustic events, we compare the g
   \centering
  \renewcommand\arraystretch{0.35}
   \caption{The confusion matrix of acoustic events detection.}\label{tab:sound}
-\begin{tabular}{c| c | c | c | c | c | c}
+\begin{tabular}{c| r | r | r | r | r | r}
    \hline
    &\multicolumn{1}{ c|}{ }
    & \multicolumn{4}{ c|}{ }\\
    \multirow{2}*{}
-&\multicolumn{1}{c|}{\multirow{2}*{{ Result}}}
-&\multicolumn{4}{c|}{{ Prediction}}
-& \multirow{4}*{{ Recall}} \\
+&\multicolumn{1}{c|}{\multirow{2}*{{ \textbf{Result}}}}
+&\multicolumn{4}{c|}{{ \textbf{Prediction}}}
+& \multirow{4}*{{ \textbf{Recall}}} \\
     \cline{3-6}
     & & & & & \\
     \multicolumn{1}{c|}{{}}
     &  \multicolumn{1}{c|}{{}}
-    &  \multicolumn{1}{c|}{{ Snore}}
-    &  \multicolumn{1}{c|}{{ Cough}}
-    &  \multicolumn{1}{c|}{{ Somniloquy}}
-    &  \multicolumn{1}{c|}{{ Other}}   \\
+    &  \multicolumn{1}{l|}{{ Snore}}
+    &  \multicolumn{1}{l|}{{ Cough}}
+    &  \multicolumn{1}{l|}{{ Somniloquy}}
+    &  \multicolumn{1}{l|}{{ Other}}   \\
     & & & & & \\
      \cline{1-7}
     & & & & & \\
@@ -188,23 +188,23 @@ In order to prove that the detected events not only reflect the user's sleep hab
 %\setlength{\tabcolsep}{1pt}
 \renewcommand{\arraystretch}{0.55}{\centering}
 	\caption{{The confusion matrix of sleep stage detection.}}\label{tab:sleep stage}
-	\begin{tabular}{c| c | c | c | c | c}
+	\begin{tabular}{c| r | r | r | r | r}
 		\hline
 		&\multicolumn{1}{ c|}{ }
 		& \multicolumn{3}{ c|}{ }\\
 		\multirow{2}*{}
-		&\multicolumn{1}{c|}{\multirow{2}*{{ Result}}}
-		&\multicolumn{3}{c|}{{ Prediction}}
-		& \multirow{3}*{{ Recall}} \\
+		&\multicolumn{1}{c|}{\multirow{2}*{{ \textbf{Result}}}}
+		&\multicolumn{3}{c|}{{ \textbf{Prediction}}}
+		& \multirow{3}*{{ \textbf{Recall}}} \\
 		%&\multicolumn{5}{ c |}{\textbf{\small Prediction}} \\
 		% & \multicolumn{5}{ c |}{ } \\
 		\cline{3-5}
 		& & & & & \\
 		\multicolumn{1}{c|}{{}}
 		&  \multicolumn{1}{c|}{{}}
-		&  \multicolumn{1}{c|}{{ REM}}
-		&  \multicolumn{1}{c|}{{ Light Sleep}}
-		&  \multicolumn{1}{c|}{{ Deep Sleep}} \\
+		&  \multicolumn{1}{l|}{{ REM}}
+		&  \multicolumn{1}{l|}{{ Light Sleep}}
+		&  \multicolumn{1}{l|}{{ Deep Sleep}} \\
 		\cline{1-6}
 		& & & & & \\
 		\multirow{1}{*}{\begin{sideways}{{Groundtruth}}\end{sideways}}
@@ -234,7 +234,7 @@ When we detect different sleep stages, we also consider the respiratory amplitud
 	\centering
 	\renewcommand\arraystretch{0.3}
 	\caption{Effect of respiratory amplitude estimation.}\label{tab:respiratory}
-	\begin{tabular}{c| c | c | c | c | c | c| c |}
+	\begin{tabular}{l| l | r | r | r | r | r | r |}
 		\cline{2-8}
 		&\multicolumn{1}{ c|}{ }
 		&\multicolumn{2}{ c|}{ }
@@ -250,8 +250,8 @@ When we detect different sleep stages, we also consider the respiratory amplitud
 		\cline{2-8}
 		& & & & & & &\\
 		\multicolumn{1}{c|}{\textbf{}}
-		&  \multicolumn{1}{c|}{\textbf{Features}}
-		&  \multicolumn{1}{c|}{\footnotesize Precision}
+		&  \multicolumn{1}{l|}{\textbf{Features}}
+		&  \multicolumn{1}{l|}{\footnotesize Precision}
 		&  \multicolumn{1}{c|}{\footnotesize Recall}
 		&  \multicolumn{1}{c|}{\footnotesize Precision}
 		&  \multicolumn{1}{c|}{\footnotesize Recall}
@@ -275,7 +275,7 @@ When we detect different sleep stages, we also consider the respiratory amplitud
  	\centering
  	\renewcommand\arraystretch{0.3}
  	\caption{Performance of sleep stage detection comparison.}\label{tab:comparison}
- 	\begin{tabular}{c| c | c | c | c | c |}
+ 	\begin{tabular}{c| r | r | r | r | r |}
  		\cline{2-6}
  		&\multicolumn{1}{ c|}{ }
  		&\multicolumn{2}{ c|}{ }
@@ -285,7 +285,7 @@ When we detect different sleep stages, we also consider the respiratory amplitud
  		&\multicolumn{2}{c|}{\textbf{\footnotesize Deep Sleep}} \\
  		\cline{2-6}
  		\multicolumn{1}{c|}{\textbf{}}
- 		&  \multicolumn{1}{c|}{\diagbox{System}{Stage}}
+ 		&  \multicolumn{1}{l|}{\diagbox{System}{Stage}}
  		&  \multicolumn{1}{c|}{\footnotesize Precision}
  		&  \multicolumn{1}{c|}{\footnotesize Recall}
  		&  \multicolumn{1}{c|}{\footnotesize Precision}
@@ -314,16 +314,16 @@ We compare {\systemname} with two state-of-the-art sleep monitoring applications
  	\centering
  	\renewcommand\arraystretch{0.3}
  	\caption{Smartwatch based acoustic event detection comparison.}\label{tab:compare_sound1}
- 	\begin{tabular}{c| c | c | c | c | c | c | c |}
+ 	\begin{tabular}{c| r | r | r | r | r | r | r |}
  		\cline{2-8}
  		&\multicolumn{1}{ c|}{ }
  		&\multicolumn{2}{ c|}{ }
  		&\multicolumn{2}{ c|}{ }
          &\multicolumn{2}{ c|}{ }\\
  		&\multicolumn{1}{c|}{}
- 		&\multicolumn{2}{c|}{\textbf{\footnotesize Snore}}
-        &\multicolumn{2}{c|}{\textbf{\footnotesize Cough}}
- 		&\multicolumn{2}{c|}{\textbf{\footnotesize Somniloquy}} \\
+ 		&\multicolumn{2}{l|}{\textbf{\footnotesize Snore}}
+        &\multicolumn{2}{l|}{\textbf{\footnotesize Cough}}
+ 		&\multicolumn{2}{l|}{\textbf{\footnotesize Somniloquy}} \\
  		\cline{2-8}
  		\multicolumn{1}{c|}{\textbf{}}
  		&  \multicolumn{1}{c|}{\diagbox{System}{Event}}
@@ -423,6 +423,3 @@ In Table \ref{tab:quality}, we show the mean sleep quality score across 14 days 
 While the results above demonstrate that {\systemname} is capable of accurately estimating sleep quality, the main benefit from {\systemname} compared to previous works is not its sleep quality performance but its capability to analyze and capture the {\em root cause} of sleep issues. To demonstrate this, we carried out a follow-up analysis where we examined the events captured by {\systemname} for each of the six users assessing their sleep quality negatively (poor or general subjective quality, i.e., rating 0 or 1 in Table~\ref{tab:quality}). For four of the six users, we were able to find clear causes for their poor sleep. For one of the users, {\systemname} indicated difficulties in falling asleep, which was reflected in a high body rollover count. Further analysis of captured events indicated ambient noise and lighting to be most likely reasons for this participant. Another user complained of feeling of numbness in the arm after sleep. Events captured by {\systemname} showed that this was likely due to bad hand posture as the person tended to put the hand on top of the head before sleeping. The third user complained of frequent nightmares. Analysis of {\systemname} events showed that the person habitually slept on the left side, which has been shown to have the higher risk on nightmares~\cite{nightmare}, and often placed a hand on top of the chest, which creates additional pressure and can lead to nightmares. Finally, one of the users mentioned suffering from long-term snoring problems, which we also were able to detect from the events captured by {\systemname}. The events also highlighted that the person was often sleeping in the supine position, which further increases susceptibility to snoring-related problems. Existing systems are only capable of capturing some of these factors influencing sleep quality and thus they are not capable of providing a holistic view of the participant's sleep quality, whereas {\systemname} is capable of providing very detailed information about sleep events. To further demonstrate the benefits of {\systemname} compared to previous works, we asked the 15 participants to make appropriate adjustments according to our recommendations and to conduct a return visit survey three weeks later. It was found that some of the users were able to reduce symptoms and to improve their average quality of sleep based on the suggestions.
 	
 As for the user experience, results from the survey highlighted a strong interest in the information captured by {\systemname}. In particular, 80\% of participants believe that the detection of sleep posture is very necessary, showing their sleep posture can not only help people to avoid health problems caused by long-term improper sleeping posture, but also help us find out the reasons for the next day's physical discomfort, such as dizziness, muscle soreness may be due to improper sleeping posture. And there are some users are troubled by snoring. This may be due to improper sleeping posture. We map the detected snoring event and sleeping posture to suggest the user to modify his posture to a suitable posture to reduce the harm caused by long-term snoring. 60\% of the participants thought it useful to detect the hand position in supine posture, even one user mentioned that he did often have nightmares and our system found his hand was often placed on his chest, and then {\systemname} could remind him that he should take some measures to avoid such a position and thus reduce the poor sleep quality that nightmare brings. Only 20\% of participants found it useful to calculate the number of body rollover. However, detection of rollovers is useful in segmenting sleep stages. Furthermore, body rollover counts could be used to derive additional information to the user, such as how restless or peaceful the sleep has been overall.
-
-
-
