@@ -111,16 +111,14 @@ rollover, including micro body movement and acoustic events, which can offset th
 \end{table}
 
 \subsubsection{Hand Position Recognition}
-To test the recognition performance of different hand positions, we consider the same cross-validation scheme used for body posture
-detection, i.e., one user's data is used for training the classifier and the remaining 14 users' data as test data. The classifier for
-detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then the hand position on
-the chest (or abdomen or head) can be identified. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during
-sleep were placed on the head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15
-users. As we can see that with just one set of training data, the accuracies for different users are all higher than 87\%. Therefore, our
-system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least four out of fifteen
-participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which makes him have
-nightmares. Those are all bad habits disrupting a good sleep. {\systemname} can report such key findings to improve the users' sleep
-qualities.
+The classifier for detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then
+the hand position on the chest (or abdomen or head) can be identified. In our dataset, 14\%, 36\% and 22\% of the time the hand in the
+supine posture during sleep were placed on the head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of
+hand position across 15 users. As we can see that with just one set of training data, the accuracies for different users are all higher
+than 87\%. Therefore, our system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least
+four out of fifteen participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which
+makes him have nightmares. Those are all bad habits disrupting a good sleep. {\systemname} can report such key findings to improve the
+users' sleep qualities.
 
 
 \subsubsection{Micro Body Movement Detection}
