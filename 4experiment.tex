@@ -87,14 +87,14 @@ comfortable.
 
 
 \subsubsection{Body Rollover Counting}
-Table \ref{tab:rollver} reports the performance of body rollover counting. We can see that User 3, User 4 and User 13 have an unusually
-high number of rollovers. For User 3 and User 4, they have difficulty in falling asleep due to the sleep disorder. User 13 needs to
-rollover frequently because of his loudly snoring. As we demonstrate in Sec.~\ref{sec:user_survey}, these participants also suffered from
-poor sleep quality and hence indicate how the information extracted by {\systemname} can support the detection of sleep problems. For all
-the 15 users, the detection accuracies are all very high, and the lowest one is still 87\%. Thus {\systemname} can accurately distinguish
-the large hand movement from the body rollover in bed. Moreover, detecting errors in body rollover events will not have a significant
-impact on our end result, because the division of sleep stages is a comprehensive consideration of all the detected features in each stage,
-such as micro body movement and acoustic events.
+Table \ref{tab:rollver} reports the performance of body rollover counting. Three of our participants, users 3, 4 and 13, have an unusually
+high number of rollovers. For users 3 and 4, they have difficulties in falling asleep due to the sleep disorder, while user 13 needs to
+rollover frequently because of his loudly snoring. As we will demonstrate in Sec.~\ref{sec:user_survey}, these participants also suffered
+from poor sleep quality and hence indicate how the information extracted by {\systemname} can support the detection of sleep problems. For
+all the 15 users, the detection accuracies are all high with the lowest accuracy of 87\%. Therefore, {\systemname} can accurately
+distinguish the large hand movement from the body rollover. We stress the the small detection errors in body rollover events do not have a
+significant impact on our end result. This is because for sleep stage detection, we consider a multiple events in addition to body
+rollover, including micro body movement and acoustic events, which can offset the detection errors for body rollover.
 
 \begin{table}[!t]\footnotesize
   \caption{Detection accuracy of body rollover.}\label{tab:rollver}
@@ -111,7 +111,16 @@ such as micro body movement and acoustic events.
 \end{table}
 
 \subsubsection{Hand Position Recognition}
-To test the recognition performance of different hand positions, we consider the same cross-validation scheme used for body posture detection, i.e., one user's data is used for training the classifier and the remaining 14 users' data as test data. The classifier for detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then the hand position on the chest (or abdomen or head) can be identified. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during sleep were placed on the head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15 users. As we can see that with just one set of training data, the accuracies for different users are all higher than 87\%. Therefore, our system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least four out of fifteen participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which makes him have nightmares. Those are all bad habits disrupting a good sleep. {\systemname} can report such key findings to improve the users' sleep qualities.
+To test the recognition performance of different hand positions, we consider the same cross-validation scheme used for body posture
+detection, i.e., one user's data is used for training the classifier and the remaining 14 users' data as test data. The classifier for
+detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then the hand position on
+the chest (or abdomen or head) can be identified. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during
+sleep were placed on the head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15
+users. As we can see that with just one set of training data, the accuracies for different users are all higher than 87\%. Therefore, our
+system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least four out of fifteen
+participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which makes him have
+nightmares. Those are all bad habits disrupting a good sleep. {\systemname} can report such key findings to improve the users' sleep
+qualities.
 
 
 \subsubsection{Micro Body Movement Detection}
@@ -412,7 +421,14 @@ We compare {\systemname} with two state-of-the-art sleep monitoring applications
 
 We also implement the algorithms employed by Sleep Hunter and apply them to the data collected using our smartwatch. This experiment allows us to check if the better performance of {\systemname} is due to the use of a smartwatch instead of a mobile phone.
 
-For body movement detection, applying the algorithms employed by Sleep Hunter to our smartwatch data gives a comparable accuracy of around 96\% when the system only identify between drastic and small body movements. However, Sleep Hunter doesn't work when we need to detect finer-grained body movements.  {\systemname} outperforms Sleep Hunter by delivering an accuracy of drastic body movements around 90\% (see Table~\ref{tab:rollver}) and an accuracy of finer-grained body movements more than 78\% (see Fig.~\ref{fig:micro_combine}). For acoustic event detections, we apply the Sleep Hunter algorithms to detect snore, cough and somniloquy. The results in Table \ref{tab:compare_sound1} suggest that {\systemname} gives better performance over Sleep Hunter in detecting these acoustic events. Finally, we apply the sleep stage detection model used by Sleep Hunter to combine sleep-related events to identify sleep stages. The results are shown in Table \ref{tab:compare_stage1}. Again,  {\systemname} outperforms the Sleep Hunter model with a higher accuracy and recall.
+For body movement detection, applying the algorithms employed by Sleep Hunter to our smartwatch data gives a comparable accuracy of around
+96\% when the system only identify between drastic and small body movements. However, Sleep Hunter does not work when we need to detect
+finer-grained body movements.  {\systemname} outperforms Sleep Hunter by delivering an accuracy of drastic body movements around 90\% (see
+Table~\ref{tab:rollver}) and an accuracy of finer-grained body movements more than 78\% (see Fig.~\ref{fig:micro_combine}). For acoustic
+event detections, we apply the Sleep Hunter algorithms to detect snore, cough and somniloquy. The results in Table \ref{tab:compare_sound1}
+suggest that {\systemname} gives better performance over Sleep Hunter in detecting these acoustic events. Finally, we apply the sleep stage
+detection model used by Sleep Hunter to combine sleep-related events to identify sleep stages. The results are shown in Table
+\ref{tab:compare_stage1}. Again,  {\systemname} outperforms the Sleep Hunter model with a higher accuracy and recall.
 
 
 This experiment confirms that the algorithms used by Sleep Hunter for sleep event and stage detection are not tuned for the smartwatch. Compared to Sleep Hunter, {\systemname} can detect sleep events and stages with a higher accuracy using a set of carefully designed methods target to target smartwatch.
