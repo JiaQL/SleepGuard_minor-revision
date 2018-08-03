@@ -31,9 +31,9 @@ smartphone to monitor the external factors, such as the daily activity, the slee
 monitoring applications. Examples of such applications include Sleep As Android \cite{SleepAndroid}, Sleep Journal \cite{SleepJournal}, and
 YawnLog \cite{YawnLog}.
 
-Those smartphone-based systems, however, require placing the smartphone at a specifically location near to the user, which may not always
-be feasible. For example, the work presented in \cite{gu2016sleep} requires the smartphone to be placed next to the user's head, and to
-remain stationary throughout the sleeping process. Such a constraint is hard to satisfy because of body movements during the sleep.
+The aforementioned smartphone-based systems, however, require placing the smartphone at a specifically location near to the user, which may
+not always be feasible. For example, the work presented in \cite{gu2016sleep} requires the smartphone to be placed next to the user's head,
+and to remain stationary throughout the sleeping process. Such a constraint is hard to satisfy because of body movements during the sleep.
 Furthermore, prior research also shows that many users do not want to place their mobile phone too close to the body due to health risk
 concerns~\cite{StepHealth,Quorasleep}.
 
@@ -43,38 +43,29 @@ range of sleep-relevant events with a higher accuracy. This richer set of data t
 assessment.
 
 \subsection{Wearable-Device-Based Approaches}
- With the widely use of wearable devices, more and more researchers and industries try to use the smartwatch or wearable-wrist for sleep
- monitoring \cite{bain2003evaluation,bonnet2003insomnia,pombo2016ubisleep,caviness1996myoclonus}. The Sleeptracker \cite{sleeptracker} is a
- wristwatch-shaped unit that apart from telling the time, also infers whether the user is in deep sleep, light sleep, or awake, using an
- accelerometer. The ubiSleep \cite{pombo2016ubisleep} joints heart rate, accelerometer, and sound signals collected into the smartwatch for
- noninvasive sleep monitoring. The aXbo alarm clock [9] is packaged as a stand-alone application in the form of an alarm clock that
- wirelessly communicates with a wrist-band unit. The Zeo \cite{caviness1996myoclonus} is similarly using an alarm clock base unit with a
- worn sensing device, but the latter is a headband rather than a wrist-band that based on electroencephalograph (EEG) to monitor sleep. We
- know Zeo has good performance in sleep stage detection compared to some wristband sleep monitoring products because products based on some
- biological signals like EEG are able to get more accurate and more representative sleep data than actigraphy-based \cite{Actigraphy} sleep
- monitoring products. However, the vast majority of biosignal-based sleep detection approaches require specialized equipment, which is high
- cost and complex to operate, while the approaches based on actigraphy are well
-adapted and user-friendly to accept and understand.
+Some of the more recent works have exploited smartwatch or wearable-wrist for sleep
+ monitoring \cite{bain2003evaluation,bonnet2003insomnia,pombo2016ubisleep,caviness1996myoclonus}. The Sleeptracker \cite{sleeptracker} uses
+ the accelerometer data to infer the user's sleep stages. The ubiSleep \cite{pombo2016ubisleep} joints heart rate, accelerometer, and sound signals collected from the smartwatch for
+ sleep monitoring. The Zeo \cite{caviness1996myoclonus} uses a smartwatch together a headband to monitor sleeps. The data collected by the
+ headband helps Zeo to achieve good tracking precisions, but wearing a headband can disrupt a user's normal sleep.
 
-Moreover, these actigraphy-based wristband devices or smartwatch Apps only can gather coarse-grained information and  do not design a model
-for deep understanding the relationship between a user's sleep pattern and the sensor data. For example, many smartwatch Apps, like Jawbone
-Up \cite{Jawbone}, FitBit \cite{fitbit}, YawnLog \cite{YawnLog} and WakeMate \cite{WakeMate}, do not show how they assess a user's sleep
-quality based on what kind of sensor data. In addition,  there is some work that uses wearable devices to detect certain detailed events of
-sleep. The work presented in \cite{wear_related2} detects roll-over and measure sleep quality using a wearable sensor. The approach
-presented in \cite{wear_related3} uses a single chest-worn sensor to extract body acceleration and sleep position changes.
+The majority of the prior smartwatch-based sleep monitoring systems only gather coarse-grained information but do not provide analysis to
+help users to understand the correlation between sleep quality and sleep-related events. For examples, many smartwatch Apps, including
+Jawbone Up \cite{Jawbone}, FitBit \cite{fitbit}, YawnLog \cite{YawnLog} and WakeMate \cite{WakeMate}, only provide the result of sleep
+quality assessments but there is little information on how the sleep quality is evaluated. Without such information, it is difficult for a
+user to understand the root cause of poor sleep. Therefore, these systems offer little help in assisting users to improve their sleep.In
+addition to sleep monitoring, other works use wearable devices to detect specific sleep events, such as roll-over~\cite{wear_related2}, or
+body acceleration and sleep position changes~\cite{wear_related3}. However, they only support a limited set of sleep events and thus just
+scratch the surface of what could be possibly done on smartwatches.
 
 
-Compared with the existing smartwatch or wearable-wrist based systems, our system is a more complete sleep monitoring system, and is based
-only on sensors in commercial smart watches without additional hardware. It collect an extensive set of sleep-related events, many of which
-are not supported in prior work. And for sleep monitoring in daily life, it is more practical and will not invasion users' normal sleep ,
-and more and more people are willing to accept to wear watches to fall asleep, unlike other wearable devices such as chest-worn sensors,
-most people are still unwilling to accept to wear her to sleep. Moreover, our original intention and focus are more inclined to enable
-users to have a deeper and more comprehensive understanding of their sleep, explore the causes of sleep quality, and provide users with
-more practical advice to point them in a clear direction for improving sleep quality and being healthy.
 
 In Table \ref{tab:function}, we compare {\systemname}'s functionalities with eight other existing sleep monitoring systems for mobile and
 wearable devices. As can be seen from the table, {\systemname} supports the detection for the largest number of sleep related events, and
-thus provides a rich set of sleep data.
+it does so without requiring additional hardware. We have shown that this extensive set of sleep events not only leads to more accurate
+sleep quality assessments, but also enables users to better understand the cause of poor sleep.
+
+
 
 %
 \begin{table*}[!t]\footnotesize
@@ -87,7 +78,7 @@ thus provides a rich set of sleep data.
 %        \cline{2-7}
         & Heart Rate & Acoustic & Postures & Body Movements & Hand Positions & Sleep Stages \\
         \midrule
-       \rowcolor{Gray} \systemname & &\checkmark&\checkmark&\checkmark&\checkmark&\checkmark\\
+       \rowcolor{Gray} \textbf{\systemname} & &\checkmark&\checkmark&\checkmark&\checkmark&\checkmark\\
        Sleep as Andriod &  & \checkmark & & & & \checkmark \\
        \rowcolor{Gray} Sleep Hunter & & \checkmark &  & \checkmark & & \checkmark \\
        Sleep Monitor & &  & \checkmark &  & &  \\ %~\cite{sleepmonitor}
@@ -103,7 +94,17 @@ thus provides a rich set of sleep data.
 
 
 \subsection{Summary of Prior Work}
-To summarize, as we can see from Table \ref{tab:related_work}, the advantage of {\systemname} is that it can detect more fine-grained sleep-related events to obtain more abundant sleep information, which is currently on the market for commercial or scientific research sleep monitoring system can not be achieved. And the performance of {\systemname} has been improved to some extent. Our original intention and focus are more inclined to enable users to have a deeper and more comprehensive understanding of their sleep, explore the cause s of sleep quality, and provide users with more practical advice to point them in a clear direction for improving sleep quality and being healthy. And compared with some medical technology like PSG, our advantages are inexpensive and easy to deploy at home, so it is suitable for most general public. And it does not need a large number of instruments attached to the user's body, thus it has less intrusiveness for sleep and does not require professional personnel to operate. Although the accuracy of {\systemname}'s ability to detect sleep cannot be compared to medical technology, it is enough for the average family's daily sleep monitoring needs. The most important is that we concentrates on physical activities rather than biomedical signals, so these rich physical activities detected are easily understood by users, and they can be adjusted with improved and improved sleep based on the results of monitoring.
+To summarize, as we can see from Table \ref{tab:related_work}, the advantage of {\systemname} is that it can detect more fine-grained
+sleep-related events to obtain more abundant sleep information, for which the current commercial or scientific research sleep monitoring
+system can not be achieved. Furthermore, performance of {\systemname} has been improved to some extent. Our original intention and focus
+are more inclined to enable users to have a deeper and more comprehensive understanding of their sleep, explore the causes of sleep
+quality, and provide users with more practical advice to point them in a clear direction for improving sleep quality and being healthy.
+Compared with some medical-grade technologies like PSG, our advantages are inexpensive and easy to deploy at home, so it is suitable for
+most general public. Moreover, since it does not need a large number of instruments attached to the user's body, \systemname has less
+intrusiveness for sleep and does not require professional personnel to operate. Although the accuracy of {\systemname}'s ability to detect
+sleep cannot be compared to medical technology, it is enough for the average family's daily sleep monitoring needs. We want to stressthat
+our work concentrates on physical activities rather than biomedical signals, so these rich physical activities detected are easily
+understood by users, and they can be adjusted with improved and improved sleep based on the results of monitoring.
 
 
 \begin{table*}[!t]\footnotesize
@@ -119,7 +120,7 @@ To summarize, as we can see from Table \ref{tab:related_work}, the advantage of 
         Smartphone& &$\checkmark$ &$\checkmark$  &$\checkmark$   & & $\checkmark$ \\
 
         \rowcolor{Gray} Wearable& &$\checkmark$ & $\checkmark$ & $\checkmark$  & & $\checkmark$ \\
-        {\systemname} & &$\checkmark$ &$\checkmark$  & $\checkmark$  & $\checkmark$&$\checkmark$  \\
+        {\textbf{\systemname}} & &$\checkmark$ &$\checkmark$  & $\checkmark$  & $\checkmark$&$\checkmark$  \\
 
         \bottomrule
   \end{tabular}
