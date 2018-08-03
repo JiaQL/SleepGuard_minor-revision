@@ -20,6 +20,7 @@ We evaluate {\systemname} through rigorous and extensive benchmark experiments c
 \begin{table}[!t]
  \caption{\label{tab:test}Sleep events targeted in this work}
  \centering
+ \small
  \begin{tabular}{ll}
   %\toprule
   \toprule
@@ -41,10 +42,20 @@ We evaluate {\systemname} through rigorous and extensive benchmark experiments c
 This paper makes the following contributions:
 
 \begin{itemize}
-	\item We present the design and development of {\systemname} (Sec. ~\ref{Sec:3design}), the first holistic sleep monitoring system to rely solely on sensors available in an off-the-shelf smartwatch to capture a wide range of sleep information that characterizes overall sleep quality, user behaviors during sleep, and the sleep environment.
+	\item We present the design and development of {\systemname}, the first holistic sleep monitoring system to rely solely on sensors
+available in an off-the-shelf smartwatch to capture a wide range of sleep information that characterizes overall sleep quality, user
+behaviors during sleep, and the sleep environment.
 	
-\item We develop novel and lightweight algorithms for capturing sleep-related information on smartwatches taking into consideration changes in orientation and location of the device during different parts of the night. We show how to overcome specific challenges to effectively track events like sleep postures (Sec.~\ref{sec:sleeppdet}), hand positions (Sec.~\ref{sec:handpr}), body rollovers (Sec.~\ref{sec:bodyrollover}), micro body movements (Sec.~\ref{sec:microbo}), and acoustic events (Sec.~\ref{sec:acoustic}) and illumination conditions (Sec.~\ref{sec:illumination}).
+\item We develop novel and lightweight algorithms for capturing sleep-related information on smartwatches taking into consideration changes
+in orientation and location of the device during different parts of the night. We show how to overcome specific challenges to effectively
+track events like sleep postures (Sec.~\ref{sec:sleeppdet}), hand positions (Sec.~\ref{sec:handpr}), body rollovers
+(Sec.~\ref{sec:bodyrollover}), micro body movements (Sec.~\ref{sec:microbo}), and acoustic events (Sec.~\ref{sec:acoustic}) and
+illumination conditions (Sec.~\ref{sec:illumination}).
 	
 
-    \item We extensively evaluate the performance of {\systemname} using measurements collected from two-week monitoring of $15$ participants (Sec.~\ref{sec:expsetup}). Our results demonstrate that {\systemname} can accurately capture a wide range of sleep events, estimate different sleep stages, and produce meaningful information about overall sleep quality (Sec.~\ref{sec:4experiment}).  We show that {\systemname} successfully reveals the causes of poor sleeps for some of our testing users and subsequently helps them improve their sleep by changing their sleep behaviors and sleeping environment  (Sec.~\ref{sec:user_survey}).
+    \item We extensively evaluate the performance of {\systemname} using measurements collected from two-week monitoring of $15$
+    participants (Sec.~\ref{sec:expsetup}). Our results demonstrate that {\systemname} can accurately capture a wide range of sleep events,
+    estimate different sleep stages, and produce meaningful information about overall sleep quality (Sec.~\ref{sec:4experiment}).  We show
+    that {\systemname} successfully reveals the causes of poor sleeps for some of our testing users and subsequently helps them improve
+    their sleep by changing their sleep behaviors and sleeping environment  (Sec.~\ref{sec:user_survey}).
 \end{itemize}
