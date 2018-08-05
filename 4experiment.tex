@@ -111,19 +111,30 @@ rollover, including micro body movement and acoustic events, which can offset th
 \end{table}
 
 \subsubsection{Hand Position Recognition}
-The classifier for detecting the hand movement trajectory is combined with the detection of periodic signals caused by respiration, then
-the hand position on the chest (or abdomen or head) can be identified. In our dataset, 14\%, 36\% and 22\% of the time the hand in the
-supine posture during sleep were placed on the head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of
-hand position across 15 users. As we can see that with just one set of training data, the accuracies for different users are all higher
-than 87\%. Therefore, our system can achieve a good identification accuracy for different hand positions. Moreover, we find that at least
-four out of fifteen participants tend to put their hands on their heads; one participate unconsciously puts his hand on his chest which
-makes him have nightmares. Those are all bad habits disrupting a good sleep. {\systemname} can report such key findings to improve the
-users' sleep qualities.
-
+Recall that we combine the tracked hand movement trajectory and periodic signals caused by respiration to identify if the hand is placed on
+the chest, addomen or head. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during sleep were placed on the
+head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15 users. As we can see
+that using just one single user's data for training, our approach achieves an accuracy of over 87\% across different testing users.
+Moreover, we find that at least 4 out of our 15 participants tended to put their hands on their heads (which often lead to bad sleep) and
+one participate unconsciously put his hand on the chest (which is likely to cause nightmare). By identifying these hand positions,
+\systemname can inform users to change their sleeping behaviors.
 
 \subsubsection{Micro Body Movement Detection}
 
-To assess the detection accuracy of micro body movements, we manually label the ground truth recorded by the camera during sleep, including hand moving, arm raising, and body trembling. We also use the accelerometer embedded in the smartphone which placed on the bed to record the occurrence of micro body movements, so as to avoid missing some movements such as trembling concealed by the duvet. For the acceleration data collected by smartphone, we first smooth the acceleration along the three axes, calculate Root Sum Square (RSS) to merge them and obtain the first-order derivative of the merged acceleration. And then we use the threshold detection method to mark the occurrence of motion. Since body trembling is the easiest to be covered, we only focus on such events. So we use a smartphone to detect the occurrence of events and the classification of the event is not performed. Table~\ref{tab:micro_move} list the total number of three micro body movements for each user over the testing period of 14 days, and Fig.~\ref{fig:micro_movement_zhu} reports the accuracy of {\systemname} for detecting these micro body movements. It shows that the accuracies for all users are very close, that is, there will be no major changes between users. And from Fig. \ref{fig:micro_combine}, we find that even though the worst classification result belongs to the hand movement, the average precision value and recall value still exceed 75\%. The averaged accuracies of arm raising and body trembling are 93\% and 84\%, respectively. Because the training data volume for the hand movement and body trembling is small, so the performance can be improved by setting each user a threshold by collecting a longer term's sleeping data. In addition, the purpose of micro body movement detection is to detect different sleep stages, and the hand movement usually appears in all sleep stages, thus the poor accuracy of hand moving does not have a significant impact on the final result.
+In this experiments, in addition to manually labeling the ground truth from the video footage, we also use the accelerometer in the
+smartphone placed on the bed to record the occurrence of micro body movements. This allows us to avoid missing some movements such as
+trembling concealed by the duvet (which may not be seen from the video footage). For the smartphone data, we first smooth the acceleration
+along the three axes. Next, we calculate the Root Sum Square (RSS) to merge the results across axes to obtain the first-order derivative of
+the merged acceleration. Then, we use a threshold-based detection method to mark the occurrence of motions from the smartphone data.
+Table~\ref{tab:micro_move} lists the total number of the micro body movements for each participant over the testing period of 14 days, and
+Fig.~\ref{fig:micro_movement_zhu} reports the accuracy of {\systemname} for detecting these micro body movements. As can be seen from the
+table and figure, \systemname achieves consistent precision across our testing users. Figure~\ref{fig:micro_combine} reports the averaged
+accuracy across users. The averaged accuracies for arm raising and body trembling are higher, 93\% and 84\% respectively.  While we achieve
+the lowest accuracy for detecting hand movements, the average procession and recall still exceed 75\%. The accuracy for detecting hand
+movements and body trembling can be further improved by using more training data collected from a longer period of time. It is to note that
+the purpose of micro body movement detection is to detect different sleep stages. Since hand movements usually appear in all sleep stages,
+they offer fewer information gains for identifying sleep stages compared to other movements.  As a result, the relatively low detection
+accuracy of hand moving has little impact on our final result.
 
 
 \begin{figure*}
@@ -157,14 +168,15 @@ To assess the detection accuracy of micro body movements, we manually label the 
 
 
  \subsubsection{Acoustic Events Detection}
+ Table~\ref{tab:sound} shows the results for acoustic event detection across 15 participants. Overall, \systemname is highly accurate in
+ detecting acoustic events, with an average accuracy of over 88\%. The precision for detecting coughs is
+88.9\%, which is slightly lower than for the other three event types. The reason is that different users have distinct cough patterns but
+the pre-defined parameters in the detection model do not include all patterns. For examples, some people have a fast and continuous pattern
+of coughing, while others have a slower intermittent pattern. Our model for cough detection is trained on 120 sets of nighttime sound data
+collected from users who are different from our testing users. To further improve accuracy, we can either specialize our model using data
+collected from the target user or using a larger and more diverse set of training data. Nonetheless, \systemname is able to detect acoustic
+events with a high accuracy.
 
-consistently improves performance which is mainly due to the template-based classifier that we use to verify classifications of the prone
-and supine states. In particular, {\systemname} achieves around $5$ percentage units higher performance on the prone state than
-SleepMonitor and overall has a lower false positive rate. In addition, {\systemname} considers more hand positions than SleepMonitor in 4
-sleeping postures. In terms of errors, due to angular characteristics of acceleration being similar between the supine posture with the
-hand putting on the head and the left-lateral posture, a small amount of the supine postures are classified as left lateral. From the
-results, we can also observe that the total amount of the prone posture is smaller than the number of other postures, which suggests that
-people are not accustomed to sleeping in this position because it is neither healthy nor comfortable.
 
 \begin{table}[!t]\footnotesize
   \centering
