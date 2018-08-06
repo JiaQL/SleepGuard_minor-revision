@@ -281,20 +281,20 @@ The averaged precision and recall for sleep stage detection are given in Table~\
 correctly identify over 60\% of the sleep stages. While {\systemname} can mis-predict between the light sleep and REM, the overall
 performance is comparable to FitBit. Moreover, as we will demonstrate later, the main benefits of {\systemname} are its capability to
 capture a wide range of sleep events and how they are correlate to sleep quality, but not for accurate sleep stage detection (where medical
-PSG measurements are required).
+PSG measurements will be required).
 
 
 
 \subsubsection{Impact of Respiratory Amplitudes on Sleep Stage Detection}
 
-When detecting different sleep stages, \systemname also considers the respiratory amplitude when the hand's position is put on the abdomen
-or the chest. To assess the effectiveness of respiratory amplitude estimation, we evaluate the performance of the sleep stage detection in
-two cases, that is with and without taking the respiration amplitude into account. The performance of sleep stage detection is shown in
-Table~\ref{tab:respiratory}. For three different sleep stages, both the precision and recall values are improved with the help of
-respiratory amplitude estimation. In fact, the respiratory frequency can also be used as a feature to help us to detect sleep stages. But
-in fact their essence the same. The difference in respiratory amplitude will also affect the difference in respiratory frequency, because
-when the respiratory amplitude is large, the time taken for one breath will be long, and the frequency of breathing will be slower. In
-{\systemname}, we choose the respiratory amplitude because the feature is very intuitive.
+When detecting different sleep stages, \systemname also considers the respiratory amplitude when the hand is put on the abdomen or chest.
+To assess the effectiveness of respiratory amplitude estimation, we evaluate the performance of the sleep stage detection with and without
+taking the respiration amplitude into account. The performance of sleep stage detection is shown in Table~\ref{tab:respiratory}. For the
+three different sleep stages, both precision and recall are improved between 5\% to 10\% with the help of respiratory amplitude estimation.
+An alternative to our approach is to use the respiratory frequency  as a feature for sleep stage detection. We found that this alternative
+scheme gives similar performance for sleep stage detection as our approach. This is because the respiratory amplitude is strongly
+correlated with the respiratory frequency -- when the respiratory amplitude is larger, the time taken for one breath will be longer, and
+consequently the frequency of breathing will be slower.
 
 \begin{table}[!t]\footnotesize
 	\centering
@@ -372,9 +372,15 @@ when the respiratory amplitude is large, the time taken for one breath will be l
  	\end{tabular}
  \end{table}
 
-\subsubsection{Performance Comparison}
+\subsubsection{Compare to State-of-the Arts}
 
-We compare {\systemname} with two state-of-the-art sleep monitoring applications. The first is a sleep detection app called ``Sleep As Android", and the second one is a smartphone-based system named Sleep Hunter~\cite{gu2016sleep}. The former app is designed to estimate sleep time and assess sleep by recording the state of motions and the number of body exercises. The latter focuses on estimating sleep stages and evaluate the sleep quality using the tracked sleep-related events. Considering that Sleep As Android can only detect light sleep stage and deep sleep stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results. As we can see, {\systemname} significantly outperforms Sleep As Android and deliver better performance than Sleep Hunter. The performance advantage of {\systemname} comes from the incorporation of rich and complicated sleep events.
+We now compare {\systemname} against two state-of-the-art sleep monitoring applications. The first is a sleep detection app called ``Sleep
+As Android", and the second one is a smartphone-based system named Sleep Hunter~\cite{gu2016sleep}. The former app is designed to estimate
+sleep time and assess sleep by recording the state of motions and the number of body exercises. The latter focuses on estimating sleep
+stages and evaluate the sleep quality using the tracked sleep-related events. Considering that Sleep As Android can only detect light sleep
+stage and deep sleep stage, we only compare the performance of these two stages. Table \ref{tab:comparison} shows the detection results. As
+we can see, {\systemname} significantly outperforms Sleep As Android and deliver better performance than Sleep Hunter. The performance
+advantage of {\systemname} comes from the incorporation of rich and complicated sleep events.
 
 \begin{table}[!t]\footnotesize
  	\centering
@@ -447,23 +453,22 @@ We compare {\systemname} with two state-of-the-art sleep monitoring applications
  \end{table}
 
 
+\vspace{2mm} \noindent \emph{Porting Smartphone Algorithms to Smartwatches.} We also implement the algorithms employed by Sleep Hunter and
+apply them to the data collected using our smartwatch. This experiment allows us to check if the better performance of {\systemname} is due
+to the use of a smartwatch instead of a mobile phone. For body movement detection, applying the algorithms employed by Sleep Hunter to our
+smartwatch data gives a comparable accuracy of around 96\% when the system only identify between drastic and small body movements. However,
+Sleep Hunter does not work when we need to detect finer-grained body movements.  {\systemname} outperforms Sleep Hunter by delivering an
+accuracy of drastic body movements around 90\% (see Table~\ref{tab:rollver}) and an accuracy of finer-grained body movements more than 78\%
+(see Fig.~\ref{fig:micro_combine}). For acoustic event detections, we apply the Sleep Hunter algorithms to detect snore, cough and
+somniloquy. The results in Table \ref{tab:compare_sound1} suggest that {\systemname} gives better performance over Sleep Hunter in
+detecting these acoustic events. Finally, we apply the sleep stage detection model used by Sleep Hunter to combine sleep-related events to
+identify sleep stages. The results are shown in Table \ref{tab:compare_stage1}. Again,  {\systemname} outperforms the Sleep Hunter model
+with a higher accuracy and recall. This experiment confirms that the algorithms used by Sleep Hunter for sleep event and stage detection
+are not tuned for the smartwatch. Compared to Sleep Hunter, {\systemname} can detect sleep events and stages with a higher accuracy using a
+set of carefully designed methods target to target smartwatch.
 
-We also implement the algorithms employed by Sleep Hunter and apply them to the data collected using our smartwatch. This experiment allows us to check if the better performance of {\systemname} is due to the use of a smartwatch instead of a mobile phone.
 
-For body movement detection, applying the algorithms employed by Sleep Hunter to our smartwatch data gives a comparable accuracy of around
-96\% when the system only identify between drastic and small body movements. However, Sleep Hunter does not work when we need to detect
-finer-grained body movements.  {\systemname} outperforms Sleep Hunter by delivering an accuracy of drastic body movements around 90\% (see
-Table~\ref{tab:rollver}) and an accuracy of finer-grained body movements more than 78\% (see Fig.~\ref{fig:micro_combine}). For acoustic
-event detections, we apply the Sleep Hunter algorithms to detect snore, cough and somniloquy. The results in Table \ref{tab:compare_sound1}
-suggest that {\systemname} gives better performance over Sleep Hunter in detecting these acoustic events. Finally, we apply the sleep stage
-detection model used by Sleep Hunter to combine sleep-related events to identify sleep stages. The results are shown in Table
-\ref{tab:compare_stage1}. Again,  {\systemname} outperforms the Sleep Hunter model with a higher accuracy and recall.
-
-
-This experiment confirms that the algorithms used by Sleep Hunter for sleep event and stage detection are not tuned for the smartwatch. Compared to Sleep Hunter, {\systemname} can detect sleep events and stages with a higher accuracy using a set of carefully designed methods target to target smartwatch.
-
-
-\subsubsection{User Survey}\label{sec:user_survey}
+\subsubsection{User Study}\label{sec:user_survey}
 
 To understand and verify how the additional information captured by {\systemname} supports users, at the end of the experiments the participants are administrated a survey to the participants asking about their experiences with {\systemname} and their personal sleeping patterns. We combine these results with the subjective sleep quality estimates obtained through the PSQI questionnaires administered during the study. We considered two groups of users in our survey. As the main source of information, we consider the $15$ participants in our experiments who were asked about their experiences with {\systemname}, their subjective sleep quality assessment, and details of their personal sleep patterns. This set of users was augmented with external participants who were asked about their interested in the events that {\systemname} is capable of detecting. The questions in our survey include:
 \begin{enumerate}
