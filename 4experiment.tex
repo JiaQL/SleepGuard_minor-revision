@@ -201,7 +201,7 @@ events with a high accuracy.
     & & & & & \\
      \cline{1-7}
     & & & & & \\
-    \multirow{5}{*}{\begin{sideways}{{ Groundtruth}}\end{sideways}}
+    \multirow{5}{*}{\begin{sideways}{{ Ground truth}}\end{sideways}}
     &   { Snore}   & {\bf{{96}}}    &   $0$      &   $0$      &   $9$    &   {91.4\%}\\
     & & & & & \\
     \cline{2-7}
@@ -226,11 +226,15 @@ events with a high accuracy.
 
 
 \subsection{Overall Performance\label{sec:overall_per}}
+In order to prove that \systemname is able to identify the sleep stages but not just user's sleep habits, we use the results given by
+Fitbit Charge2 as the ground truth. In this evaluation, we randomly choose a total of $50$ sets  of sleep data for 15 participants across
+two weeks, yielding at least $3$ sets per participant.
+
+{\systemname} uses event-driven methods to  detect changes in the sleep stage. To identify sleep stages, \systemname uses sleep events
+detected within a 15-minute window. The window starts from the first detected event. If no event was detected within 15 minutes, it assumes
+the sleep stage remains unchanged.
 
 \subsubsection{Sleep Stage Detection}
-
-In order to prove that the detected events not only reflect the user's sleep habits, but also effectively identify the sleep stages to assess the sleep quality, we regard the reported results from Fitbit Charge2 as the ground truth. To perform the evaluation, we randomly choose $50$ sets of sleep data from the data so that at least $3$ sets per participant are chosen for evaluation. For detecting changes in sleep stage, {\systemname} uses event-driven detection. When there is no sleep event detected in 15 minutes, we evaluate the sleep stage. When an event occurs, we immediately evaluate the sleep stage and use this time as the starting point for the next 15 minutes. The averaged precision value and recall value are shown in Table~\ref{tab:sleep stage}. It indicates that though {\systemname} may make misjudgment between the light sleep and REM, overall the performance is satisfying and comparable to current consumer-grade monitors. Moreover, as we later demonstrate, the main benefits of {\systemname} result from its capability to estimate a wide range of sleep events and how they relate to sleep quality, not from its performance in sleep stage detection where medical PSG measurements are required for accurate assessment of sleep stages.
-
 \begin{table}[!t]\footnotesize
 %\setlength{\tabcolsep}{1pt}
 \renewcommand{\arraystretch}{0.55}{\centering}
@@ -254,7 +258,7 @@ In order to prove that the detected events not only reflect the user's sleep hab
 		&  \multicolumn{1}{l|}{{ Deep Sleep}} \\
 		\cline{1-6}
 		& & & & & \\
-		\multirow{1}{*}{\begin{sideways}{{Groundtruth}}\end{sideways}}
+		\multirow{1}{*}{\begin{sideways}{{Ground truth}}\end{sideways}}
 		&   { REM}   & {\bf{{476}}}    &   $143$      &   $61$     &   {70.0\%}\\
 		& & & & & \\
 		\cline{2-6}
@@ -273,9 +277,24 @@ In order to prove that the detected events not only reflect the user's sleep hab
 	\end{tabular}
 \end{table}
 
-\subsubsection{Effect of Respiratory Amplitude on Sleep Stage Detection}
+The averaged precision and recall for sleep stage detection are given in Table~\ref{tab:sleep stage}. Overall, \systemname is able to
+correctly identify over 60\% of the sleep stages. While {\systemname} can mis-predict between the light sleep and REM, the overall
+performance is comparable to FitBit. Moreover, as we will demonstrate later, the main benefits of {\systemname} are its capability to
+capture a wide range of sleep events and how they are correlate to sleep quality, but not for accurate sleep stage detection (where medical
+PSG measurements are required).
 
-When we detect different sleep stages, we also consider the respiratory amplitude when the hand's position is in the abdomen or chest. To assess the effectiveness of respiratory amplitude estimation, we evaluate the performance of the sleep stage detection in two cases, that is with and without taking the respiration amplitude into account. The performance of sleep stage detection is shown in Table~\ref{tab:respiratory}. For three different sleep stages, both the precision and recall values are improved with the help of respiratory amplitude estimation. In fact, the respiratory frequency can also be used as a feature to help us to detect sleep stages. But in fact their essence the same. The difference in respiratory amplitude will also affect the difference in respiratory frequency, because when the respiratory amplitude is large, the time taken for one breath will be long, and the frequency of breathing will be slower. In {\systemname}, we choose the respiratory amplitude because the feature is very intuitive.
+
+
+\subsubsection{Impact of Respiratory Amplitudes on Sleep Stage Detection}
+
+When detecting different sleep stages, \systemname also considers the respiratory amplitude when the hand's position is put on the abdomen
+or the chest. To assess the effectiveness of respiratory amplitude estimation, we evaluate the performance of the sleep stage detection in
+two cases, that is with and without taking the respiration amplitude into account. The performance of sleep stage detection is shown in
+Table~\ref{tab:respiratory}. For three different sleep stages, both the precision and recall values are improved with the help of
+respiratory amplitude estimation. In fact, the respiratory frequency can also be used as a feature to help us to detect sleep stages. But
+in fact their essence the same. The difference in respiratory amplitude will also affect the difference in respiratory frequency, because
+when the respiratory amplitude is large, the time taken for one breath will be long, and the frequency of breathing will be slower. In
+{\systemname}, we choose the respiratory amplitude because the feature is very intuitive.
 
 \begin{table}[!t]\footnotesize
 	\centering
