@@ -110,10 +110,8 @@ downward) are collected} from our pilot study users when their hands are placed 
 Sec.~\ref{sec:trainingdata}) If the first kNN model suggests that the palm was facing upward, {the second kNN uses differences of rotation
 readings (from the x, y, and z directions) before and after hand  movement to determine if the most likely position is on the head or
 elsewhere. As similarity measure we consider}  Euclidean distance from the input data to each of the training samples -- consisting of the
-rotation angle values from the three directions.
-
-If our hierarchical model predicts that the hand was not placed on the head, we then use the method
-described in the next paragraph to detect if it was placed on the abdomen or the chest.
+rotation angle values from the three directions. If our hierarchical model predicts that the hand was not placed on the head, we then use
+the method described in the next paragraph to detect if it was placed on the abdomen or the chest.
 
 \begin{figure*}[!t]
 	\centering
