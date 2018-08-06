@@ -5,7 +5,15 @@
 
 \subsection{Detecting Sleep Postures and Movements}
 
-One's sleeping position, referred to as {\em sleep posture}, and the extent of body movements are important factors in determining overall sleep quality. Suboptimal posture has been shown to affect the severity of sleep disorders and is widely used in medical diagnoses to analyze effects of sleep disorders~\cite{oksenberg1998effect,eiseman2012impact} while having a good sleep posture has been shown to correlate with subjective assessments of sleep quality~\cite{dekoninck83sleep}. Similarly, the high degree of body movements during sleep likely reflects restlessness, which results in poor sleep quality. {\systemname} uses motion sensors (accelerometer, gyroscope, and orientation sensor) to capture the user's sleep posture and habits. In the following, we detail the techniques we use for capturing the body posture and movements.  {\systemname}, currently supports the 4 basic sleep postures (see Fig.~\ref{fig:BodyPosture}); 3 hand positions (see Fig.~\ref{fig:HandPosition}); 6 types of body rollovers (see Fig.~\ref{fig:BodyRollover} for an example); and 3 types of body micro movements.
+One's sleeping position, referred to as {\em sleep posture}, and the extent of body movements are important factors in determining overall
+sleep quality. Suboptimal posture has been shown to affect the severity of sleep disorders and is widely used in medical diagnoses to
+analyze effects of sleep disorders~\cite{oksenberg1998effect,eiseman2012impact} while having a good sleep posture has been shown to
+correlate with subjective assessments of sleep quality~\cite{dekoninck83sleep}. Similarly, the high degree of body movements during sleep
+likely reflects restlessness, which results in poor sleep quality. {\systemname} uses motion sensors (accelerometer, gyroscope, and
+orientation sensor) to capture the user's sleep posture and habits. In the following, we detail the techniques we use for capturing the
+body posture and movements.  {\systemname}, currently supports the four basic sleep postures (see Fig.~\ref{fig:BodyPosture}); three hand
+positions (see Fig.~\ref{fig:HandPosition}); six types of body rollovers (see Fig.~\ref{fig:BodyRollover} for an example); and three types
+of body micro movements.
 
 \begin{figure*}[!t]
 	\centering
@@ -211,7 +219,11 @@ To deal with this challenge, we incorporate the body postures to improve the det
 
 \subsection{Detecting Micro Body Movements \label{sec:microbo}}
 
-Besides major body movement, such as rollovers, there often are involuntary body movements that can affect sleep quality. With the deepening of sleep, limbs are extremely relaxed, and a little stimulus will produce trembling and micro beating. Such behavior is most likely to occur during the deep sleep stage and the REM stage~\cite{ancoli2003role,Jean2000Sleep}. Therefore, by detecting such micro body movements and distinguish them from large body movements can help us to further analyze the user's sleep stage. In this paper, we are interested in the sleep-related body movements including hand moving, arm raising, and body trembling.
+Besides major body movements, such as rollovers, there often are involuntary body movements that can affect sleep quality. With the
+deepening of sleep, limbs are extremely relaxed, and a little stimulus will produce trembling and micro beating. Such behavior is most
+likely to occur during the deep sleep stage and the REM stage~\cite{ancoli2003role,Jean2000Sleep}. Therefore, by detecting such micro body
+movements and distinguish them from large body movements can help us to further analyze the user's sleep stage. In this paper, we are
+interested in the sleep-related body movements including hand moving, arm raising, and body trembling.
 
 One of the challenges in detecting the micro body movements is to cancel the inherent noises brought by the accelerometer.
 To cancel the noises, we apply a moving window to the collected accelerometer data points to minimize the impact of the outliers. To determine the size of the moving window, we apply different parameter settings to our training data. We found that a moving widow with a size of 35 gives the best average results on our training set. Therefore, we choose to apply a moving window of 35 sample points to the collected user data and then calculate Root Sum Square (RSS) for the data points within a window:
