@@ -41,11 +41,33 @@ of body micro movements.
 
 \subsubsection{Sleep Posture Detection}\label{sec:sleeppdet}
 
-Dreaming and sleep quality are associated with underlying brain functions, which in turn are affected by body posture~\cite{posture2004}. Sleep posture also varies across individuals and should fit personal and physical needs of the individual~\cite{posture2016,posture2017}. For example, sleeping in a prone position is unsuitable for people with ailments, such as heart disease or high blood pressure. On the other hand, people can {unconsciously} avoid postures that would be beneficial for health and sleep quality~\cite{posture2015}. Having an effective way to detect current posture and track changes in it would thus be essential for estimating overall sleep quality, and avoiding potential harm. {{\systemname} captures four basic sleep postures: supine, left lateral, right lateral, and prone. These are illustrated in} Fig.~\ref{fig:BodyPosture}. Detecting these postures using a single wrist sensor, however, is non-trivial because the sensor cannot accurately track movement of the entire body. To accomplish posture detection, we observe that the arm position strongly correlates {with} sleep posture, i.e., the arm is typically located in a specific, stable location for a given posture. This  suggests that we can first identify the user's arm position and the {\em time the position is approximately stable, which can then be mapped into} a sleep posture. Later in this paper, we show that our approach {achieves} high accuracy in identifying sleep postures.
+Dreaming and sleep quality are associated with underlying brain functions, which in turn are affected by body posture~\cite{posture2004}.
+Sleep posture also varies across individuals and should fit personal and physical needs of the individual~\cite{posture2016,posture2017}.
+For example, sleeping in a prone position is unsuitable for people with ailments, such as heart disease or high blood pressure. On the
+other hand, people can {unconsciously} avoid postures that would be beneficial for health and sleep quality~\cite{posture2015}. Having an
+effective way to detect current posture and track changes in it would thus be essential for estimating overall sleep quality, and avoiding
+potential harm. {{\systemname} captures four basic sleep postures: supine, left lateral, right lateral, and prone. These are illustrated
+in} Fig.~\ref{fig:BodyPosture}. Detecting these postures using a single wrist sensor, however, is non-trivial because the sensor cannot
+accurately track movement of the entire body. To accomplish posture detection, we observe that the arm position strongly correlates {with}
+sleep posture, i.e., the arm is typically located in a specific, stable location for a given posture. This  suggests that we can first
+identify the user's arm position and the {\em time the position is approximately stable, which can then be mapped into} a sleep posture.
+Later in this paper, we show that our approach {achieves} high accuracy in identifying sleep postures.
 
-To separate sleep postures, {\systemname} considers a set of feasible hand positions for each posture. {In the supine position, we assume the user's hand to be on the left side of the body, on the abdomen, on the chest or on the head; in the left and right lateral positions we assume the hand to be close to the pillow, on the chest or on the waist; and, finally, in the prone position we assume the user's hand is on the side of the head or above his/her head.} These positions were selected based on a pilot carried out in our test environment (see Sec.~\ref{sec:expsetup}). Fig.~\ref{fig:BodyPosture} shows one possible hand position for each of the postures.
+To separate sleep postures, {\systemname} considers a set of feasible hand positions for each posture. {In the supine position, we assume
+the user's hand is placed on the left side of the body, on the abdomen, on the chest or on the head; in the left and right lateral
+positions we assume the hand to be close to the pillow, on the chest or on the waist; and, finally, in the prone position we assume the
+user's hand is on the side of the head or above his/her head.} These positions were selected based on a pilot carried out in our test
+environment (see Sec.~\ref{sec:expsetup}). Fig.~\ref{fig:BodyPosture} shows one possible hand position for each of the postures.
 
-Like to SleepMonitor~\cite{sleepmonitor}, we use {three dimensional tilt angles} to detect postures. To identify {which posture the data collected within a time window corresponds to}, we average all the calculated tilt angle values of that window in each dimension. We then calculate the Euclidean distance of the input values to a set of posture profiles, which are based on measurements collected in a pilot study that involved 10 users (see Sec.~\ref{sec:trainingdata}). We then use the body posture associated with the nearest neighbor as the detection outcome. Fig.~\ref{fig:posture} shows the angle values of the four sleep postures targeted in this work. {We can observe clear differences in the tilt angles of the three axes}. The sleep posture thus can be inferred based on the position of the smartwatch and the created angle mapping. However, a limitation of this approach is that the hand positions during supine and prone postures {can be} similar when the hand is located on the side of the head (Fig. \ref{fig:Supine} and \ref{fig:Prone}), thus the classification accuracy will be affected.
+Like SleepMonitor~\cite{sleepmonitor}, we use {three dimensional tilt angles} to detect postures. To identify {which posture the data
+collected within a time window corresponds to}, we average all the calculated tilt angle values of that window in each dimension. We then
+calculate the Euclidean distance of the input values to a set of posture profiles, which are based on measurements collected in a pilot
+study that involved 10 users (see Sec.~\ref{sec:trainingdata}). We then use the body posture associated with the nearest neighbor as the
+detection outcome. Fig.~\ref{fig:posture} shows the angle values of the four sleep postures targeted in this work. {We can observe clear
+differences in the tilt angles of the three axes}. The sleep posture thus can be inferred based on the position of the smartwatch and the
+created angle mapping. However, a limitation of this approach is that the hand positions during supine and prone postures {can be} similar
+when the hand is located on the side of the head (Fig. \ref{fig:Supine} and \ref{fig:Prone}), thus the classification accuracy will be
+affected.
 
 \begin{figure*}[!t]
 	\centering
