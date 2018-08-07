@@ -372,9 +372,9 @@ detection algorithm. This is achieved by exploiting the characteristics of the d
 
 \begin{figure*}[!t]
 \centering
- \subfigure[Snore of six times.]{\label{snore}
+ \subfigure[Six snore events.]{\label{snore}
    \includegraphics[width=0.32\linewidth]{Figures/snore.pdf}}
- \subfigure[Two consecutive cough.]{\label{cough}
+ \subfigure[Two consecutive coughs.]{\label{cough}
    \includegraphics[width=0.32\linewidth]{Figures/cough.pdf}}
 \subfigure[Somniloquy.]{\label{somniloquy}
      \includegraphics[width=0.32\linewidth]{Figures/somniloquy.pdf}}
@@ -387,14 +387,33 @@ detection algorithm. This is achieved by exploiting the characteristics of the d
 an interesting recognition experiment (as part of our pilot study - see Sec.~\ref{sec:trainingdata}) using the microphone built in
 smartwatch to detect the sound of people during sleep and effectively identify different acoustic events. We focus on three common acoustic
 events: snore, cough and somniloquy. Ten volunteers worn the smartwatches during sleep to record the acoustic data. We manually label the
-data with different acoustic events. Fig. \ref{acoustic} shows the acoustic characteristics of three events. There are six times snore
-event, two consecutive cough event and somniloquy event. In the remaining paragraphs of this sub-section, we describe how to exploit these
+data with different acoustic events. Fig. \ref{acoustic} shows the acoustic characteristics of three events. The figure has six snore
+events, two consecutive cough and somniloquy events. In the remaining paragraphs of this sub-section, we describe how to exploit these
 characteristics to detect acoustic events.
 
 
 
+\cparagraph{Pre-processing.} To identify an acoustic event, our acoustic event detection algorithm first preprocesses the recorded audio
+stream by dividing it into segments of equal durations. In this work, each
+ audio segment consists of 256 samples with a duration of 12 milliseconds.
+
+\cparagraph{Observations.} Our acoustic event detection algorithm is designed based on the following observations:
+
+ \begin{itemize}
+ \item The duration a single acoustic event is different among different types of acoustic events. For example, Fig. \ref{acoustic}
+     suggests that the duration of a snore is shorter than that of a cough or somniloquy. Furthermore, in general, the duration of a
+     cough is shorter than that of a somniloquy signal.
+ \item As shown in Fig.~\ref{acoustic}, the time intervals between two signals for two different types of acoustic events are
+     significantly different. Specifically, there is a long time interval between two snores, but the time interval between two coughs is
+     much shorter. In contrast to snores and coughs, the interval between any two consecutive somniloquy signals is irregular and does
+     not exhibit a periodic property.
+\item The frequencies for different acoustic events are significantly different. Specifically, a snore event has a continuous signal,
+    while a cough or somniloquy are sudden events. As a result, the number of consecutive occurrences for coughs and somniloquy tends to
+    be small during sleep.
+\end{itemize}
+
 \cparagraph{Acoustic feature calculation.} In order to identify different acoustic events accurately, we select the short-term average
-energy and the zero-crossing rate as two features. The short-term average energy of acoustic signal is computed as:
+energy and the zero-crossing rate (ZCR) as two features. The short-term average energy of acoustic signal is computed as:
 
 \begin{equation}
   E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
@@ -415,37 +434,23 @@ where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal 
 
 
 
-\cparagraph{Acoustic event recognition.} To identify an acoustic event, our acoustic-event detection algorithm follows a number of steps.
-The algorithm first divides the recorded audio stream into segments of equal durations. Each
- segment consists of 256 samples with a duration of 12 milliseconds. The algorithm exploits the following observations to identify an
- acoustic event:
+\cparagraph{Acoustic event classification.} Our acoustic event detection algorithm is a C4.5 decision-tree-based
+classifier~\cite{quinlan2014c4}. It takes as input the ``duration'', ``interval'' and ``frequency'' values of an identified acoustic event,
+and predicts which of the three types acoustic events (snores, coughs, or somniloquy) the event corresponds to. The thresholds of the
+decision tree is automatically learned from our pilot study training data.
 
- \begin{itemize}
-\item As shown in Fig.~\ref{acoustic}, the time intervals between two signals for two different types of acoustic events are
-    significantly different. Specifically, there is a long time interval between two snores, but the time interval between two coughs is
-    much shorter. In contrast to snores and coughs, the interval between any two consecutive somniloquy signals is irregular and does not
-    exhibit a periodic property.
- \item The duration a single acoustic event is different among different types of acoustic events. For example, Fig. \ref{acoustic}
-     suggests that the duration of a snore is shorter than that of a cough or somniloquy. Furthermore, in general, the duration of a
-     cough is shorter than that of a somniloquy signal.
-\item The frequencies for different acoustic events are significantly different. Specifically, a snore event has a continuous signal,
-    while a cough or somniloquy are sudden events. As a result, the number of consecutive occurrences for coughs and somniloquy tends to
-    be small during sleep.
-\end{itemize}
+To estimate the \emph{duration} of the acoustic event, we identify the start and end points of an acoustic event. After identifying the
+start and end points of an acoustic event, we then perform the peak detection and use the result of peak detection to estimate the
+\emph{interval} and \emph{frequency} of an acoustic event. Specifically, we use the short-term average energy (Equation~\ref{eq:shorte}) to
+calculate the peak value of an acoustic signal. When the peak exceeds a pre-defined threshold, i.e., 3 dB in this work, we record the
+position of each peak and calculate the \emph{interval} between two consecutive peaks. We measure the \emph{frequency} of an acoustic event
+by counting the number of peaks over a time window.
 
-
-Our acoustic event detection algorithm thus uses the aforementioned ``interval'', ``duration'' and ``frequency'' observations as heuristics
-to recognize acoustic events. To estimate the interval and frequency of an acoustic event, we perform the peak detection. We use the
-short-term average energy (Equation~\ref{eq:shorte}) to calculate the peak value of the acoustic signal. When the peak exceeds a
-pre-defined threshold, i.e., 3 dB in this work, we record the position of each peak and calculate the \emph{interval} between two
-consecutive peaks. Next, we estimate the \emph{frequency} of an acoustic event by counting the number of peaks over a time window. To
-estimate the \emph{duration} of the acoustic event, we identify the start and end points of an acoustic event.
-
-A traditional end-point detection algorithm~\cite{stowell2015detection}, however, is ill-suited to our problem. This is because it uses a
-fixed threshold which must be obtained by examining a large number of data samples. As a result, a traditional end-point detection
-algorithm has two drawbacks. Firstly, a fixed threshold is highly unlikely to be optimal for different users (due to different sleep
-patterns) and environments (due to different environmental noises). Secondly, using a large number of data samples to determine the
-threshold incurs significant overhead for data collection.
+\cparagraph{Determining the start and the end points.} Traditional end-point detection algorithms~\cite{stowell2015detection} are
+ill-suited to our problem. This is because they typically use a fixed threshold which must be obtained by examining a large number of data
+samples. As a result, a traditional end-point detection algorithm has two drawbacks. Firstly, a fixed threshold is highly unlikely to be
+optimal for different users (due to different sleep patterns) and environments (due to different environmental noises). Secondly, using a
+large number of data samples to determine the threshold incurs significant overhead for data collection.
 
 
 To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method that requires significantly fewer
@@ -459,7 +464,7 @@ data samples to determine the optimal threshold on a per user per environment ba
 Specifically, since the first and last few audio segments are mostly mute or are background noises, we select the first and last five
 segments to calculate their short-term energy, which are denoted as $E_s$ and $E_e$ respectively for the first and last segments. The two
 energy values are then combined to obtain the mean, $E_n$, as the estimated energy value of noise segments. Let the maximum value of the
-short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy $DE$ is given as:
+short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy, $DE$, is given as:
 \begin{eqnarray}
       &E_n = \frac{(E_s+E_e)}{2}, \\
       &DE = \max (E)-E_n.\label{eq:DE}
@@ -480,14 +485,32 @@ setting $\alpha$ to  0.1 and $\beta$ to  0.06 gives the best overall results in 
 
 To minimize the impact of occasionally happened noises, we set the minimum length of the signal segment and measure the duration of the
 signal when searching for the start and end points. If the length of an acoustic signal is less than the minimum, the signal segment is
-considered to be a noise segment. The results of the start-point and end-point detection are shown in Fig. \ref{acoustic}, we calculate the
-length of each speech segment and calculate their averages as the duration of the acoustic event. Last, we count the number of peak points
-to see whether it meets the third key observation or not.
+considered to be a noise segment.
+
+\cparagraph{Example.} As an example, the two thick vertical lines in Fig. \ref{acoustic} mark a detected acoustic event. The start and end
+points are used to calculate the duration of an event, as well as the interval between two acoustic events. To measure the frequency, we
+count the number of peak points of an acoustic event signal. By feeding the values of the ``duration", ``interval" and ``frequency", our
+decision-tree-based acoustic detection algorithm can then predict which type of events an acoustic signal corresponds to.
 
 
 
 \subsection{Tracking Illumination Conditions \label{sec:illumination}}
-Studies have shown that there is a significant interaction between the illuminance level and the mental state of the individual \cite{light77}. For example, the bright light can counteract subjective fatigue during the daytime, but at night it will seriously affect the sleep quality. Too much light exposure can shift our biological clock, which makes restful sleep difficult to achieve, it affects our sleep and wake cycle \cite{light2007}.  Besides, we also note that the dim light will affect our sleep too. According to the study \cite{light2016}, it can be learned that the dim artificial light during sleep is significantly associated with the general increase in fatigue, and the proper light can be used to increase the sense of exhaustion and promote sleep. So the illumination condition in a sleeping environment has a significant influence on sleep. {\systemname} use the ambient light sensor to detect the illumination condition during sleep. We visit the bedroom of our ten testing users at night and the use of the ambient light sensor to test the lighting conditions in the bedroom. We find that in the absence of lights in the bedroom, the light sensor reading is between 1 Lux to 4 Lux. In some cases, the light of the smartwatch screen can raise the light sensor reading to 4 Lux when the bedroom is dark. In other cases, when the bedroom has weak lights (e.g., when the bedroom is illuminated using a table lamp), the light sensor's average readings are below 10 Lux. Based on these observations, we divide the illumination intensity of the bedroom into two categories. When the bedroom has weak lights (i.e., the light sensor reading is no greater than 10 Lux), and when the bedroom has strong lights (i.e., the light sensor reading is greater than 10 Lux). Using the threshold of 10 Lux, we can then map the light sensor readings to one of these two groups.
+Studies have shown that there is a significant interaction between the illuminance level and the mental state of the individual
+\cite{light77}. For example, the bright light can counteract subjective fatigue during the daytime, but at night it will seriously disrupt
+sleep. Too much light exposure can shift our biological clock, which makes restful sleep difficult to achieve, it affects our sleep and
+wake cycle \cite{light2007}.  Besides, we also note that the dim light will affect our sleep too. According to a previous study
+\cite{light2016}, the dim artificial light during sleep is significantly associated with the general increase in fatigue, and the proper
+light can be used to increase the sense of exhaustion and promote sleep. Therefore, the illumination condition in a sleeping environment
+has a significant impact on sleep.
+
+{\systemname} uses the ambient light sensor to detect the illumination condition during sleep. We visit the bedroom of our ten pilot-study
+users at night and use the ambient light sensor to test the lighting conditions in the bedroom. We find that in the absence of lights in
+the bedroom, the light sensor reading is between 1 Lux to 4 Lux. In some cases, the light of the smartwatch screen can raise the light
+sensor reading to 4 Lux when the bedroom is dark. In other cases, when the bedroom has weak lights (e.g., when the bedroom is illuminated
+using a table lamp), the light sensor's average readings are below 10 Lux. Based on these observations, we divide the illumination
+intensity of the bedroom into two categories. When the bedroom has weak lights (i.e., the light sensor reading is no greater than 10 Lux),
+and when the bedroom has strong lights (i.e., the light sensor reading is greater than 10 Lux). Using the threshold of 10 Lux, we can then
+map the light sensor readings to one of these two groups.
 
 
 However, the light sensor may be obscured, which leads to large errors in measuring the illumination level. For example, a user's smartwatch may be covered under the quilt when he/she turned over unconsciously, and thus the illumination readings on the smartwatch may not reflect the real lighting situation. Most of the previous works on smartphone-based light detection have used the proximity sensor to detect whether the light sensor is blocked or not. However, such an approach is not applicable to the off-the-shelf smartwatches because they typically do not have a proximity sensor.  To deal with this practical challenge, the key is that the illumination would drop suddenly when the smartwatch is covered by other objects. There are two possibilities for the sudden drop in light intensity. For most smartwatches, the light sensors are usually installed in the front face of it. The first case is the indoor lighting facilities are closed. The second case is the wrist turned so that the back of the hand become downward, thus blocking the light sensor in front of the smartwatch. Such a situation often happens in real life. For examples, when a user changes the sleeping posture to the left side, his/her hand may be close to the pillow with the palm facing up; or the back of the hand may become downward because of a hand movement. To avoid this erroneous illumination condition measurement, we detect whether the user is performing a wrist flip over a period of time during the intensity plummeting. We detect the wrist flip based on two aspects: (i) the rotation angle of the smartwatch; (ii) whether the light intensity maintains stable after the sharp drop. If the wrist flips, we use the average of the previous light intensity as the intensity of the time period. It should be noted that, because the illumination condition detection algorithm is relatively simple, it is not explained in the experimental part.
