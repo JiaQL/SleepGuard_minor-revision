@@ -1,4 +1,4 @@
-\section{{\systemname} SLEEP MONITORING PLATFORM}\label{Sec:2design}
+\section{The {\systemname} Sleep Monitoring Platform}\label{Sec:2design}
 
 {\systemname} is a novel smartwatch-based sleep monitoring system that aims at estimating sleep quality and capturing rich information
 about behaviors and events occurring during sleep. By capturing this information, {\systemname} can analyze potential reasons for sleep
@@ -8,7 +8,7 @@ orientation sensor are used to collect body and hand movements; (ii) microphone 
 capture acoustic events; and (iii) ambient light sensor is used to monitor illumination within the sleep environment. The different sensors
 and information extracted from them are summarized in Table~\ref{tab:test}.
 
-It is to note that all the algorithm parameters are obtained from the training data gathered in our pilot study
+It is to note that the design choices and algorithm parameters are empirically determined from the data gathered in our pilot study
 (Sec.~\ref{sec:trainingdata}). The users involved in the pilot study are different from those participated in our experiments
 (Sec.~\ref{sec:evalusers}) for evaluating \systemname.
 
@@ -170,7 +170,7 @@ assume the hand to be located at another place on the body that is not supported
 samples for the KNN model are also collected from our pilot study users -- where each training example includes the rotation angle readings
 when the hand is either placed on the abdomen or the chest.
 
-\subsubsection{Labeling REM/non-REM Stages}
+\subsubsection{Labeling REM/non-REM Stages\label{sec:labelrem}}
 
 We have also found that the extent of body movements can be used to judge the amplitude of respiration, which in turns allows us to detect
 rapid-eye-movement (REM) and non-rapid-eye-movement (NREM) stages. This is based on a prior study showing that when people sleep in the REM
@@ -236,7 +236,7 @@ feature space. We then use the label (either REM or NREM) associated with the ne
 
 \subsection{Body Rollover Counts\label{sec:bodyrollover}}
 
-Normally, people roll their body around 20-45 times during sleep. The main function of body rollovers is simply to maintain a comfortable
+Normally, people roll their body around 20-45 times during a sleep. The main function of body rollovers is simply to maintain a comfortable
 sleeping position as maintaining the same position for a prolonged period will result in muscular tension due to the hindered blood supply,
 which can also lead to local numbness~\cite{rollover2014}. Therefore, body rollovers are another key indicator about sleep quality.
 {{\systemname} detects the number of body rollovers, which provides cues about sleep quality. Using the body rollover counts, \systemname
@@ -378,7 +378,7 @@ detection algorithm. This is achieved by exploiting the characteristics of the d
    \includegraphics[width=0.32\linewidth]{Figures/cough.pdf}}
 \subfigure[Somniloquy.]{\label{somniloquy}
      \includegraphics[width=0.32\linewidth]{Figures/somniloquy.pdf}}
-\caption{Characteristics of different acoustic events targeted in this work.}\label{acoustic}
+\caption{Characteristics of different acoustic events targeted in this work. The thick vertical lines mark the duration of a detected acoustic event.}\label{acoustic}
 \end{figure*}
 
 
@@ -531,18 +531,20 @@ experimental part.
 
 \subsection{Sleep Stage and Quality}
 
-Sleep is generally considered as a cyclical physiological process composed of three stages: rapid eye movement (REM) stage, light sleep
-stage and deep sleep stage. REM is an active period of sleep marked by intense brain activities and dream occurrence. Light sleep stage is
-a period of relaxation, when the heartbeat, breathing rate and muscle activity slow down. Deep sleep stage triggers hormones to promote
-body growth, as well as the repair and restoration of energy.  The biological characteristics of different sleep stages exhibit
-distinguishingly. In the clinical sleep study, the sleep stages are mainly identified by simultaneously evaluating three fundamental
-measurement modalities including brain activities, eye movements, and muscle contractions. The EEG measure using electrodes placed around
-the scalp interpret various sleep/wake states of the brain. And, EMG and EOG using electrodes placed on the skin near the eyes and on the
-muscles, respectively, measures in deeply differentiating REM stage from all the other stages. But, apart from the implicit physiological
+Sleep is generally considered as a cyclical physiological process composed of three stages: rapid eye movement (REM) stage (see also
+Sec.~\ref{sec:labelrem}), light sleep stage and deep sleep stage. REM is an active period of sleep marked by intense brain activities and
+dream occurrence. Light sleep stage is a period of relaxation, when the heartbeat, breathing rate and muscle activity slow down. Deep sleep
+stage triggers hormones to promote body growth, as well as the repair and restoration of energy.  The biological characteristics of
+different sleep stages exhibit distinguishingly.
+
+In the clinical sleep study, the sleep stages are mainly identified by simultaneously evaluating three fundamental measurement modalities
+including brain activities, eye movements, and muscle contractions. The EEG measure using electrodes placed around the scalp interpret
+various sleep/wake states of the brain. Moreover, EMG and EOG using electrodes placed on the skin near the eyes and on the muscles,
+respectively, measures in deeply differentiating REM stage from all the other stages. However, apart from the implicit physiological
 activities, sleepers usually exhibit distinguishable physical activities in different sleep stages. For example, there are somniloquy and
 body trembles caused by frequent dreams generally appear in REM, large body movements such as body rollovers and arm raising happen in
 light sleep and micro-body movements such as body trembling and snoring occur in deep sleep.  In the meanwhile, the breathing amplitude in
-NREM stage is larger compared with the REM stage. Moreover, the sleep cycle usually repeats four to six times over a night. The sleeper
+NREM stage is larger compared with the REM stage. Moreover, the sleep cycle usually repeats four to six times over a sleep. The sleeper
 usually experiences a transition from light sleep to deep sleep and then enters REM, but sometimes there is also possible a phenomenon of
 skipping some certain sleep stages occurs during sleep. However, despite this, the dependence between two successive sleep stages still
 exists and different sleep stages have potential conversion probabilities, which also mentioned in Sleep Hunter \cite{gu2016sleep}.
@@ -552,16 +554,17 @@ user. As the input, i.e., the observed states, we use a series of detected sleep
 hidden state, i.e., $obs_t={NB(t),NB_M(t),BA(t),NA(t)}$ represent the feature vector at the detection phase $t$. The explanation of each
 item, which is the input of HMM, is listed as follows. $NB(t)$: the number of occurrences of body rollover during the detection phase t.
 $NB_M(t)$: the number of occurrences of micro-body movement. $BA(t)$: the measurement of respiratory amplitude.  $NA(t)$: the number of
-occurrences of the acoustic events. And $states_t$ =$\{$light sleep; deep sleep; REM$\}$ is an output of our model, which represents the
+occurrences of the acoustic events. The $states_t$ =$\{$light sleep; deep sleep; REM$\}$ is an output of our model, which represents the
 sleep stage in the detection phase $t$. In the training of the HMM model, we use nocturnal sleep data from 10 volunteers who participated
-in the training parameters of each algorithm and make their sleep-related events as observation sequences and the corresponding sleep
-stages detected by Fitbit as hidden state sequences, to generate HMM models. Specifically, we first use the maximum likelihood estimation
-method for parameter estimation, the state transition matrix and the confusion matrix, and then use the Viterbi algorithm to acquire a
-series of implicit state sequences corresponding to observed sequence.  As a result, we can estimate the sleep stage during a time window.
-Finally, we can get the durations of all sleep stages over the whole sleep process.
+in the pilot study. We use the sleep-related events of the 10 volunteers as observation sequences and the corresponding sleep stages
+detected by Fitbit as hidden state sequences, to generate HMM models. Specifically, we first use the maximum likelihood estimation method
+for parameter estimation, the state transition matrix and the confusion matrix; we then use the Viterbi algorithm~\cite{anguera2012speaker}
+to acquire a series of implicit state sequences corresponding to the observed sequences.  As a result, we can estimate the sleep stage
+during a time window. Finally, we can get the durations of all sleep stages over the whole sleep process.
 
 Further, to quantize the sleep quality, we use the Sleep Quality Report model introduced in \cite{gu2016sleep}. Let $SQ$ be the value of the sleep quality, then $SQ$ is given as follow:
  \begin{equation}
 SQ=\frac{(REM \times 0.5+Light \times 0.75+Deep) \times 100}{REM+Light+Deep}
  \end{equation}
-where, REM, Deep and Light represent the duration time in a sleep process. The range of $SQ$ is from 50 to 100. A high value of $SQ$ shows a better  sleep quality.
+where, REM, Deep and Light represent the duration time in a sleeping process. The range of $SQ$ is from 50 to 100. A high value of $SQ$
+shows a better  sleep quality.
