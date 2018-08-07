@@ -3,14 +3,14 @@
 {\systemname} is a novel smartwatch-based sleep monitoring system that aims at estimating sleep quality and capturing rich information
 about behaviors and events occurring during sleep. By capturing this information, {\systemname} can analyze potential reasons for sleep
 problems and provide the user with suggestions on how to improve their sleep routine or sleep environment. To achieve its design goals,
-{\systemname} exploits a wide range of sensors that are common on commercial off-the-shelf smartwatches: (i) accelerometer, gyroscope, and
-orientation sensor are used to collect body and hand movements; (ii) microphone is used to measure the level of ambient noise and to
-capture acoustic events; and (iii) ambient light sensor is used to monitor illumination within the sleep environment. The different sensors
-and information extracted from them are summarized in Table~\ref{tab:test}.
+{\systemname} exploits a wide range of sensors that are common on commercial off-the-shelf smartwatches: (i) the accelerometer, the
+gyroscope, and the orientation sensor are used to collect body and hand movements; (ii) the microphone is used to measure the level of
+ambient noise and to capture acoustic events; and (iii) the ambient light sensor is used to monitor illumination within the sleep
+environment. Table~\ref{tab:test} summarizes the sleep events that can be detected by \systemname using data collected from these sensors.
 
-It is to note that the design choices and algorithm parameters are empirically determined from the data gathered in our pilot study
-(Sec.~\ref{sec:trainingdata}). The users involved in the pilot study are different from those participated in our experiments
-(Sec.~\ref{sec:evalusers}) for evaluating \systemname.
+It is to note that the design choices and algorithm parameters of \systemname are empirically determined from our pilot study
+(Sec.~\ref{sec:trainingdata}). The users involved in the pilot study are different from those participated in the experiments for
+ evaluating the developed system (Sec.~\ref{sec:evalusers}).
 
 
 \subsection{Detecting Sleep Postures and Movements}
@@ -186,7 +186,9 @@ according to the degree of up and down motions, from which we can approximately 
 \begin{figure}[!t]
 \centering
       \includegraphics[width=0.67\linewidth]{Figures/watch.pdf}
-  \caption{The first figure on the left is the torso coordinate system, and $Y_t$ points north. The middle figure shows the watch coordinate system when the watch an arbitrary position, and the right of the figure shows that the  watch coordinate system after we completed the coordinate system conversion.}\label{fig:watch}
+  \caption{Coordination system conversion. The left-most figure is the torso coordinate system where $Y_t$ points to the north.
+  The middle figure shows the watch's coordinate system when the watch is placed on an arbitrary position.
+  The right-most figure shows that the resulting watch coordinate system after performing the coordinate system conversion.}\label{fig:watch}
 \end{figure}
 
 \cparagraph{Example.} Now we take the case of hands on the abdomen as an example. Even when the hand is placed on the abdomen, there are
@@ -354,7 +356,7 @@ the pilot study (Sec.~\ref{sec:trainingdata}).
 \begin{figure}[!t]
 \centering
       \includegraphics[width=0.43\linewidth]{Figures/Micromovement.pdf}
-  \caption{Accelerometer readings for micro-body movements using samples from one of our training users.}\label{fig:micro-move}
+  \caption{Accelerometer readings for micro-body movements using samples from one of the users from the pilot study.}\label{fig:micro-move}
 \end{figure}
 
 
