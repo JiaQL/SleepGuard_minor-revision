@@ -7,9 +7,28 @@
 	\caption{Experimental setup in one of our participants' home. }\label{fig:setup}
 \end{figure}
 
+\subsection{{Pilot Study: Training Data}}\label{sec:trainingdata}
+
+Prior to our main study, we carried out a pilot study that was used to inform our algorithm design, and to provide training data for the
+algorithms integrated into {\systemname}. Our pilot study consisted of two groups (aged ranged from 15 to 60). One group   {consisted of}
+randomly selected 100 volunteers to conduct questionnaire surveys to provide the basis for our algorithm design. The other group consisted
+of 10 users whose data was used to train our models.
 
 
-\subsection{Experimental Setup\label{sec:evalusers}}
+To improve the effectiveness of the algorithms integrated into {\systemname}, especially sleep posture and hand position detection, we
+elicited questionnaires to 100 volunteers to identify their common sleep posture. The main content of the questionnaire was about their
+common arm position in the four basic sleeping postures. Based on this investigation and previous
+research~\cite{position2014,HandPosition2}, we selected the positions to consider in {\systemname}. We also found that these arm positions
+are representative during the training and testing of our algorithms.
+
+To train the models used in our system and to determine optimal parameter values, a small-scale pilot study with $10$ participants was
+carried out prior to the main experiment. The training examples used to train our algorithms and to determine the algorithm parameters are
+collected from 10 users (5 males and 5 females). Our testing users were asked to wear a smartwatch to sleep and collected the sensor data
+while they were sleeping. Every testing user contributes 10 nocturnal sleep data over a two-week period. These users are different from
+those taking part in our evaluation (Sec.~\ref{sec:evalusers}).
+
+
+\subsection{Main Experimental Setup\label{sec:evalusers}}
 
 \cparagraph{Participants.} We evaluate {\systemname} through experiments conducted in $15$ single-occupancy homes over a two-week period.
 The participants include 6 males and 9 females, whose age spans 15 to 60 years. To ensure little sleep had no effect on the results, each
@@ -48,25 +67,7 @@ events. To provide a fair comparison against these baselines, we also place a sm
 data for Sleep Hunter and Sleep as Android.
 	
 
-\subsection{{Pilot Study: Training Data}}\label{sec:trainingdata}
 
-Prior to our main study, we carried out a pilot study that was used to inform our algorithm design, and to provide training data for the
-algorithms integrated into {\systemname}. Our pilot study consisted of two groups (aged ranged from 15 to 60). One group   {consisted of}
-randomly selected 100 volunteers to conduct questionnaire surveys to provide the basis for our algorithm design. The other group consisted
-of 10 users whose data was used to train our models.
-
-
-To improve the effectiveness of the algorithms integrated into {\systemname}, especially sleep posture and hand position detection, we
-elicited questionnaires to 100 volunteers to identify their common sleep posture. The main content of the questionnaire was about their
-common arm position in the four basic sleeping postures. Based on this investigation and previous
-research~\cite{position2014,HandPosition2}, we selected the positions to consider in {\systemname}. We also found that these arm positions
-are representative during the training and testing of our algorithms.
-
-To train the models used in our system and to determine optimal parameter values, a small-scale pilot study with $10$ participants was
-carried out prior to the main experiment. The training examples used to train our algorithms and to determine the algorithm parameters are
-collected from 10 users (5 males and 5 females). Our testing users were asked to wear a smartwatch to sleep and collected the sensor data
-while they were sleeping. Every testing user contributes 10 nocturnal sleep data over a two-week period. These users are different from
-those taking part in our evaluation (Sec.~\ref{sec:evalusers}).
 
 
 

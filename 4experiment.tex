@@ -1,7 +1,11 @@
 \section{Experimental Results}\label{sec:4experiment}
+In this section, we first evaluate the performance of \systemname in detecting individual sleep-related events
+(Sec.~\ref{sec:exp:individuals}). We then compare \systemname against alternative schemes for sleep stage detection
+(Sec.~\ref{sec:overall_per}). Finally, we demonstrate the usefulness of \systemname in helping users to understand and improve their sleep
+through user study (Sec.~\ref{sec:user_survey}).
 
-\subsection{Evaluation of Subcomponents}
-In this section, we evaluate the accuracy of \systemname on detecting five sleep events: the body posture, the body rollover, the hand
+\subsection{Evaluation of Event Detection\label{sec:exp:individuals}}
+In this sub-section, we evaluate the accuracy of \systemname on detecting five sleep events: the body posture, the body rollover, the hand
 position, micro-body movements and acoustic events. Unless otherwise stated, the ground truth of an event is obtained by watching or
 listening to the video/audio footage.
 
@@ -144,7 +148,7 @@ relatively low detection accuracy of hand movements has little impact on sleep s
 	\centering
 	\begin{minipage}{.485\textwidth}
 		 \includegraphics[width=0.95\textwidth]{Figures/micro_movement_zhu.pdf}
-		\caption{Micro body movement detection accuracy for each user.}\label{fig:micro_movement_zhu}	
+		\caption{Micro-body movement detection for each user.}\label{fig:micro_movement_zhu}	
 	\end{minipage}%
 \hspace{3pt}
 	\begin{minipage}{.485\textwidth}
@@ -185,6 +189,7 @@ events with a high accuracy.
   \centering
  \renewcommand\arraystretch{0.35}
   \caption{The confusion matrix of acoustic events detection.}\label{tab:sound}
+   \vspace{-2mm}
 \begin{tabular}{c| r | r | r | r | r | r}
    \hline
    &\multicolumn{1}{ c|}{ }
@@ -228,7 +233,7 @@ events with a high accuracy.
 \end{table}
 
 
-\subsection{Overall Performance\label{sec:overall_per}}
+\subsection{Evaluation of Sleep Stage Detection\label{sec:overall_per}}
 In order to prove that \systemname is able to identify the sleep stages but not just user's sleep habits, we use the results given by
 Fitbit Charge2 as the ground truth. In this evaluation, we randomly choose a total of $50$ sets  of sleep data for 15 participants across
 two weeks, yielding at least $3$ sets per participant.
@@ -242,6 +247,7 @@ the sleep stage remains unchanged.
 %\setlength{\tabcolsep}{1pt}
 \renewcommand{\arraystretch}{0.55}{\centering}
 	\caption{{The confusion matrix of sleep stage detection.}}\label{tab:sleep stage}
+ \vspace{-2mm}
 	\begin{tabular}{c| r | r | r | r | r}
 		\hline
 		&\multicolumn{1}{ c|}{ }
@@ -311,6 +317,7 @@ consequently the frequency of breathing will be slower.
 	\centering
 	\renewcommand\arraystretch{0.3}
 	\caption{Effect of respiratory amplitude estimation.}\label{tab:respiratory}
+ \vspace{-2mm}
 	\begin{tabular}{l| l | r | r | r | r | r | r |}
 		\cline{2-8}
 		&\multicolumn{1}{ c|}{ }
@@ -352,6 +359,7 @@ consequently the frequency of breathing will be slower.
  	\centering
  	\renewcommand\arraystretch{0.3}
  	\caption{Performance of sleep stage detection comparison.}\label{tab:comparison}
+  \vspace{-2mm}
  	\begin{tabular}{c| r | r | r | r | r |}
  		\cline{2-6}
  		&\multicolumn{1}{ c|}{ }
@@ -395,6 +403,7 @@ stages. The performance advantage of {\systemname} comes from the incorporation 
  	\centering
  	\renewcommand\arraystretch{0.3}
  	\caption{Acoustic event detection on smartwatch data.}\label{tab:compare_sound1}
+ \vspace{-2mm}
  	\begin{tabular}{c| r | r | r | r | r | r | r |}
  		\cline{2-8}
  		&\multicolumn{1}{ c|}{ }
@@ -430,6 +439,7 @@ stages. The performance advantage of {\systemname} comes from the incorporation 
  	\centering
  	\renewcommand\arraystretch{0.3}
  	\caption{Sleep stage detection on smartwatch data.}\label{tab:compare_stage1}
+ \vspace{-2mm}
  	\begin{tabular}{c| c | c | c | c | c | c | c |}
  		\cline{2-8}
  		&\multicolumn{1}{ c|}{ }
