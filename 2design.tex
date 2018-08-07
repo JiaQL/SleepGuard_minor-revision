@@ -1,6 +1,16 @@
 \section{{\systemname} SLEEP MONITORING PLATFORM}\label{Sec:2design}
 
-{\systemname} is a novel smartwatch-based sleep monitoring system that aims at estimating sleep quality and capturing rich information about behaviors and events occurring during sleep. By capturing this information, {\systemname} can analyze potential reasons for sleep problems and provide the user with suggestions on how to improve their sleep routine or sleep environment. To achieve its design goals, {\systemname} exploits a wide range of sensors that are common on commercial off-the-shelf smartwatches: (i) accelerometer, gyroscope, and orientation sensor are used to collect body and hand movements; (ii) microphone is used to measure the level of ambient noise and to capture acoustic events; and (iii) ambient light sensor is used to monitor illumination within the sleep environment. The different sensors and information extracted from them are summarized in Table~\ref{tab:test}. In the following, we discuss the different subcomponents of {\systemname} in detail.
+{\systemname} is a novel smartwatch-based sleep monitoring system that aims at estimating sleep quality and capturing rich information
+about behaviors and events occurring during sleep. By capturing this information, {\systemname} can analyze potential reasons for sleep
+problems and provide the user with suggestions on how to improve their sleep routine or sleep environment. To achieve its design goals,
+{\systemname} exploits a wide range of sensors that are common on commercial off-the-shelf smartwatches: (i) accelerometer, gyroscope, and
+orientation sensor are used to collect body and hand movements; (ii) microphone is used to measure the level of ambient noise and to
+capture acoustic events; and (iii) ambient light sensor is used to monitor illumination within the sleep environment. The different sensors
+and information extracted from them are summarized in Table~\ref{tab:test}.
+
+It is to note that all the algorithm parameters are obtained from the training data gathered in our pilot study
+(Sec.~\ref{sec:trainingdata}). The users involved in the pilot study are different from those participated in our experiments
+(Sec.~\ref{sec:evalusers}) for evaluating \systemname.
 
 
 \subsection{Detecting Sleep Postures and Movements}
@@ -433,17 +443,29 @@ estimate the \emph{duration} of the acoustic event, we identify the start and en
 
 A traditional end-point detection algorithm~\cite{stowell2015detection}, however, is ill-suited to our problem. This is because it uses a
 fixed threshold which must be obtained by examining a large number of data samples. As a result, a traditional end-point detection
-algorithm has two drawbacks. First, the fixed threshold may cause error detection at the beginning of an acoustic event. Second, the
-requirement of a large number of data samples would lead to large system latency. To address these issues, we develop a detection method
-that does not require pre-sampling to obtain the optimal thresholds. Instead, our algorithm estimates the thresholds on a per signal basis.
-This strategy not only reduces the number of data samples needed, but also leads to a higher accuracy.
+algorithm has two drawbacks. Firstly, a fixed threshold is highly unlikely to be optimal for different users (due to different sleep
+patterns) and environments (due to different environmental noises). Secondly, using a large number of data samples to determine the
+threshold incurs significant overhead for data collection.
 
-Specifically, since the first few frames and the last few frames are mostly mute or are the background noise, we select the first five frames and the last five frames to calculate their short-term energy, which are denoted as $E_s$ and $E_e$, respectively. And then the two are combined to obtain the mean $E_n$ as the estimated energy value of the noise segment. Let the maximum value of the short-term energy over all frames denoted as $\max (E)$. Then, the average short-term energy $DE$ is given as:
+
+To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method that requires significantly fewer
+data samples to determine the optimal threshold on a per user per environment basis.
+%
+% may cause error detection at the beginning of an acoustic event. Second, the
+%requirement of a large number of data samples would lead to large system latency. To address these issues, we develop a detection method
+%that does not require pre-sampling to obtain the optimal thresholds. Instead, our algorithm estimates the thresholds on a per signal basis.
+%This strategy not only reduces the number of data samples needed, but also leads to a higher accuracy.
+%
+Specifically, since the first and last few audio segments are mostly mute or are background noises, we select the first and last five
+segments to calculate their short-term energy, which are denoted as $E_s$ and $E_e$ respectively for the first and last segments. The two
+energy values are then combined to obtain the mean, $E_n$, as the estimated energy value of noise segments. Let the maximum value of the
+short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy $DE$ is given as:
 \begin{eqnarray}
       &E_n = \frac{(E_s+E_e)}{2}, \\
       &DE = \max (E)-E_n.\label{eq:DE}
 \end{eqnarray}
-So we can use $EH$ and $EL$ to represent the high and low threshold of short-term energy as:
+
+As a result, we can use $EH$ and $EL$ to represent the high and low thresholds of short-term energy as:
 \begin{eqnarray}
       &EH=\alpha \times DE+E_n,\\
       &EL=\beta \times DE+E_n,
@@ -451,9 +473,16 @@ So we can use $EH$ and $EL$ to represent the high and low threshold of short-ter
 where $\alpha$ and $\beta$ are the multiplier factors of the energy value $DE$.
 
 
-Here, we need to choose the right values for $\alpha$ and $\beta$ to ensure that we can accurately detect the start and end points of a speech signal. To that end, we use the night time sound data from our training dataset to determine $\alpha$ and $\beta$. Specifically, we tested $\alpha$ with values ranging between 0.1 and 0.5, and $\beta$ with values ranging from 0.01 to 0.09. We found that setting $\alpha$ to  0.1 and $\beta$ to  0.06 gives the best overall results in our training dataset.
+Here, we need to choose the right values for coefficients $\alpha$ and $\beta$ to ensure that we can accurately detect the start and end
+points of a speech signal. To that end, we use the night time sound data from our training dataset to determine $\alpha$ and $\beta$.
+Specifically, we tested $\alpha$ with values ranging from 0.1 to 0.5, and $\beta$ with values ranging from 0.01 to 0.09. We found that
+setting $\alpha$ to  0.1 and $\beta$ to  0.06 gives the best overall results in our training dataset.
 
-To ensure sudden noise does not interfere with detection results, we set the minimum length of the signal segment and count the length of the signal during the search for the start and end point. Finally, if the signal length is less than the set minimum, it is considered as a noise segment. The results of the start-point and end-point detection are shown in Fig. \ref{acoustic}, we calculate the length of each speech segment and calculate their averages as the duration of the acoustic event. Last, we count the number of peak points to see whether it meets the third key observation or not.
+To minimize the impact of occasionally happened noises, we set the minimum length of the signal segment and measure the duration of the
+signal when searching for the start and end points. If the length of an acoustic signal is less than the minimum, the signal segment is
+considered to be a noise segment. The results of the start-point and end-point detection are shown in Fig. \ref{acoustic}, we calculate the
+length of each speech segment and calculate their averages as the duration of the acoustic event. Last, we count the number of peak points
+to see whether it meets the third key observation or not.
 
 
 
