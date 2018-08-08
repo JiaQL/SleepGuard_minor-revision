@@ -424,25 +424,25 @@ position of each peak and calculate the \emph{interval} between two consecutive 
 by counting the number of peaks within a time window.
 
 
-\cparagraph{Acoustic feature calculation.} % In order to identify different acoustic events accurately, we select the short-term average energy and the zero-crossing rate (ZCR) as two features.
-\textcolor{blue}{In order to identify different acoustic events accurately, we need to perform end-point detection of speech signal. So we select the short-term average energy and the zero-crossing rate (ZCR) as two features.} The short-term average energy of acoustic signal is computed as:
-
-\begin{equation}
-  E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
-  \label{eq:shorte}
-\end{equation}
-
-where $N$ is the window length, $x$ is the signal and $\omega$ is the impulse response. As we can see that the short-term energy is the
-weighted sum of squared frame sample. The short-term energy can be used to distinguish the segment of unvoiced and voiced sound. It also
-can be used to differentiate the speech segment and noise segment  in  case of relatively high signal to noise ratio (SNR). The
-zero-crossing rate is computed as:
-\begin{equation}
-  Z_i = \frac{1}{2}\sum\nolimits_{j=0}^{N}|sgn[x_i(j)]-sgn[x_i(j-1)]|.
-  \label{eq:zeroc}
-\end{equation}
-
-
-where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal waveform passes through the horizontal axis (zero level).
+%\cparagraph{Acoustic feature calculation.} % In order to identify different acoustic events accurately, we select the short-term average energy and the zero-crossing rate (ZCR) as two features.
+%\textcolor{blue}{In order to identify different acoustic events accurately, we need to perform end-point detection of speech signal. So we select the short-term average energy and the zero-crossing rate (ZCR) as two features.} The short-term average energy of acoustic signal is computed as:
+%
+%\begin{equation}
+%  E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
+%  \label{eq:shorte}
+%\end{equation}
+%
+%where $N$ is the window length, $x$ is the signal and $\omega$ is the impulse response. As we can see that the short-term energy is the
+%weighted sum of squared frame sample. The short-term energy can be used to distinguish the segment of unvoiced and voiced sound. It also
+%can be used to differentiate the speech segment and noise segment  in  case of relatively high signal to noise ratio (SNR). The
+%zero-crossing rate is computed as:
+%\begin{equation}
+%  Z_i = \frac{1}{2}\sum\nolimits_{j=0}^{N}|sgn[x_i(j)]-sgn[x_i(j-1)]|.
+%  \label{eq:zeroc}
+%\end{equation}
+%
+%
+%where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal waveform passes through the horizontal axis (zero level).
 
 
 
@@ -453,18 +453,44 @@ optimal for different users (due to different sleep patterns) and environments (
 large number of data samples to determine the threshold incurs significant overhead for data collection.
 
 
-To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method based on short-term energy and zero-crossing rate that requires significantly fewer
-data samples to determine the optimal threshold on a per user per-environment basis.
+To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method based on the short-term energy and
+the zero-crossing rate (ZCR). Our method requires significantly fewer data samples to determine the optimal threshold on a per user
+per-environment basis.
+
+The short-term average energy of an acoustic signal is computed as:
+
+\begin{equation}
+  E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
+  \label{eq:shorte}
+\end{equation}
+
+where $N$ is the window length, $x$ is the signal and $\omega$ is the impulse response. As we can see that the short-term energy is the
+weighted sum of squared frame sample. The short-term energy can be used to distinguish the segment of unvoiced and voiced sound. It also
+can be used to differentiate the speech segment and noise segment  in  case of relatively high signal to noise ratio (SNR).
+
+
+The zero-crossing rate is computed as:
+
+\begin{equation}
+  Z_i = \frac{1}{2}\sum\nolimits_{j=0}^{N}|sgn[x_i(j)]-sgn[x_i(j-1)]|.
+  \label{eq:zeroc}
+\end{equation}
+
+
+where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal waveform passes through the horizontal axis (zero level).
+
+
+
 %
 % may cause error detection at the beginning of an acoustic event. Second, the
 %requirement of a large number of data samples would lead to large system latency. To address these issues, we develop a detection method
 %that does not require pre-sampling to obtain the optimal thresholds. Instead, our algorithm estimates the thresholds on a per signal basis.
 %This strategy not only reduces the number of data samples needed, but also leads to a higher accuracy.
 %
-Specifically, since the first and last few audio segments are mostly mute or are background noises, we select the first and last five
-segments to calculate their short-term energy, which is denoted as $E_s$ and $E_e$ respectively for the first and last segments. The two
-energy values are then combined to obtain the mean, $E_n$, as the estimated energy value of noise segments. Let the maximum value of the
-short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy, $DE$, is given as:
+Our algorithm works as follows.  Since the first and last few audio segments are mostly mute or are background noises, we select the first
+and last five segments to calculate their short-term energy, which is denoted as $E_s$ and $E_e$ respectively for the first and last
+segments. The two energy values are then combined to obtain the mean, $E_n$, as the estimated energy value of noise segments. Let the
+maximum value of the short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy, $DE$, is given as:
 \begin{eqnarray}
       &E_n = \frac{(E_s+E_e)}{2}, \\
       &DE = \max (E)-E_n.\label{eq:DE}
