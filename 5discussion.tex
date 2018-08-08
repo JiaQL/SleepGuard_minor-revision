@@ -1,6 +1,6 @@
 \section{Discussions}\label{sec:discussion}
 
-In this paper, we have shown that sensors available on off-the-shelf smartwatches can be used to capture rich information about sleep quality and factors affecting it. The main focus of our work has been to develop the required algorithms for capturing rich sleep related information as accurately as possible. While the recognition performance of our system is very encouraging, there are some issues that would need to be addressed in our system before larger-scale deployment would be feasible. Below we highlight the main issues and briefly discuss possible ways to overcome them.
+In this paper, we have shown that sensors available on off-the-shelf smartwatches can be used to capture rich information about sleep quality and factors affecting it. The main focus of our work has been to develop the required algorithms for capturing rich sleep-related information as accurately as possible. While the recognition performance of our system is very encouraging, there are some issues that would need to be addressed in our system before larger-scale deployment would be feasible. Below we highlight the main issues and briefly discuss possible ways to overcome them.
 
 
 \cparagraph{The accuracy of sleep stage detection.} {In our experiment, we were unable to directly compare {\systemname} against
@@ -36,11 +36,10 @@ stage detection.
 
 \cparagraph{Single wrist sensor.} In our paper, we only use the sensor data of only one wrist, which loses efficiency for detecting
 specific events of the other wrist. Even so, it can an achieve accurate sleep quality assessment result. Although movement patterns of the
-left and right wrist can be different during sleep, the technique used for detecting sleep related behaviors is the same. Some sleep
-related events like the sleep posture, body rollover, acoustic events, illumination conditions, are not affected by different wrists. The
+left and right wrist can be different during sleep, the technique used for detecting sleep-related behaviors is the same. Some sleep-related events like the sleep posture, body rollover, acoustic events, illumination conditions, are not affected by different wrists. The
 reason is that these events are related to the entire body rather than the part of the body. To adapt our approach to these sleep events,
 the only thing we need to do is adjusting new experimental parameters when the smartwatch is worn on a different wrist. For the hand
-position detection and micro-body movement detection (including the arm 	raising and hand movement), wearing the smartwatch on a
+position detection and micro-body movement detection (including the arm raising and hand movement), wearing the smartwatch on a
 different wrist does have an impact. This is because the hand movement probability and frequency are different on different hands. However,
 the degree of impact on our detection performance varies from person to person and can be largely canceled through calibration. This is
 where we need to measure and consider in our future work. Alternatively, multi-sensor designs, such as a combination of smartwatch and
@@ -54,8 +53,8 @@ acoustic events, the occurrence and frequency of physical activity, but we go fu
 classification of these events, and add more consideration about illumination conditions and respiratory amplitude. One thing we can know
 is that the measurement of events such as acoustic events, body rollover events, body tremble, etc., has little to do with the sensor data
 collected from the left or right hand. The major difference that may exist is these rich events added in {\systemname}, such as hand
-position, sleep posture, etc,  but these are not detected by Fitbit, so they have no effect when compared. Moreover, we also did a test
-experiment. The smartwatch were worn on the left and right hands respectively and the event detection algorithm in {\systemname} was mainly
+position, sleep posture, etc, but these are not detected by Fitbit, so they have no effect when compared. Moreover, we also did a test
+experiment. The smartwatch was worn on the left and right hands respectively and the event detection algorithm in {\systemname} was mainly
 used to detect those events that are of concern in Fitbit. We can see that the results are not much different. Therefore, in the end, in
 order to ensure that the user's sleep is as uncomfortable as possible, we choose to make Fitbit and Smartwatch are worn on different hands.
 
@@ -72,7 +71,7 @@ events, we can further limit conditions, e.g., training the different magnitudes
 hand at different positions to identify whether it is the user's own acoustic event or the sound of the bed partner. In addition, the
 related acoustic events of the bed partner can also be considered as a factor affecting the user's sleep.
 
-\cparagraph{Occurrence of unusual arm's positions.} We detect sleep posture based on arm's positions and focus on three specific positions
+\cparagraph{Occurrence of unusual the arm's positions.} We detect sleep posture based on arm's positions and focus on three specific positions
 when detecting the position of the hand. In sleep position detection, we are based on the assumption that between the user's arms position
 and sleeping postures that the arms have common and (reasonably) stable positions in each posture and we consider as many possible arm
 positions as possible in four sleeping postures, which are the most common arm's positions for users during sleep. In hand position
@@ -90,6 +89,6 @@ can be automatically turned off. Similarly, we can identify poor postures and ha
 to improve to reduce sleep problems. For example, \cite{posture} present an anti-supine device mimicking the so-called "tennis ball
 technique" to control sleep posture, in order to improve OSA hypopnoea syndrome. For some problems, such as persistent snoring or coughing,
 our system can provide suggestions such as how to improve posture to mitigate these problems, or potentially detect severe cases where
-medical intervention would be appropriate. Indeed, for long-term snoring the medical guidelines suggest undergoing a physical examination
+medical intervention would be appropriate. Indeed, for long-term snoring, the medical guidelines suggest undergoing a physical examination
 so that they can timely discover possible physical diseases that may cause snoring, such as high blood pressure, cardiovascular and
 cerebrovascular diseases.

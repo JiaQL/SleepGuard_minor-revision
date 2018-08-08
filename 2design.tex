@@ -9,8 +9,7 @@ ambient noise and to capture acoustic events; and (iii) the ambient light sensor
 environment. Table~\ref{tab:test} summarizes the sleep events that can be detected by \systemname using data collected from these sensors.
 
 It is to note that the design choices and algorithm parameters of \systemname are empirically determined from our pilot study
-(Sec.~\ref{sec:trainingdata}). The users involved in the pilot study are different from those participated in the experiments for
- evaluating the developed system (Sec.~\ref{sec:evalusers}).
+(Sec.~\ref{sec:trainingdata}). The users involved in the pilot study are different from those participating in the experiments for evaluating the developed system (Sec.~\ref{sec:evalusers}).
 
 
 \subsection{Detecting Sleep Postures and Movements}
@@ -52,19 +51,19 @@ of body micro movements.
 \subsubsection{Sleep Posture Detection}\label{sec:sleeppdet}
 
 Dreaming and sleep quality are associated with underlying brain functions, which in turn are affected by body posture~\cite{posture2004}.
-Sleep posture also varies across individuals and should fit personal and physical needs of the individual~\cite{posture2016,posture2017}.
+Sleep posture also varies across individuals and should fit the personal and physical needs of the individual~\cite{posture2016,posture2017}.
 For example, sleeping in a prone position is unsuitable for people with ailments, such as heart disease or high blood pressure. On the
 other hand, people can {unconsciously} avoid postures that would be beneficial for health and sleep quality~\cite{posture2015}. Having an
 effective way to detect current posture and track changes in it would thus be essential for estimating overall sleep quality, and avoiding
 potential harm. {{\systemname} captures four basic sleep postures: supine, left lateral, right lateral, and prone. These are illustrated
 in} Fig.~\ref{fig:BodyPosture}. Detecting these postures using a single wrist sensor, however, is non-trivial because the sensor cannot
-accurately track movement of the entire body. To accomplish posture detection, we observe that the arm position strongly correlates {with}
-sleep posture, i.e., the arm is typically located in a specific, stable location for a given posture. This  suggests that we can first
+accurately track the movement of the entire body. To accomplish posture detection, we observe that the arm position strongly correlates {with}
+sleep posture, i.e., the arm is typically located in a specific, stable location for a given posture. This suggests that we can first
 identify the user's arm position and the {\em time the position is approximately stable, which can then be mapped into} a sleep posture.
 Later in this paper, we show that our approach {achieves} high accuracy in identifying sleep postures.
 
 To separate sleep postures, {\systemname} considers a set of feasible hand positions for each posture. {In the supine position, we assume
-the user's hand is placed on the left side of the body, on the abdomen, on the chest or on the head; in the left and right lateral
+the user's hand is placed on the left side of the body, on the abdomen, on the chest or on the head; on the left and right lateral
 positions we assume the hand to be close to the pillow, on the chest or on the waist; and, finally, in the prone position we assume the
 user's hand is on the side of the head or above his/her head.} These positions were selected based on a pilot carried out in our test
 environment (see Sec.~\ref{sec:expsetup}). Fig.~\ref{fig:BodyPosture} shows one possible hand position for each of the postures.
@@ -74,7 +73,7 @@ collected within a time window corresponds to}, we average all the calculated ti
 calculate the Euclidean distance of the input values to a set of posture profiles, which are based on measurements collected in a pilot
 study that involved 10 users (see Sec.~\ref{sec:trainingdata}). We then use the body posture associated with the nearest neighbor as the
 detection outcome. Fig.~\ref{fig:posture} shows the angle values of the four sleep postures targeted in this work. {We can observe clear
-differences in the tilt angles of the three axes}. The sleep posture thus can be inferred based on the position of the smartwatch and the
+differences in the tilt angles of the three axes}. The sleeping posture thus can be inferred based on the position of the smartwatch and the
 created angle mapping. However, a limitation of this approach is that the hand positions during supine and prone postures {can be} similar
 when the hand is located on the side of the head (Fig. \ref{fig:Supine} and \ref{fig:Prone}), thus the classification accuracy will be
 affected.
@@ -108,9 +107,9 @@ The hand position during sleep can disclose potential health problems, and an im
 {\systemname} is designed to recognize three common hand positions -- if the hand is placed on the abdomen, chest or head when the user is in the supine posture, as shown in Fig. \ref{fig:HandPosition}. We have chosen these three hand positions because there are found to be the most common and representative positions in our pilot study (Sec.~\ref{sec:trainingdata}). Our hand position recognition algorithm is based on sensor data of rotation angles, tilt angles, and respiratory events. It works by first using the rotation and tile angles to detect if the hand was placed on the head. {When the hand is not on the head, we use respiratory events to identify whether the hand is on the abdomen or chest}. We now describe how to detect each of the three positions in more details.
 
 
-\cparagraph{Hands on the head.}  Fig.~\ref{Bodyhand} shows change of rotation angle using the gyroscope for one of our pilot study users
+\cparagraph{Hands on the head.}  Fig.~\ref{Bodyhand} shows the change of rotation angle using the gyroscope for one of our pilot study users
 when his hand was initially placed next to the body and then moved to his head, abdomen, and chest. As can be seen from the figure, when
-the hand is moved to the head, changes in rotation angles are significantly different from the readings when moving the hand on abdomen or
+the hand is moved to the head, changes in rotation angles are significantly different from the readings when moving the hand on the abdomen or
 chest. This is largely due to the palm facing direction - it is upward when the hand is placed on the head but downward when the hand is
 placed in other positions. {\systemname} exploits this observation to detect if the hand is placed on the head by examining changes of the
 {tilt} and rotation angles. We use a hierarchical classifier consisting of two {K nearest neighbor} models (with $K=1$) to predict if the
@@ -118,7 +117,7 @@ hand is moved to the head based on the tilt and rotation angle readings. Specifi
 tilt angle reading is closest to one of our training samples where the palm was {facing up. Training data for detecting palm direction
 (upward or downward) are collected} from our pilot study users when their hands are placed on the head, abdomen and  chest respectively;
 see Sec.~\ref{sec:trainingdata}) If the first KNN model suggests that the palm was facing upward, the second KNN then uses differences of
-rotation readings (from the x, y, and z directions) before and after hand  movement to determine if the most likely position is on the head
+rotation readings (from the x, y, and z directions) before and after hand movement to determine if the most likely position is on the head
 or elsewhere. As similarity measure we consider the  Euclidean distance from the input data to each of the training samples -- consisting
 of the rotation angle values from the three directions. If our hierarchical model predicts that the hand was not placed on the head, we
 then use the method described in the next paragraph to detect if it was placed on the abdomen or the chest.
@@ -138,7 +137,7 @@ then use the method described in the next paragraph to detect if it was placed o
 
 
 \cparagraph{Hands on the abdomen or chest.} {When the aforementioned hierarchical model predicts the hand is not placed on the head, the
-hand can then be located at anywhere, including different parts of the body. {However, in our case we are only interested in detecting if
+hand can then be located anywhere, including different parts of the body. {However, in our case we are only interested in detecting if
 the hand is on the chest or abdomen -- or at neither of these positions.} We build on the intuition that the hand is likely to be affected
 by breathing whenever it is placed on the chest or abdomen.} Specifically, the impact of breathing results in periodical fluctuations on
 the accelerometer readings. This is because the hand will be pushed up and drop down due to breathing.  {Our experimental data suggest that
@@ -163,8 +162,8 @@ To examine if the accelerometer data are affected by the respiration, we calcula
 	\end{minipage}
 \end{figure*}
 
-{Putting things together, we thus first use the PSD detector to identify whether a respiratory event is taking place. When respiratory
-events are detected, we }then use again a KNN classifier to make a binary decision to determine if the hand is placed on the abdomen or the
+Putting things together, we thus first use the PSD detector to identify whether a respiratory event is taking place. When respiratory
+events are detected, we then use again a KNN classifier to make a binary decision to determine if the hand is placed on the abdomen or the
 chest based on the rotation angle readings (see b and c in Fig.~\ref{Bodyhand}). {On the other hand, if no respiratory peak is detected, we
 assume the hand to be located at another place on the body that is not supported. } Similarly to the head position model, the training
 samples for the KNN model are also collected from our pilot study users -- where each training example includes the rotation angle readings
@@ -176,11 +175,11 @@ We have also found that the extent of body movements can be used to judge the am
 rapid-eye-movement (REM) and non-rapid-eye-movement (NREM) stages. This is based on a prior study showing that when people sleep in the REM
 stage, their respiratory amplitude is smaller than that in the other stages~\cite{respiratory1982}. Hence, we can roughly determine the
 user's current sleep stage based on the respiratory amplitude. Respiratory amplitude is only an indicator of the division of the sleep
-stage and we can not regard it as a basis for final judgement.  {However, it serves as an early reference that helps later phases of the
-sleep stage detection. Normally chest movement amplitude is smaller than abdominal movement amplitude. However, during in different sleep
+stage and we can not regard it as a basis for final judgment. {However, it serves as an early reference that helps later phases of the
+sleep stage detection. Normally chest movement amplitude is smaller than abdominal movement amplitude. However, during different sleep
 stages, respiration amplitudes differ~\cite{respiratory}. Therefore, it is likely that there is a situation where chest movement amplitude
 in the NREM stages is close to the abdominal movement amplitude in the REM sleep stage. As a result, a na\"{\i}ve solution of applying a
-threshold cannot work satisfactorily but we can combine it with the position of hand detected earlier. Through the above steps, we have
+threshold cannot work satisfactorily but we can combine it with the position of the hand detected earlier. Through the above steps, we have
 been able to determine whether the hands are on the chest or abdomen, and then we can go further to determine the extent of breathing
 according to the degree of up and down motions, from which we can approximately infer the current sleep stage}.
 \begin{figure}[!t]
@@ -221,7 +220,7 @@ variance corresponding to greater breath amplitude. Note that we cannot use the 
 the measurements remain affected by gravity.
 
 \cparagraph{Summary.} To summarize, we use respiratory amplitude to detect when the user is in the REM stage.  We calculate respiratory
-amplitude when the hand is found to be placed on the abdomen or the chest. {Note that as {\systemname} operates using a wrist worn device,
+amplitude when the hand is found to be placed on the abdomen or the chest. {Note that as {\systemname} operates using a wrist-worn device,
 it can only detect respiratory events when the hand is placed in one of these two positions. As a measure of respiratory amplitude, we use}
 the variance of z-axis acceleration. We then use a KNN classifier to find from our training examples, which training example is most
 similar to the variance of the acceleration collected from z directions. The similarity is measured by calculating the distance on the
@@ -240,11 +239,11 @@ feature space. We then use the label (either REM or NREM) associated with the ne
 
 Normally, people roll their body around 20-45 times during a sleep. The main function of body rollovers is simply to maintain a comfortable
 sleeping position as maintaining the same position for a prolonged period will result in muscular tension due to the hindered blood supply,
-which can also lead to local numbness~\cite{rollover2014}. Therefore, body rollovers are another key indicator about sleep quality.
+which can also lead to local numbness~\cite{rollover2014}. Therefore, body rollovers are another key indicator of sleep quality.
 {{\systemname} detects the number of body rollovers, which provides cues about sleep quality. Using the body rollover counts, \systemname
 calculates the rollover frequency which is then used to identify the current sleep stage~\cite{rollover2007}}.
 
-In general, there are six possible body rolover transitions. These include four posture transitions between the supine and laterals (left
+In general, there are six possible body rollover transitions. These include four posture transitions between the supine and laterals (left
 and right), and two posture transitions between the left and right laterals. Fig.~\ref{fig:BodyRollover} depicts the case when the body
 moves from the left to the right side. An intuitive way for detecting body rollover events is to estimate the rotation direction of the arm
 using the rotation angle data given by the gyroscope. However, doing so is non-trivial because different users can exhibit drastically
@@ -308,10 +307,10 @@ likely to occur during the deep sleep stage and the REM stage~\cite{ancoli2003ro
 movements and distinguish them from large-body movements can help us to further analyze the user's sleep stage. In this paper, we are
 interested in the sleep-related micro-body movements including hand moving, arm raising, and body trembling.
 
-\cparagraph{Noise cancelling.} One of the challenges in detecting micro-body movements is to cancel the inherent noises brought by the
+\cparagraph{Noise canceling.} One of the challenges in detecting micro-body movements is to cancel the inherent noises brought by the
 accelerometer. To cancel the noises, we apply a moving window to the collected accelerometer data points to minimize the impact of
 outliers. To determine the size of the moving window, we apply different parameter settings to our training data. We found that a moving
-widow with a size of 35 data points gives the best average results on our training set. Therefore, we choose to apply a moving window of 35
+window with a size of 35 data points gives the best average results on our training set. Therefore, we choose to apply a moving window of 35
 sample points to the collected user data and then calculate the Root Sum Square (RSS) value for the data points within a window:
 
 \begin{equation}
@@ -345,8 +344,7 @@ action typically takes around $1.8$ second, while a hand movement and a body tre
 movement, we can differentiate arm rising from the other two micro-body movements. We also find that a body trembling event tends to lead
 to a more drastic change in the accelerometer readings compared to a hand movement. This observation is depicted in Fig.
 \ref{fig:micro-move} using samples from one of our training users. Based on this observation, we use the change of accelerometer reading to
-distinguish between the body trembling and the hand movement. Like our noise canceling strategy in Equation~\ref{eq:nc}, we  do so by
-calculating the first-order derivative of accelerometer data to find out the peak of the acceleration data.  If the peak is great than
+distinguish between the body trembling and the hand movement. Like our noise canceling strategy in Equation~\ref{eq:nc}, we do so by calculating the first-order derivative of accelerometer data to find out the peak of the acceleration data. If the peak is great than
 $1.5$ and the duration of the movement took between $0.8$ and $1.2$ second, a body trembling is detected; if the peak is less than $1$ and
 the duration of the movement took between $0.8$ and $1.2$ second, a hand movement is detected; otherwise, if the duration of the movement
 took between $1.5$ and $2$ seconds, an arm rising is detected. These thresholds are empirically determined from our training data used in
@@ -387,8 +385,8 @@ detection algorithm. This is achieved by exploiting the characteristics of the d
 
 \cparagraph{Acoustic event characteristics.} To understand the characteristics of the acoustic events targeted in this work,  we carry out
 an interesting recognition experiment (as part of our pilot study - see Sec.~\ref{sec:trainingdata}) using the microphone built in
-smartwatch to detect the sound of people during sleep and effectively identify different acoustic events. We focus on three common acoustic
-events: snore, cough and somniloquy. Ten volunteers worn the smartwatches during sleep to record the acoustic data. We manually label the
+the smartwatch to detect the sound of people during sleep and effectively identify different acoustic events. We focus on three common acoustic
+events: snore, cough and somniloquy. Ten volunteers wear the smartwatches during sleep to record the acoustic data. We manually label the
 data with different acoustic events. Fig. \ref{acoustic} shows the acoustic characteristics of three events. The figure has six snore
 events, two consecutive cough and somniloquy events. In the remaining paragraphs of this sub-section, we describe how to exploit these
 characteristics to detect acoustic events.
@@ -406,10 +404,8 @@ stream by dividing it into segments of equal durations. In this work, each
      suggests that the duration of a snore is shorter than that of a cough or somniloquy. Furthermore, in general, the duration of a
      cough is shorter than that of a somniloquy signal.
  \item As shown in Fig.~\ref{acoustic}, the time intervals between two signals for two different types of acoustic events are
-     significantly different. Specifically, there is a long time interval between two snores, but the time interval between two coughs is
-     much shorter. In contrast to snores and coughs, the interval between any two consecutive somniloquy signals is irregular and does
-     not exhibit a periodic property.
-\item The frequencies for different acoustic events are significantly different. Specifically, a snore event has a continuous signal,
+     significantly different. Specifically, there is a long time interval between two snores, but the time interval between two consecutive coughs is much shorter. In contrast to snores and coughs, the interval between any two consecutive somniloquy signals is irregular and does not exhibit a periodic property.
+\item The frequencies for different acoustic events are significantly different. Specifically, a snore event has a continuous and periodic signal,
     while a cough or somniloquy are sudden events. As a result, the number of consecutive occurrences for coughs and somniloquy tends to
     be small during sleep.
 \end{itemize}
@@ -439,7 +435,7 @@ where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal 
 \cparagraph{Acoustic event classification.} Our acoustic event detection algorithm is a C4.5 decision-tree-based
 classifier~\cite{quinlan2014c4}. It takes as input the ``duration'', ``interval'' and ``frequency'' values of an identified acoustic event,
 and predicts which of the three types acoustic events (snores, coughs, or somniloquy) the event corresponds to. The thresholds of the
-decision tree is automatically learned from our pilot study training data.
+decision tree are automatically learned from our pilot study training data.
 
 To estimate the \emph{duration} of the acoustic event, we identify the start and end points of an acoustic event. After identifying the
 start and end points of an acoustic event, we then perform the peak detection and use the result of peak detection to estimate the
@@ -456,7 +452,7 @@ large number of data samples to determine the threshold incurs significant overh
 
 
 To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method that requires significantly fewer
-data samples to determine the optimal threshold on a per user per environment basis.
+data samples to determine the optimal threshold on a per user per-environment basis.
 %
 % may cause error detection at the beginning of an acoustic event. Second, the
 %requirement of a large number of data samples would lead to large system latency. To address these issues, we develop a detection method
@@ -464,7 +460,7 @@ data samples to determine the optimal threshold on a per user per environment ba
 %This strategy not only reduces the number of data samples needed, but also leads to a higher accuracy.
 %
 Specifically, since the first and last few audio segments are mostly mute or are background noises, we select the first and last five
-segments to calculate their short-term energy, which are denoted as $E_s$ and $E_e$ respectively for the first and last segments. The two
+segments to calculate their short-term energy, which is denoted as $E_s$ and $E_e$ respectively for the first and last segments. The two
 energy values are then combined to obtain the mean, $E_n$, as the estimated energy value of noise segments. Let the maximum value of the
 short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy, $DE$, is given as:
 \begin{eqnarray}
@@ -519,7 +515,7 @@ However, the light sensor may be obscured, which leads to large errors in measur
 smartwatch may be covered under the quilt when he/she turned over unconsciously, and thus the illumination readings on the smartwatch may
 not reflect the real lighting situation. Most of the previous works on smartphone-based light detection have used the proximity sensor to
 detect whether the light sensor is blocked or not. However, such an approach is not applicable to the off-the-shelf smartwatches because
-they typically do not have a proximity sensor.  The key to deal with this practical challenge is that the illumination would drop suddenly
+they typically do not have a proximity sensor.  The key to dealing with this practical challenge is that the illumination would drop suddenly
 when the smartwatch is covered by other objects. There are two possibilities for the sudden drop in light intensity. For most smartwatches,
 the light sensors are usually installed in the front face of it. The first case is the indoor lighting facilities are closed. The second
 case is the wrist turned so that the back of the hand become downward, thus blocking the light sensor in front of the smartwatch. Such a
@@ -553,7 +549,7 @@ exists and different sleep stages have potential conversion probabilities, which
 
 To separate between these states, we build a Hidden Markov Model~\cite{johnson2010hidden} for identifying the current sleep stage of the
 user. As the input, i.e., the observed states, we use a series of detected sleep events and the sleep stage sequence is modelled as a
-hidden state, i.e., $obs_t={NB(t),NB_M(t),BA(t),NA(t)}$ represent the feature vector at the detection phase $t$. The explanation of each
+hidden state, i.e., $obs_t$=($NB(t),NB_M(t),BA(t),NA(t)$) represent the feature vector at the detection phase $t$. The explanation of each
 item, which is the input of HMM, is listed as follows. $NB(t)$: the number of occurrences of body rollover during the detection phase t.
 $NB_M(t)$: the number of occurrences of micro-body movement. $BA(t)$: the measurement of respiratory amplitude.  $NA(t)$: the number of
 occurrences of the acoustic events. The $states_t$ =$\{$light sleep; deep sleep; REM$\}$ is an output of our model, which represents the

@@ -49,7 +49,7 @@ and the one during REM stage as normal amplitude. For the acquisition of sleep s
 {\systemname} reach a consensus. To demonstrate the overall benefits of {\systemname} and the events captured by it, we separately
 collected ground truth information about sleep quality using questionnaires which were administrated each morning. The questionnaires were
 based on the Pittsburgh Sleep Quality Index (PSQI), a widely used and validated questionnaire in sleep quality
-research~\cite{buysse1989pittsburgh}. The results of the user survey is presented at Sec.~\ref{sec:user_survey}. Finally, we collected the
+research~\cite{buysse1989pittsburgh}. The results of the user survey are presented at Sec.~\ref{sec:user_survey}. Finally, we collected the
 sleep stage estimations given by a Fitbit Charge2 and use them as ground truth for sleep stage estimation. While the performance of Fitbit
 is not comparable to medical-grade PSG\footnote{Equipping the participants with PSG was not feasible as it would disrupt their normal
 sleeping routines and potentially bias and reduce sleep activities, which are the main focus of our work. Moreover, the goal of our
@@ -77,7 +77,7 @@ processor at 1.1 GHz. It runs the Android Wear 2.0 operating system. We use five
 microphone, the light and the orientation sensors. To reduce the energy consumption of the smartwatch, in the experiments we analyze the
 sensor data on a XiaoMI Note2 Android smartphone to which the smartwatch sends sensor measurements over Bluetooth. The sensors on the
 smartwatch are sampled every $30$ milliseconds, which was chosen to balance between information quality and energy consumption.
-{\systemname} starts tracking sleep events when it detects that the light is off (which can also be triggered by the user during day time)
-and there has been no body movement for 30 minutes. As part of an initialization process, {\systemname} estimates the initial body posture
+{\systemname} starts tracking sleep events when it detects that the light is off (which can also be triggered by the user during daytime)
+and there has been nobody movement for 30 minutes. As part of an initialization process, {\systemname} estimates the initial body posture
 and hand position. It then uses these as a starting point to monitor sleep events like the body posture, rollovers, hand positions and body
 movements.

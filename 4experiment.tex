@@ -95,8 +95,8 @@ high number of rollovers. For users 3 and 4, they have difficulties in falling a
 rollover frequently because of his loudly snoring. As we will demonstrate in Sec.~\ref{sec:user_survey}, these participants also suffered
 from poor sleep quality and hence indicate how the information extracted by {\systemname} can support the detection of sleep problems. For
 all the 15 users, the detection accuracies are all high with the lowest accuracy of 87\%. Therefore, {\systemname} can accurately
-distinguish  large hand movements from body rollovers. We stress the the small detection errors in body rollover events do not have a
-significant impact on our end result. This is because for sleep stage detection, we consider a multiple events in addition to body
+distinguish large hand movements from body rollovers. We stress the small detection errors in body rollover events do not have a
+significant impact on our end result. This is because for sleep stage detection, we consider multiple events in addition to body
 rollover, including micro-body movement and acoustic events, which can offset the detection errors for body rollover.
 
 \begin{table}[!t]\footnotesize
@@ -115,7 +115,7 @@ rollover, including micro-body movement and acoustic events, which can offset th
 
 \subsubsection{Hand Position Recognition}
 Recall that we combine the tracked hand movement trajectory and periodic signals caused by respiration to identify if the hand is placed on
-the chest, addomen or head. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during sleep were placed on the
+the chest, abdomen or head. In our dataset, 14\%, 36\% and 22\% of the time the hand in the supine posture during sleep were placed on the
 head, abdomen, and chest respectively. Fig.~\ref{fig:hand_zhu} illustrates the accuracy of hand position across 15 users. As we can see
 that using just one single user's data for training, our approach achieves an accuracy of over 87\% across different testing users.
 Moreover, we find that at least 4 out of our 15 participants tended to put their hands on their heads (which often lead to bad sleep) and
@@ -129,9 +129,8 @@ smartphone placed on the bed to record the occurrence of micro-body movements - 
 smartphone data to obtain the ground truth prevents us from missing some movements such as trembling concealed by the duvet (which may not
 be visible from the video). To gather ground truths from the smartphone data, we first smooth the collected acceleration data along the
 three axes. Next, we calculate the Root Sum Square (RSS) value to merge the results across axes to obtain the first-order derivative of the
-merged acceleration data (see Sec.~\ref{sec:microbo}). Then, we use the threshold-based method described in Sec.~\ref{sec:microbo} to mark
-the occurrence of micro-body movements from the smartphone data. The marked smartphone data is then used together with the manually labeled
-micro-body movements as the ground truths.
+merged acceleration data (see Sec.~\ref{sec:microbo}). Then, we use a simple threshold-based approach to mark body trembling in smartphone data without using the method in Sec.~\ref{sec:microbo} to classify these movements, because the body trembling is the easiest to ignore in video. The marked smartphone data is then used together with the manually labeled micro-body movements as the ground truths.
+%Then, we use the threshold-based method described in Sec.~\ref{sec:microbo} to mark the occurrence of micro-body movements from the smartphone data.
 
 Table~\ref{tab:micro_move} lists the total number of the micro-body movements for each participant over the testing period of 14 days, and
 Fig.~\ref{fig:micro_movement_zhu} reports the accuracy of {\systemname} for detecting these micro-body movements. As can be seen from the
@@ -175,12 +174,11 @@ relatively low detection accuracy of hand movements has little impact on sleep s
 
 
  \subsubsection{Acoustic Events Detection}
- Table~\ref{tab:sound} shows the results for acoustic event detection across 15 participants. Overall, \systemname is highly accurate in
- detecting acoustic events, with an average accuracy of over 88\%. The precision for detecting coughs is
+ Table~\ref{tab:sound} shows the results for acoustic event detection across 15 participants. Overall, \systemname is highly accurate in detecting acoustic events, with an average accuracy of over 88\%. The precision for detecting coughs is
 88.9\%, which is slightly lower than for the other three event types. The reason is that different users have distinct cough patterns but
 the pre-defined parameters in the detection model do not include all patterns. For examples, some people have a fast and continuous pattern
 of coughing, while others have a slower intermittent pattern. Our model for cough detection is trained on 120 sets of nighttime sound data
-collected from users who are different from our testing users. To further improve accuracy, we can either specialize our model using data
+collected from users who are different from our testing users. To further improve accuracy, we can either specialize in our model using data
 collected from the target user or using a larger and more diverse set of training data. Nonetheless, \systemname is able to detect acoustic
 events with a high accuracy.
 
@@ -234,11 +232,11 @@ events with a high accuracy.
 
 
 \subsection{Evaluation of Sleep Stage Detection\label{sec:overall_per}}
-In order to prove that \systemname is able to identify the sleep stages but not just user's sleep habits, we use the results given by
-Fitbit Charge2 as the ground truth. In this evaluation, we randomly choose a total of $50$ sets  of sleep data for 15 participants across
+In order to prove that \systemname is able to identify the sleep stages but not just the user's sleep habits, we use the results given by
+Fitbit Charge2 as the ground truth. In this evaluation, we randomly choose a total of $50$ sets of sleep data for 15 participants across
 two weeks, yielding at least $3$ sets per participant.
 
-{\systemname} uses event-driven methods to  detect changes in the sleep stage. To identify sleep stages, \systemname uses sleep events
+{\systemname} uses event-driven methods to detect changes in the sleep stage. To identify sleep stages, \systemname uses sleep events
 detected within a 15-minute window. The window starts from the first detected event. If no event was detected within 15 minutes, it assumes
 the sleep stage remains unchanged.
 
@@ -295,7 +293,7 @@ the sleep stage remains unchanged.
 
 
 The averaged precision and recall for sleep stage detection are given in Table~\ref{tab:sleep stage}. Overall, \systemname is able to
-correctly identify over 60\% of the sleep stages. While {\systemname} can mis-predict between the light sleep and the REM stages, the
+correctly identify over 60\% of the sleep stages. While {\systemname} can mispredict between the light sleep and the REM stages, the
 overall performance is not far from FitBit. Moreover, as we will demonstrate later, the main benefits of {\systemname} are its capability
 to capture a wide range of sleep events and how do they correlate to sleep quality, but not for accurate sleep stage detection (where
 medical PSG measurements will be required).
@@ -308,10 +306,10 @@ When detecting different sleep stages, \systemname also considers the respirator
 To assess the effectiveness of respiratory amplitude estimation, we evaluate the performance of the sleep stage detection with and without
 taking the respiration amplitude into account. The performance of sleep stage detection is shown in Table~\ref{tab:respiratory}. For the
 three different sleep stages, both precision and recall are improved between 5\% to 10\% with the help of respiratory amplitude estimation.
-An alternative to our approach is to use the respiratory frequency  as a feature for sleep stage detection. We found that this alternative
+An alternative to our approach is to use the respiratory frequency as a feature for sleep stage detection. We found that this alternative
 scheme gives similar performance for sleep stage detection as our approach. This is because the respiratory amplitude is strongly
 correlated with the respiratory frequency -- when the respiratory amplitude is larger, the time taken for one breath will be longer, and
-consequently the frequency of breathing will be slower.
+consequently, the frequency of breathing will be slower.
 
 \begin{table}[!t]\footnotesize
 	\centering
@@ -525,7 +523,7 @@ For the above four items, each one is rated on a 1 to 5 scale. These scores are 
 \end{table}
 
 \subsubsection{Results}
-In Table \ref{tab:quality}, we show the mean sleep quality score across 14 days given by each user together with the estimations produced by {\systemname} and Fitbit. We also give the standard deviation of the scores across the 14-day period per user. This number is given in the brackets next to the mean score. The last two rows in Table~\ref{tab:quality} compare the estimation given by {\systemname} and Fitbit against the user self-rating score. In these two specific rows, a label of `P' indicates an estimated score perfectly matches the user score, a label of `O' means the estimation error is within one scale point (for example, {\systemname} rates the user sleep to be excellent while the user's self-rating is good), and a label of `B' indicates the estimation error is greater than a scale point. As can be seen from the table, the estimation given by {\systemname} is more likely to match the user's self-rating compared to Fitbit (as indicated by having more `P' labels - 9 vs 6 ) and, unlike Fitbit, the estimation error given by {\systemname} is never greater than one scale point. To further validate this, we calculated the Spearman $\rho$-correlation~\cite{richardson2015nonparametric} between the user scores and each of the two systems, {\systemname} and Fitbit. {\systemname} provides higher correlation coefficient ($\rho = 0.842$) than Fitbit ($\rho = 0.500$). The difference in correlation was found statistically significant using a one-tailed test carried out through a Fisher r-z transformation ($Z = 1.66, p < 0.05$).  In summary, {\systemname} thus gives a better sleep quality assessment compared to Fitbit in our evaluation.
+In Table \ref{tab:quality}, we show the mean sleep quality score across 14 days given by each user together with the estimations produced by {\systemname} and Fitbit. We also give the standard deviation of the scores across the 14-day period per user. This number is given in the brackets next to the mean score. The last two rows in Table~\ref{tab:quality} compare the estimation given by {\systemname} and Fitbit against the user self-rating score. In these two specific rows, a label of `P' indicates an estimated score perfectly matches the user score, a label of `O' means the estimation error is within one scale point (for example, {\systemname} rates the user sleep to be excellent while the user's self-rating is good), and a label of `B' indicates the estimation error is greater than a scale point. As can be seen from the table, the estimation given by {\systemname} is more likely to match the user's self-rating compared to Fitbit (as indicated by having more `P' labels - 9 vs 6 ) and, unlike Fitbit, the estimation error given by {\systemname} is never greater than one scale point. To further validate this, we calculated the Spearman $\rho$-correlation~\cite{richardson2015nonparametric} between the user scores and each of the two systems, {\systemname} and Fitbit. {\systemname} provides higher correlation coefficient ($\rho = 0.842$) than Fitbit ($\rho = 0.500$). The difference in correlation was found statistically significant using a one-tailed test carried out through a Fisher r-z transformation ($Z = 1.66, p < 0.05$). In summary, {\systemname} thus gives a better sleep quality assessment compared to Fitbit in our evaluation.
 
 While the results above demonstrate that {\systemname} is capable of accurately estimating sleep quality, the main benefit from
 {\systemname} compared to previous works is not its sleep quality performance but its capability to analyze and capture the {\em root
@@ -533,7 +531,7 @@ cause} of sleep issues. To demonstrate this, we carried out a follow-up analysis
 each of the six users assessing their sleep quality negatively (poor or general subjective quality, i.e., rating 0 or 1 in
 Table~\ref{tab:quality}). For four of the six users, we were able to find clear causes for their poor sleep. For one of the users,
 {\systemname} indicated difficulties in falling asleep, which was reflected in a high body rollover count. Further analysis of captured
-events indicated ambient noise and lighting to be most likely reasons for this participant. Another user complained of feeling of numbness
+events indicated ambient noise and lighting to be most likely reasons for this participant. Another user complained of the feeling of numbness
 in the arm after sleep. Events captured by {\systemname} showed that this was likely due to bad hand posture as the person tended to put
 the hand on top of the head before sleeping. The third user complained of frequent nightmares. Analysis of {\systemname} events showed that
 the person habitually slept on the left side, which has been shown to have the higher risk on nightmares~\cite{nightmare}, and often placed
