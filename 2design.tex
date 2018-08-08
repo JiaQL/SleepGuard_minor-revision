@@ -427,7 +427,7 @@ duration, we then perform the peak detection and use the result of peak detectio
 an acoustic event. Specifically, we use the short-term average energy (Equation~\ref{eq:shorte}) to calculate the peak value of an acoustic
 signal. When the peak exceeds a pre-defined threshold, i.e., 3 dB in this work, we record the position of each peak and calculate the
 \emph{interval} between two consecutive peaks. We measure the \emph{frequency} of an acoustic event by counting the number of peaks within
-a time window. Our approach for determining the acoustic event duration is described as follows.
+a time window. Our approach for determining the duration of an acoustic event is described as follows.
 
 
 %\cparagraph{Acoustic feature calculation.} % In order to identify different acoustic events accurately, we select the short-term average energy and the zero-crossing rate (ZCR) as two features.
@@ -452,11 +452,11 @@ a time window. Our approach for determining the acoustic event duration is descr
 
 
 
-\cparagraph{Determining signal duration.} In this work, we utilize an existing speech algorithm~\cite{endpoint2008} to detect the start and
-the end points of an acoustic event. The algorithm works by applying a weight function to the time domain of the signal to detect the start
-and end points for a signal segment of interests. The weight function calculates two metrics of a signal segment: \emph{the short-time
-energy} and \emph{the zero-cross rate} (ZCR); it then compares the values against some thresholds to determine the points. The two metrics
-are defined as follows.
+\cparagraph{Determining an acoustic event duration.} In this work, we utilize an existing speech algorithm~\cite{endpoint2008} to detect
+the start and the end points of an acoustic event. The algorithm works by applying a weight function to the time domain of the signal to
+detect the start and end points for a signal segment of interests. The weight function calculates two metrics of a signal segment:
+\emph{the short-time energy} and \emph{the zero-cross rate} (ZCR); it then compares the values against some thresholds to determine the
+points. The two metrics are defined as follows.
 
 The short-term energy of a signal is computed as:
 
