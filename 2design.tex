@@ -211,7 +211,7 @@ To solve this problem, we convert the acceleration data from the wristwatch coor
 where $\theta$, $\sigma$ and $\gamma$ are the x, y and z axis data of the orientation sensor respectively, representing the direction angle, the tilt angle and the roll angle collected from the orientation sensor. After alignment, we can see in Fig.~\ref{fig:cordi} that the z-axis shows a periodic signal with significant fluctuations, {while the x- and y-axis data undergo smaller changes around zero, which is consistent with stable sleep influenced only by respiratory patterns.}
 
 %The two graphs on the left of Fig.~\ref{fig:cordi} show the same acceleration data as has been used in (a) and (c) ofFig.~\ref{fig:breath_ok1}, respectively.
-The first graph from the left of Fig.~\ref{cordi0} and Fig.~\ref{cordi1} show the same acceleration data as has been used in (a) and (c) of
+The first graph from the left of Fig.~\ref{cordi0} and Fig.~\ref{cordi1} show the same acceleration data as has been used in \textcolor{red}{(a)} and \textcolor{red}{(c)} of
 Fig.~\ref{fig:breath_ok1}, respectively. The two right-most graphs correspond to data after coordinate system alignment.  We can see that,
 prior to alignment, we cannot effectively distinguish the respiratory amplitude of REM and NREM stages from the acceleration amplitude.
 After coordinate alignment, the respiratory amplitudes are clearly visible from the z-axis data. {To separate REM and NREM stages,} we
@@ -410,8 +410,22 @@ stream by dividing it into segments of equal durations. In this work, each
     be small during sleep.
 \end{itemize}
 
-\cparagraph{Acoustic feature calculation.} In order to identify different acoustic events accurately, we select the short-term average
-energy and the zero-crossing rate (ZCR) as two features. The short-term average energy of acoustic signal is computed as:
+
+\cparagraph{Acoustic event classification.} Our acoustic event detection algorithm is a C4.5 decision-tree-based
+classifier~\cite{quinlan2014c4}. It takes as input the ``duration'', ``interval'' and ``frequency'' values of an identified acoustic event,
+and predicts which of the three types acoustic events (snores, coughs, or somniloquy) the event corresponds to. The thresholds of the
+decision tree are automatically learned from our pilot study training data.
+
+To estimate the \emph{duration} of the acoustic event, we identify the start and end points of an acoustic event. After identifying the
+start and end points of an acoustic event, we then perform the peak detection and use the result of peak detection to estimate the
+\emph{interval} and \emph{frequency} of an acoustic event. Specifically, we use the short-term average energy (Equation~\ref{eq:shorte}) to
+calculate the peak value of an acoustic signal. When the peak exceeds a pre-defined threshold, i.e., 3 dB in this work, we record the
+position of each peak and calculate the \emph{interval} between two consecutive peaks. We measure the \emph{frequency} of an acoustic event
+by counting the number of peaks within a time window.
+
+
+\cparagraph{Acoustic feature calculation.} % In order to identify different acoustic events accurately, we select the short-term average energy and the zero-crossing rate (ZCR) as two features.
+\textcolor{blue}{In order to identify different acoustic events accurately, we need to perform end-point detection of speech signal. So we select the short-term average energy and the zero-crossing rate (ZCR) as two features.} The short-term average energy of acoustic signal is computed as:
 
 \begin{equation}
   E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
@@ -432,26 +446,14 @@ where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal 
 
 
 
-\cparagraph{Acoustic event classification.} Our acoustic event detection algorithm is a C4.5 decision-tree-based
-classifier~\cite{quinlan2014c4}. It takes as input the ``duration'', ``interval'' and ``frequency'' values of an identified acoustic event,
-and predicts which of the three types acoustic events (snores, coughs, or somniloquy) the event corresponds to. The thresholds of the
-decision tree are automatically learned from our pilot study training data.
-
-To estimate the \emph{duration} of the acoustic event, we identify the start and end points of an acoustic event. After identifying the
-start and end points of an acoustic event, we then perform the peak detection and use the result of peak detection to estimate the
-\emph{interval} and \emph{frequency} of an acoustic event. Specifically, we use the short-term average energy (Equation~\ref{eq:shorte}) to
-calculate the peak value of an acoustic signal. When the peak exceeds a pre-defined threshold, i.e., 3 dB in this work, we record the
-position of each peak and calculate the \emph{interval} between two consecutive peaks. We measure the \emph{frequency} of an acoustic event
-by counting the number of peaks within a time window.
-
-\cparagraph{Determining the start and the end points.} Traditional end-point detection algorithms~\cite{stowell2015detection} are
+\cparagraph{Determining the start and the end points.} Traditional end-point detection algorithms~\cite{endpoint2008} are
 ill-suited to our problem. This is because they typically use a fixed threshold which must be obtained by examining a large number of data
 samples. As a result, a traditional end-point detection algorithm has two drawbacks. Firstly, a fixed threshold is highly unlikely to be
 optimal for different users (due to different sleep patterns) and environments (due to different environmental noises). Secondly, using a
 large number of data samples to determine the threshold incurs significant overhead for data collection.
 
 
-To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method that requires significantly fewer
+To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method based on short-term energy and zero-crossing rate that requires significantly fewer
 data samples to determine the optimal threshold on a per user per-environment basis.
 %
 % may cause error detection at the beginning of an acoustic event. Second, the
