@@ -232,7 +232,9 @@ feature space. We then use the label (either REM or NREM) associated with the ne
 		\includegraphics[width=0.48\linewidth]{Figures/cordi0.pdf}}
 	\subfigure[NREM]{\label{cordi1}
 		\includegraphics[width=0.48\linewidth]{Figures/cordi.pdf}}
+    \vspace{-2mm}
 	\caption{Acceleration data for different sleep stages.}\label{fig:cordi}
+    \vspace{-2mm}
 \end{figure*}
 
 \subsection{Body Rollover Counts\label{sec:bodyrollover}}
@@ -273,6 +275,7 @@ in angle measurements. However, this method suffers a very large error since oth
 \end{figure*}
 
 \begin{figure*}[!t]
+\vspace{-2mm}
 \begin{minipage}[t]{0.31\linewidth}\centering
     \includegraphics[width=0.97\linewidth]{Figures/RightToLeft.pdf}
   \caption{From right lateral posture to left lateral posture.}\label{fig:RightToLeft}
@@ -361,13 +364,16 @@ the pilot study (Sec.~\ref{sec:trainingdata}).
 
 \subsection{ Detecting Acoustic Events \label{sec:acoustic}}
 Acoustic events during sleep, such as snore, cough and somniloquy, can reflect and affect user's sleep quality and physical health. For
-example, the snore is one of the possible symptoms of cerebral infarction patients; and long-term snoring can also have a serious impact on
-health and sleep because snoring can cause sleep apnea or narcolepsy, a sleeping disorder~\cite{snoring2016,snoring2013}. When there is a
-cough, the human cerebral cortex cells are always in an excited state, limiting the depth of sleep, allowing only short sleep between
-wakefulness, like many other sleep disruptions. {\systemname} is designed to detect three different acoustic events, including snore, cough
-and somniloquy. \ Classical acoustic algorithms use multi-dimensional features to detect acoustic events from a complex
-environment~\cite{gu2016sleep}. By contrast, we tailor our design to the problem domain to derive a simpler yet effective acoustic
-detection algorithm. This is achieved by exploiting the characteristics of the different events that we target.
+example, the snore is a possible symptom of cerebral infarction patients; and long-term snoring can also have a serious impact on health
+and sleep because snoring can cause sleep apnea or narcolepsy, a sleeping disorder~\cite{snoring2016,snoring2013}. When there is a cough,
+the human cerebral cortex cells are always in an excited state, limiting the depth of sleep, allowing only short sleep between wakefulness,
+like many other sleep disruptions.
+
+
+{\systemname} is designed to detect three different acoustic events, including snore, cough and somniloquy. \ Classical acoustic algorithms
+use multi-dimensional features to detect acoustic events from a complex environment~\cite{gu2016sleep}. By contrast, we tailor our design
+to the problem domain to derive a simpler yet effective acoustic detection algorithm. This is achieved by exploiting the characteristics of
+the different events that we target.
 
 
 \begin{figure*}[!t]
@@ -416,12 +422,12 @@ classifier~\cite{quinlan2014c4}. It takes as input the ``duration'', ``interval'
 and predicts which of the three types acoustic events (snores, coughs, or somniloquy) the event corresponds to. The thresholds of the
 decision tree are automatically learned from our pilot study training data.
 
-To estimate the \emph{duration} of the acoustic event, we identify the start and end points of an acoustic event. After identifying the
-start and end points of an acoustic event, we then perform the peak detection and use the result of peak detection to estimate the
-\emph{interval} and \emph{frequency} of an acoustic event. Specifically, we use the short-term average energy (Equation~\ref{eq:shorte}) to
-calculate the peak value of an acoustic signal. When the peak exceeds a pre-defined threshold, i.e., 3 dB in this work, we record the
-position of each peak and calculate the \emph{interval} between two consecutive peaks. We measure the \emph{frequency} of an acoustic event
-by counting the number of peaks within a time window.
+To estimate the \emph{duration} of the acoustic event, we identify the start and the end points of an acoustic event. After identifying the
+duration, we then perform the peak detection and use the result of peak detection to estimate the \emph{interval} and \emph{frequency} of
+an acoustic event. Specifically, we use the short-term average energy (Equation~\ref{eq:shorte}) to calculate the peak value of an acoustic
+signal. When the peak exceeds a pre-defined threshold, i.e., 3 dB in this work, we record the position of each peak and calculate the
+\emph{interval} between two consecutive peaks. We measure the \emph{frequency} of an acoustic event by counting the number of peaks within
+a time window. Our approach for determining the acoustic event duration is described as follows.
 
 
 %\cparagraph{Acoustic feature calculation.} % In order to identify different acoustic events accurately, we select the short-term average energy and the zero-crossing rate (ZCR) as two features.
@@ -446,28 +452,20 @@ by counting the number of peaks within a time window.
 
 
 
-\cparagraph{Determining the start and the end points.} Traditional end-point detection algorithms~\cite{endpoint2008} are
-ill-suited to our problem. This is because they typically use a fixed threshold which must be obtained by examining a large number of data
-samples. As a result, a traditional end-point detection algorithm has two drawbacks. Firstly, a fixed threshold is highly unlikely to be
-optimal for different users (due to different sleep patterns) and environments (due to different environmental noises). Secondly, using a
-large number of data samples to determine the threshold incurs significant overhead for data collection.
+\cparagraph{Determining signal duration.} In this work, we utilize an existing speech algorithm~\cite{endpoint2008} to detect the start and
+the end points of an acoustic event. The algorithm works by applying a weight function to the time domain of the signal to detect the start
+and end points for a signal segment of interests. The weight function calculates two metrics of a signal segment: \emph{the short-time
+energy} and \emph{the zero-cross rate} (ZCR); it then compares the values against some thresholds to determine the points. The two metrics
+are defined as follows.
 
-
-To address the two drawbacks of traditional end-point detection algorithms, we develop a novel method based on the short-term energy and
-the zero-crossing rate (ZCR). Our method requires significantly fewer data samples to determine the optimal threshold on a per user
-per-environment basis.
-
-The short-term average energy of an acoustic signal is computed as:
+The short-term energy of a signal is computed as:
 
 \begin{equation}
   E_i=\sum\nolimits_{j=-\infty}^{\infty}[x(j)\omega(i-j)]^2=\sum\nolimits_{j=i-(N-1)}^{i}[x(j)\omega(i-j)]^2,
   \label{eq:shorte}
 \end{equation}
 
-where $N$ is the window length, $x$ is the signal and $\omega$ is the impulse response. As we can see that the short-term energy is the
-weighted sum of squared frame sample. The short-term energy can be used to distinguish the segment of unvoiced and voiced sound. It also
-can be used to differentiate the speech segment and noise segment  in  case of relatively high signal to noise ratio (SNR).
-
+where $N$ is the length of the time window, $x$ is the signal and $\omega$ is the impulse response.
 
 The zero-crossing rate is computed as:
 
@@ -480,17 +478,17 @@ The zero-crossing rate is computed as:
 where $Z_i$ indicates how often (i.e., the number of times) the acoustic signal waveform passes through the horizontal axis (zero level).
 
 
+While effective, the algorithm presented in \cite{endpoint2008} has a significant drawback. It uses a fixed set of thresholds which must be
+obtained  by examining a large number of data samples, but the process of data collection can incur significant overhead during deployment.
+For \systemname, we take a different approach to decide the thresholds on a per user per environment basis; yet, our approach requires
+significantly fewer data samples compared to \cite{endpoint2008}.
 
-%
-% may cause error detection at the beginning of an acoustic event. Second, the
-%requirement of a large number of data samples would lead to large system latency. To address these issues, we develop a detection method
-%that does not require pre-sampling to obtain the optimal thresholds. Instead, our algorithm estimates the thresholds on a per signal basis.
-%This strategy not only reduces the number of data samples needed, but also leads to a higher accuracy.
-%
-Our algorithm works as follows.  Since the first and last few audio segments are mostly mute or are background noises, we select the first
-and last five segments to calculate their short-term energy, which is denoted as $E_s$ and $E_e$ respectively for the first and last
-segments. The two energy values are then combined to obtain the mean, $E_n$, as the estimated energy value of noise segments. Let the
-maximum value of the short-term energy over all segments denoted as $\max (E)$. Then, the average short-term energy, $DE$, is given as:
+
+Our heuristics for determining the thresholds work as follows.  Since the first and last few audio segments are mostly mute or are
+background noises, we select the first and last five segments to calculate their short-term energy, which is denoted as $E_s$ and $E_e$
+respectively for the first and last segments. The two energy values are then combined to obtain the mean, $E_n$, as the estimated energy
+value of noise segments. Let the maximum value of the short-term energy over all segments denoted as $\max (E)$. Then, the average
+short-term energy, $DE$, is given as:
 \begin{eqnarray}
       &E_n = \frac{(E_s+E_e)}{2}, \\
       &DE = \max (E)-E_n.\label{eq:DE}
